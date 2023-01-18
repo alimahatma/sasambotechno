@@ -16,7 +16,7 @@ class HomeController extends Controller
         $ktgrprdk = KategoriProduk::all();
         $produk = Produk::all();
         $stok = DB::table('stok')->join('produk', 'produk.produk_id', '=', 'stok.produk_id')->join('ktgr_produk', 'ktgr_produk.ktgr_id', '=', 'produk.ktgr_id');
-        return view('home.index', [
+        return view('home.landingpage', [
             'title' => 'index',
             'stoks' => $stok,
             'instansi' => $instansi,

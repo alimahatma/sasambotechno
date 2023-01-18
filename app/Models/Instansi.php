@@ -10,6 +10,6 @@ class Instansi extends Model
     use HasFactory;
     protected $primaryKey = 'instansi_id';
     protected $table = 'instansi';
-    protected $fillable = ['nama_instansi', 'logo', 'visi', 'misi', 'alamat', 'facebook', 'instagram', 'whatsapp', 'telepon', 'github'];
+    protected $fillable = ['nama_instansi', 'logo', 'visi', 'misi', 'tentang', 'alamat', 'email', 'facebook', 'instagram', 'whatsapp', 'telepon', 'github'];
     public $timestamps = false;
 }

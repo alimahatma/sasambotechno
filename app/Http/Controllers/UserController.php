@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Instansi;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -20,18 +22,22 @@ class UserController extends Controller
     // get data user return to view admin
     public function GetAlluser()
     {
+        $in = Instansi::all();
         $user = User::all();
         return view('superadmin.user', [
             'title' => 'akun user',
-            'users' => $user
+            'users' => $user,
+            'instansi' => $in
         ]);
     }
 
     // get view register
     public function GetRegister()
     {
+        $data = Instansi::all();
         return view('auth.register', [
-            'title' => 'halaman register'
+            'title' => 'halaman register',
+            'instansi' => $data
         ]);
     }
 
@@ -60,8 +66,10 @@ class UserController extends Controller
     // funtion for get view login
     public function GetLogin()
     {
+        $data = Instansi::all();
         return view('auth.login', [
-            'title' => 'halaman login'
+            'title' => 'halaman login',
+            'instansi' => $data
         ]);
     }
 
@@ -76,9 +84,9 @@ class UserController extends Controller
             if (Auth::user()->role == 'super_admin') {
                 return redirect('user');
             } elseif (Auth::user()->role == 'admin') {
-                return redirect('user');
+                return redirect('index');
             } elseif (Auth::user()->role == 'pengguna') {
-                return redirect('user');
+                return redirect('dashboard');
             } else {
                 print("anda tidak memiliki hak akses");
             }
@@ -92,5 +100,33 @@ class UserController extends Controller
         Session::flush();
         Auth::logout();
         return redirect('/');
+    }
+
+    // function for change role
+    public function ChangeRole(Request $req)
+    {
+        $req->validate([
+            'role' => 'required'
+        ]);
+        try {
+            $data = array(
+                'role' => $req->post('role')
+            );
+            User::where('user_id', '=', $req->post('user_id'))->update($data);
+            return redirect('user')->with('success', 'hak akses berhasil di edit..!');
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            return redirect('user')->with('message', 'register gagal');
+        }
+    }
+    public function Delete($id)
+    {
+        try {
+            User::where('user_id', '=', $id)->delete();
+            return redirect('user')->with('success', 'akun berhasil di hapus..!');
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            return redirect('user')->with('message', 'register gagal');
+        }
     }
 }
