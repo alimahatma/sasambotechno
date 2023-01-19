@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Instansi extends Model
 {
     use HasFactory;
-    protected $primaryKey = 'instansi_id';
+    protected $primaryKey = 'inst_id';
     protected $table = 'instansi';
-    protected $fillable = ['nama_instansi', 'logo', 'visi', 'misi', 'tentang', 'alamat', 'email', 'facebook', 'instagram', 'whatsapp', 'telepon', 'github'];
+    protected $fillable = ['nama_instansi', 'logo', 'visi', 'misi', 'tentang', 'alamat', 'domain', 'email', 'whatsapp', 'instagram', 'facebook', 'building'];
     public $timestamps = false;
 }

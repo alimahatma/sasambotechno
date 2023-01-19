@@ -46,22 +46,38 @@ class HomeController extends Controller
     }
     public function SendToTutorial()
     {
+        $instansi = Instansi::all();
         return view('home.tutorial', [
-            'title' => 'tutorial'
+            'title' => 'tutorial',
+            'instansi' => $instansi,
         ]);
     }
     public function SendToVideo()
     {
+        $instansi = Instansi::all();
         return view('home.video', [
-            'title' => 'video'
+            'title' => 'video',
+            'instansi' => $instansi,
         ]);
     }
     public function SendToProduk()
     {
+        $instansi = Instansi::all();
         $produk = Produk::all();
         return view('home.produk', [
             'title' => 'produk',
             'produk' => $produk,
+            'instansi' => $instansi,
+        ]);
+    }
+    public function SendToContact()
+    {
+        $instansi = Instansi::all();
+        $produk = Produk::all();
+        return view('home.produk', [
+            'title' => 'kontak',
+            // 'produk' => $produk,
+            'instansi' => $instansi,
         ]);
     }
 }

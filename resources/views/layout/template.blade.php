@@ -33,7 +33,7 @@
                         <div class="logo">
                             <!-- <a href="index.html"><img src="{{asset('assets')}}/images/logo/logo.svg" alt="Logo" srcset=""></a> -->
                             @foreach($instansi as $inst)
-                            <a href="/dashboard">{{$inst->nama_instansi}}</a>
+                            <img src="/logo/{{$inst->logo}}" width="60px" alt="404">
                             @endforeach
                         </div>
                         <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
@@ -81,6 +81,18 @@
                             <a href="user" class='sidebar-link'>
                                 <i class="fas fa-user"></i>
                                 <span>Akun</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="kategoriProduk" class='sidebar-link'>
+                                <i class="fas fa-box"></i>
+                                <span>Kategori produk</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="produks" class='sidebar-link'>
+                                <i class="fas fa-bars"></i>
+                                <span>Produks</span>
                             </a>
                         </li>
                         <li class="sidebar-item">

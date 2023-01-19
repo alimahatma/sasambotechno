@@ -22,7 +22,7 @@ class UserController extends Controller
     // get data user return to view admin
     public function GetAlluser()
     {
-        $in = Instansi::all();
+        $in = Instansi::select('logo')->get();
         $user = User::all();
         return view('superadmin.user', [
             'title' => 'akun user',
@@ -108,6 +108,7 @@ class UserController extends Controller
         $req->validate([
             'role' => 'required'
         ]);
+        dd($req);
         try {
             $data = array(
                 'role' => $req->post('role')

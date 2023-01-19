@@ -6,6 +6,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <style>
+        .nolist {
+            list-style-type: none;
+        }
+
+        .__spaces {
+            margin-right: 8px;
+        }
+
+        .style__font {
+            text-align: justify;
+        }
+
+        .size__font {
+            font-size: 16px;
+        }
+
+        .color-teks {
+            color: #FFF;
+            text-decoration: none;
+        }
+
+        .color__green {
+            color: #40883C;
+        }
+    </style>
     <title>{{$title ?? ""}}</title>
 </head>
 <nav class="navbar" style="background-color: #40883C;">
@@ -32,16 +59,16 @@
                     <a class="nav-link active" style="color: #40883C;" aria-current="page" href="/">HOME</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" style="color: #40883C;" aria-current="page" href="#">PRODUK</a>
+                    <a class="nav-link active" style="color: #40883C;" aria-current="page" href="produk">PRODUK</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" style="color: #40883C;" aria-current="page" href="#">TUTORIAL</a>
+                    <a class="nav-link active" style="color: #40883C;" aria-current="page" href="tutorial">TUTORIAL</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" style="color: #40883C;" aria-current="page" href="#">VIDEO</a>
+                    <a class="nav-link active" style="color: #40883C;" aria-current="page" href="video">VIDEO</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" style="color: #40883C;" aria-current="page" href="#">CONTACT US</a>
+                    <a class="nav-link active" style="color: #40883C;" aria-current="page" href="contact">CONTACT US</a>
                 </li>
             </ul>
         </div>

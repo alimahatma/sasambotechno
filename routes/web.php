@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InstansiController;
+use App\Http\Controllers\KategoriProdukController;
+use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\RoleAdminController;
 use App\Http\Controllers\RoleMemberController;
 use App\Http\Controllers\UserController;
@@ -18,8 +20,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// route authentication
+// route halaman landing page
 Route::get('/', [HomeController::class, 'SendToIndex'])->name('landingpage');
+Route::get('/produk', [HomeController::class, 'SendToProduk'])->name('produk');
+Route::get('/tutorial', [HomeController::class, 'SendToTutorial'])->name('tutorial');
+Route::get('/video', [HomeController::class, 'SendToVideo'])->name('video');
+Route::get('/contact', [HomeController::class, 'SendToContact'])->name('contact');
+
+// route authentication
 Route::get('/register', [UserController::class, 'GetRegister'])->name('register');
 Route::post('/addRegister', [UserController::class, 'PostRegister'])->name('addRegister');
 Route::get('/login', [UserController::class, 'GetLogin'])->name('login');
@@ -47,4 +55,16 @@ Route::prefix('instansi')->group(function () {
     Route::post('/addinstansi', [InstansiController::class, 'AddInstansi'])->name('addInstansi');
     Route::post('/updtinstansi', [InstansiController::class, 'UpdtInstansi'])->name('updtinstansi');
     Route::get('/delete/{id}', [InstansiController::class, 'Delete'])->name('delete');
+});
+Route::prefix('kategoriProduk')->group(function () {
+    Route::get('/', [KategoriProdukController::class, 'GetKategori'])->name('kategori');
+    Route::post('/addkategori', [KategoriProdukController::class, 'AddKategori'])->name('addKategori');
+    Route::post('/updtkategori', [KategoriProdukController::class, 'UpdtKategori'])->name('updtKategori');
+    Route::get('/delete/{id}', [KategoriProdukController::class, 'Delete'])->name('delete');
+});
+Route::prefix('produks')->group(function () {
+    Route::get('/', [ProdukController::class, 'GetAllProduk'])->name('produk');
+    Route::post('/addproduk', [ProdukController::class, 'AddProduct'])->name('addproduk');
+    Route::post('/updtproduk', [ProdukController::class, 'UpdtProduct'])->name('updtproduk');
+    Route::get('/deleteproduk/{id}', [ProdukController::class, 'DeleteProduk'])->name('deleteproduk');
 });

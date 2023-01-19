@@ -13,10 +13,12 @@ class InstansiController extends Controller
 {
     public function GetInstansi()
     {
-        $data = Instansi::all();
+        $datas = Instansi::all();
+        $data = Instansi::select('logo')->get();
         return view('superadmin.instansi', [
             'title' => 'perusahaan',
             'instansi' => $data,
+            'instansis' => $datas,
         ]);
     }
     public function AddInstansi(Request $req)
@@ -28,12 +30,12 @@ class InstansiController extends Controller
             'misi' => 'required',
             'tentang' => 'required',
             'alamat' => 'required',
-            'email' => 'required',
-            'facebook' => 'required',
-            'instagram' => 'required',
+            'domain' => 'required',
+            'email' => 'required|email|unique:instansi',
             'whatsapp' => 'required',
-            'telepon' => 'required',
-            'github' => 'required',
+            'instagram' => 'required',
+            'facebook' => 'required',
+            'building' => 'required',
         ]);
         // dd($req);
         try {
@@ -46,12 +48,12 @@ class InstansiController extends Controller
                 'misi' => $req->misi,
                 'tentang' => $req->tentang,
                 'alamat' => $req->alamat,
+                'domain' => $req->domain,
                 'email' => $req->email,
-                'facebook' => $req->facebook,
-                'instagram' => $req->instagram,
                 'whatsapp' => $req->whatsapp,
-                'telepon' => $req->telepon,
-                'github' => $req->github,
+                'instagram' => $req->instagram,
+                'facebook' => $req->facebook,
+                'building' => $req->building,
             ]);
             $data->save();
             return redirect('instansi')->with('success', 'data berhasil di tambahkan');
@@ -64,30 +66,37 @@ class InstansiController extends Controller
     {
         $req->validate([
             'nama_instansi' => 'required',
-            'logo' => 'required',
+            'logo' => 'required|image|mimes:png,jpg,jpeg|max:1024',
             'visi' => 'required',
             'misi' => 'required',
+            'tentang' => 'required',
             'alamat' => 'required',
-            'facebook' => 'required',
-            'instagram' => 'required',
+            'domain' => 'required',
+            'email' => 'required',
             'whatsapp' => 'required',
-            'telepon' => 'required',
-            'github' => 'required',
+            'instagram' => 'required',
+            'facebook' => 'required',
+            'building' => 'required',
         ]);
+        // dd($req);
         try {
+            $logoName = time() . '.' . $req->logo->extension();
+            $req->logo->move(public_path('logo'), $logoName);
             $data = array(
                 'nama_instansi' => $req->post('nama_instansi'),
-                'logo' => $req->post('logo'),
+                'logo' => $logoName,
                 'visi' => $req->post('visi'),
                 'misi' => $req->post('misi'),
+                'tentang' => $req->post('tentang'),
                 'alamat' => $req->post('alamat'),
-                'facebook' => $req->post('facebook'),
-                'instagram' => $req->post('instagram'),
+                'domain' => $req->post('domain'),
+                'email' => $req->post('email'),
                 'whatsapp' => $req->post('whatsapp'),
-                'telepon' => $req->post('telepon'),
-                'github' => $req->post('github'),
+                'instagram' => $req->post('instagram'),
+                'facebook' => $req->post('facebook'),
+                'building' => $req->post('building'),
             );
-            Instansi::where('inst_id', '=', $req->inst_id)->update();
+            Instansi::where('inst_id', '=', $req->post('inst_id'))->update($data);
             return redirect('instansi')->with('success', 'data berhasil di update');
         } catch (\Exception $e) {
             Log::error($e->getMessage());

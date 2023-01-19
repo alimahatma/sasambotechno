@@ -21,12 +21,12 @@ return new class extends Migration
             $table->string('misi', 200);
             $table->longText('tentang', 200);
             $table->string('alamat', 255);
+            $table->string('domain', 30);
             $table->string('email', 30);
-            $table->string('facebook', 30);
-            $table->string('instagram', 30);
             $table->string('whatsapp', 12);
-            $table->string('telepon', 12);
-            $table->string('github', 30);
+            $table->string('instagram', 30);
+            $table->string('facebook', 30);
+            $table->string('building', 30);
             $table->timestamps();
         });
     }
