@@ -15,13 +15,16 @@ return new class extends Migration
     {
         Schema::create('stok', function (Blueprint $table) {
             $table->id('stok_id');
-            $table->foreignId('produk_id');
-            $table->string('jumlah');
-            $table->string('harga_beli');
-            $table->string('harga_jual');
+
+            $table->foreignId('warna_id');
+
+            $table->integer('jumlah');
+            $table->string('jenis_kain', 25);
+            $table->float('harga_beli');
+            $table->float('harga_jual');
             $table->date('tgl_masuk');
             $table->timestamps();
-            $table->foreign('produk_id')->references('produk_id')->on('produk')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreign('warna_id')->references('warna_id')->on('warna')->cascadeOnUpdate()->cascadeOnDelete();
         });
     }
 

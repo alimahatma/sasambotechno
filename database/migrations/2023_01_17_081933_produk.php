@@ -15,14 +15,21 @@ return new class extends Migration
     {
         Schema::create('produk', function (Blueprint $table) {
             $table->id('produk_id');
+
             $table->foreignId('ktgr_id');
+            $table->foreignId('stok_id');
+            $table->foreignId('supplier_id');
+
             $table->string('nama_produk', 35);
             $table->string('foto_prdk', 30);
             $table->longText('deskripsi');
             $table->float('harga');
             $table->string('satuan', 10);
+            $table->string('size', 10);
             $table->timestamps();
             $table->foreign('ktgr_id')->references('ktgr_id')->on('ktgr_produk')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreign('stok_id')->references('stok_id')->on('stok')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreign('supplier_id')->references('supplier_id')->on('supplier')->cascadeOnUpdate()->cascadeOnDelete();
         });
     }
 
