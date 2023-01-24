@@ -33,13 +33,21 @@
                         <thead>
                             <tr>
                                 <th class="text-center">No</th>
-                                <th class="text-center">Kode kategori</th>
+
+                                <th class="text-center">Nama supplier</th>
+
                                 <th class="text-center">Jenis produk</th>
+
+                                <th class="text-center">Jumlah stok</th>
+                                <th class="text-center">warna</th>
+                                <th class="text-center">Harga jual</th>
+
                                 <th class="text-center">Nama Produk</th>
                                 <th class="text-center">Foto produk</th>
                                 <th class="text-center">Deskripsi</th>
                                 <th class="text-center">Harga</th>
                                 <th class="text-center">Satuan</th>
+                                <th class="text-center">Size</th>
                                 <th class="text-center">Aksi</th>
                             </tr>
                         </thead>
@@ -48,13 +56,17 @@
                             @foreach($produks as $val)
                             <tr class="text-center">
                                 <td><?= $i++ ?></td>
-                                <td>{{$val->ktgr_id}}</td>
-                                <td>{{$val->jenis_kategori}}</td>
+                                <td>{{$val->nama_supplier}}</td>
+                                <td>{{$val->jenis_produk}}</td>
+                                <td>{{$val->jumlah}}</td>
+                                <td>{{$val->warna}}</td>
+                                <td>{{$val->harga_jual}}</td>
                                 <td>{{$val->nama_produk}}</td>
                                 <td><img src="/foto_produk/{{$val->foto_prdk}}" alt="404" width="120" height="60"></td>
                                 <td>{{$val->deskripsi}}</td>
                                 <td>{{$val->harga}}</td>
                                 <td>{{$val->satuan}}</td>
+                                <td>{{$val->size}}</td>
                                 <td>
                                     <div class="d-flex justify-content-center">
                                         <div class="col-md-6 col-lg-6">
@@ -92,6 +104,28 @@
                 <div class="modal-body">
                     @csrf
                     <div class="row">
+                        <div class="col-12 mt-1">
+                            <h6>Jenis kategori</h6>
+                            <fieldset class="form-group">
+                                <select name="ktgr_id" id="basicSelect" class="form-select">
+                                    <option selected>pilih kategori produk</option>
+                                    @foreach($kategori as $valId)
+                                    <option value="{{$valId->ktgr_id}}">{{$valId->jenis_kategori}}</option>
+                                    @endforeach
+                                </select>
+                            </fieldset>
+                        </div>
+                        <div class="col-12 mt-1">
+                            <h6>Jenis kategori</h6>
+                            <fieldset class="form-group">
+                                <select name="ktgr_id" id="basicSelect" class="form-select">
+                                    <option selected>pilih kategori produk</option>
+                                    @foreach($kategori as $valId)
+                                    <option value="{{$valId->ktgr_id}}">{{$valId->jenis_kategori}}</option>
+                                    @endforeach
+                                </select>
+                            </fieldset>
+                        </div>
                         <div class="col-12 mt-1">
                             <h6>Jenis kategori</h6>
                             <fieldset class="form-group">

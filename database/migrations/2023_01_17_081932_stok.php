@@ -20,8 +20,8 @@ return new class extends Migration
 
             $table->integer('jumlah');
             $table->string('jenis_kain', 25);
-            $table->float('harga_beli');
-            $table->float('harga_jual');
+            $table->decimal('harga_beli');
+            $table->decimal('harga_jual');
             $table->date('tgl_masuk');
             $table->timestamps();
             $table->foreign('warna_id')->references('warna_id')->on('warna')->cascadeOnUpdate()->cascadeOnDelete();

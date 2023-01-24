@@ -10,6 +10,6 @@ class Stok extends Model
     use HasFactory;
     protected $primaryKey = 'stok_id';
     protected $table = 'stok';
-    protected $fillable = ['produk_id', 'jumlah', 'harga_beli', 'harga_jual', 'tgl_masuk'];
+    protected $fillable = ['warna_id',    'jumlah',    'jenis_kain',    'harga_beli',    'harga_jual',    'tgl_masuk', 'created_at', 'updated_at'];
     public $timestamps = false;
 }

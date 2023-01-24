@@ -74,7 +74,7 @@ class HomeController extends Controller
     {
         $instansi = Instansi::all();
         $produk = Produk::all();
-        return view('home.produk', [
+        return view('home.contact', [
             'title' => 'kontak',
             // 'produk' => $produk,
             'instansi' => $instansi,

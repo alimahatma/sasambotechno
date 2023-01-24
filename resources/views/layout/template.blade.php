@@ -99,6 +99,54 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
+                            <a href="supplier" class='sidebar-link'>
+                                <i class="fab fa-supple"></i>
+                                <span>Supplier</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="stok" class='sidebar-link'>
+                                <i class="fas fa-layer-group"></i>
+                                <span>Stok</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="kurir" class='sidebar-link'>
+                                <i class="fas fa-truck"></i>
+                                <span>Kurir</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="transaksi" class='sidebar-link'>
+                                <i class="fas fa-money-check-alt"></i>
+                                <span>Transaksi</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="pesanan" class='sidebar-link'>
+                                <i class="fas fa-shopping-cart"></i>
+                                <span>Pesanan</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="sablon" class='sidebar-link'>
+                                <i class="fas fa-pen-fancy"></i>
+                                <span>Sablon</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="member" class='sidebar-link'>
+                                <i class="fas fa-users"></i>
+                                <span>Member</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="warna" class='sidebar-link'>
+                                <i class="fas fa-palette"></i>
+                                <span>Warna</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
                             <a href="logout" class='sidebar-link'>
                                 <i class="fas fa-sign-out-alt"></i>
                                 <span>Logout</span>
