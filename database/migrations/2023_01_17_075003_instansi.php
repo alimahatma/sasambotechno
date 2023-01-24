@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('whatsapp', 12);
             $table->string('instagram', 30);
             $table->string('facebook', 30);
-            $table->string('building', 30);
+            $table->string('billing', 30);
             $table->timestamps();
         });
     }

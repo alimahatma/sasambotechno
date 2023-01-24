@@ -46,7 +46,6 @@
                         <tbody>
                             <?php $i = 1; ?>
                             @foreach($produks as $val)
-                            <!-- ktgr_id	nama_produk	foto_prdk	deskripsi	harga	satuan	 -->
                             <tr class="text-center">
                                 <td><?= $i++ ?></td>
                                 <td>{{$val->ktgr_id}}</td>
@@ -81,6 +80,7 @@
 </div>
 
 <!-- Modal add-->
+<!-- ktgr_id	stok_id	supplier_id	nama_produk	foto_prdk	deskripsi	harga	satuan	size	 -->
 <div class="modal fade" id="modalAdd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">

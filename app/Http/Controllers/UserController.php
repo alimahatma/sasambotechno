@@ -55,6 +55,7 @@ class UserController extends Controller
                 'email' => $req->email,
                 'password' => Hash::make($req->password),
             ]);
+            // dd($data);
             $data->save();
             return redirect('login')->with('success', 'registrasi berhasil');
         } catch (\Exception $e) {

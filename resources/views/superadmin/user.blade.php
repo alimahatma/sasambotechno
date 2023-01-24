@@ -42,9 +42,9 @@
                         <tbody>
                             <?php $i = 1; ?>
                             @foreach($users as $val)
-                            <tr class="text-center">
+                            <tr class="text-center" id="live_user">
                                 <td><?= $i++ ?></td>
-                                <td>{{$val->nama}}</td>
+                                <td>{{$val->name}}</td>
                                 <td>{{$val->email}}</td>
                                 <td>{{$val->role}}</td>
                                 <td class="d-flex justify-content-center">
@@ -162,4 +162,28 @@
 </div>
 @endforeach
 
+<script>
+    $('document').ready(function() {
+        setInterval(function() {
+            console.log(`{{$users}}`)
+            GetUser()
+        }, 200)
+    })
+
+    function GetUser() {
+        let data = `{{$users}}`;
+        $.ajax({
+            url: data,
+            type: 'GET',
+            cache: false,
+            success: function(data) {
+                data.forEach(element, index => {
+                    var data = '<tr id="users' + index + '"><td>' + elemant.name + '</td><td>' + elemant.email + '</td><td>' + elemant.role + '</td>';
+                })
+                $('#live_user').html(data)
+                return data
+            }
+        })
+    }
+</script>
 @endsection

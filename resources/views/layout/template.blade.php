@@ -21,6 +21,9 @@
     <link rel="stylesheet" href="{{asset('assets')}}/css/pages/fontawesome.css">
     <link rel="stylesheet" href="{{asset('assets')}}/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="{{asset('assets')}}/css/pages/datatables.css">
+    <script type="text/javascript" src="{{asset('assets')}}/extensions/jquery/jquery.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script> -->
+    <script type="text/javascript" src="https://unpkg.com/default-passive-events"></script>
 
 </head>
 
@@ -138,16 +141,17 @@
     <script src="{{asset('assets')}}/js/bootstrap.js"></script>
     <script src="{{asset('assets')}}/js/app.js"></script>
 
-    <!-- Need: Apexcharts -->
-    <script src="{{asset('assets')}}/extensions/apexcharts/apexcharts.min.js"></script>
-    <script src="{{asset('assets')}}/js/pages/dashboard.js"></script>
+    <!-- uncomment for load dashboard and chartJS -->
+    <!-- <script src="{{asset('assets')}}/extensions/apexcharts/apexcharts.min.js"></script> -->
+    <!-- <script src="{{asset('assets')}}/js/pages/dashboard.js"></script> -->
 
     <!-- load datatable -->
     <!-- <script src="{{asset('assets')}}/extensions/simple-datatables/umd/simple-datatables.js"></script>
     <script src="{{asset('assets')}}/js/pages/simple-datatables.js"></script> -->
 
     <!-- load datatable jquery -->
-    <script src="{{asset('assets')}}/extensions/jquery/jquery.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script> -->
+    <!-- <script type="text/javascript" src="{{asset('assets')}}/extensions/jquery/jquery.min.js"></script> -->
     <script src="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.js"></script>
     <script src="{{asset('assets')}}/js/pages/datatables.js"></script>
 

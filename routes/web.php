@@ -8,6 +8,7 @@ use App\Http\Controllers\RoleAdminController;
 use App\Http\Controllers\RoleMemberController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AjaxController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +20,11 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+// use App\Events\NewUserRegistered;
 
+// Route::get('registers', function () {
+//     event(new NewUserRegistered('info@dicloud.id'));
+// });
 // route halaman landing page
 Route::get('/', [HomeController::class, 'SendToIndex'])->name('landingpage');
 Route::get('/produk', [HomeController::class, 'SendToProduk'])->name('produk');
