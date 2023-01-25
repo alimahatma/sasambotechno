@@ -68,7 +68,7 @@
                     <a class="nav-link active" style="color: #40883C;" aria-current="page" href="video">VIDEO</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" style="color: #40883C;" aria-current="page" href="contact">CONTACT US</a>
+                    <a class="nav-link active" style="color: #40883C;" aria-current="page" href="contact">ABOUT ME</a>
                 </li>
             </ul>
         </div>

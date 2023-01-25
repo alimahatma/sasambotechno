@@ -57,7 +57,7 @@ class UserController extends Controller
             ]);
             // dd($data);
             $data->save();
-            return redirect('login')->with('success', 'registrasi berhasil');
+            return redirect('home')->with('success', 'registrasi berhasil');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
             return redirect('register')->with('message', 'register gagal');
@@ -87,7 +87,7 @@ class UserController extends Controller
             } elseif (Auth::user()->role == 'admin') {
                 return redirect('index');
             } elseif (Auth::user()->role == 'pengguna') {
-                return redirect('dashboard');
+                return redirect('home');
             } else {
                 print("anda tidak memiliki hak akses");
             }

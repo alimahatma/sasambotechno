@@ -17,6 +17,8 @@ use App\Http\Controllers\StokController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\WarnaController;
+use Illuminate\Auth\Events\Verified;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +35,11 @@ use App\Http\Controllers\WarnaController;
 // Route::get('registers', function () {
 //     event(new NewUserRegistered('info@dicloud.id'));
 // });
+
+Auth::routes([
+    'verify' => true
+]);
+
 // route halaman landing page
 Route::get('/', [HomeController::class, 'SendToIndex'])->name('landingpage');
 Route::get('/produk', [HomeController::class, 'SendToProduk'])->name('produk');
@@ -49,12 +56,12 @@ Route::get('/logout', [UserController::class, 'Logout'])->name('logout');
 
 // route role admin
 Route::name('admin')->group(function () {
-    Route::get('/index', [RoleAdminController::class, 'GetIndex'])->name('akun');
+    Route::get('/index', [RoleAdminController::class, 'GetIndex'])->name('akun')->middleware('verified');
 });
 
 // route for role access member or client
 Route::name('members')->group(function () {
-    Route::get('/dashboard', [RoleMemberController::class, 'GetIndex'])->name('akun');
+    Route::get('/home', [RoleMemberController::class, 'GetIndex'])->name('akun')->middleware('verified');
 });
 
 // route for role super admin

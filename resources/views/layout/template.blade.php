@@ -87,15 +87,27 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
+                            <a href="member" class='sidebar-link'>
+                                <i class="fas fa-users"></i>
+                                <span>Member</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
                             <a href="kategoriProduk" class='sidebar-link'>
                                 <i class="fas fa-box"></i>
                                 <span>Kategori produk</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="produks" class='sidebar-link'>
-                                <i class="fas fa-bars"></i>
-                                <span>Produks</span>
+                            <a href="warna" class='sidebar-link'>
+                                <i class="fas fa-palette"></i>
+                                <span>Warna</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="stok" class='sidebar-link'>
+                                <i class="fas fa-layer-group"></i>
+                                <span>Stok</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
@@ -105,9 +117,9 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="stok" class='sidebar-link'>
-                                <i class="fas fa-layer-group"></i>
-                                <span>Stok</span>
+                            <a href="produks" class='sidebar-link'>
+                                <i class="fas fa-bars"></i>
+                                <span>Produks</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
@@ -132,18 +144,6 @@
                             <a href="sablon" class='sidebar-link'>
                                 <i class="fas fa-pen-fancy"></i>
                                 <span>Sablon</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="member" class='sidebar-link'>
-                                <i class="fas fa-users"></i>
-                                <span>Member</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="warna" class='sidebar-link'>
-                                <i class="fas fa-palette"></i>
-                                <span>Warna</span>
                             </a>
                         </li>
                         <li class="sidebar-item">

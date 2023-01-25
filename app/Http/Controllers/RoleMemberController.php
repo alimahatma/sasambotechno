@@ -10,7 +10,7 @@ class RoleMemberController extends Controller
     public function GetIndex()
     {
         $data = Instansi::all();
-        return view('members.dashboard', [
+        return view('members.home', [
             'title' => 'member',
             'instansi' => $data
         ]);

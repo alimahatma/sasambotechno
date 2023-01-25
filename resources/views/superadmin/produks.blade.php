@@ -36,16 +36,16 @@
 
                                 <th class="text-center">Nama supplier</th>
 
-                                <th class="text-center">Jenis produk</th>
+                                <th class="text-center">Jenis kategori</th>
 
                                 <th class="text-center">Jumlah stok</th>
                                 <th class="text-center">warna</th>
-                                <th class="text-center">Harga jual</th>
+                                <th class="text-center">Harga satuan</th>
 
                                 <th class="text-center">Nama Produk</th>
-                                <th class="text-center">Foto produk</th>
+                                <th class="text-center">Foto depan</th>
+                                <th class="text-center">Foto belakang</th>
                                 <th class="text-center">Deskripsi</th>
-                                <th class="text-center">Harga</th>
                                 <th class="text-center">Satuan</th>
                                 <th class="text-center">Size</th>
                                 <th class="text-center">Aksi</th>
@@ -57,20 +57,20 @@
                             <tr class="text-center">
                                 <td><?= $i++ ?></td>
                                 <td>{{$val->nama_supplier}}</td>
-                                <td>{{$val->jenis_produk}}</td>
+                                <td>{{$val->jenis_kategori}}</td>
                                 <td>{{$val->jumlah}}</td>
-                                <td>{{$val->warna}}</td>
+                                <td>{{$val->nama_warna}}</td>
                                 <td>{{$val->harga_jual}}</td>
                                 <td>{{$val->nama_produk}}</td>
-                                <td><img src="/foto_produk/{{$val->foto_prdk}}" alt="404" width="120" height="60"></td>
+                                <td><img src="/foto_produk/{{$val->foto_dep}}" alt="404" width="120" height="60"></td>
+                                <td><img src="/foto_produk/{{$val->foto_bel}}" alt="404" width="120" height="60"></td>
                                 <td>{{$val->deskripsi}}</td>
-                                <td>{{$val->harga}}</td>
                                 <td>{{$val->satuan}}</td>
                                 <td>{{$val->size}}</td>
                                 <td>
                                     <div class="d-flex justify-content-center">
                                         <div class="col-md-6 col-lg-6">
-                                            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalUpdate{{$val->produk_id}}">
+                                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalUpdate{{$val->produk_id}}">
                                                 <i class="fas fa-edit"></i>
                                             </button>
                                         </div>
@@ -92,7 +92,6 @@
 </div>
 
 <!-- Modal add-->
-<!-- ktgr_id	stok_id	supplier_id	nama_produk	foto_prdk	deskripsi	harga	satuan	size	 -->
 <div class="modal fade" id="modalAdd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -104,7 +103,7 @@
                 <div class="modal-body">
                     @csrf
                     <div class="row">
-                        <div class="col-12 mt-1">
+                        <div class="col-6 mt-1">
                             <h6>Jenis kategori</h6>
                             <fieldset class="form-group">
                                 <select name="ktgr_id" id="basicSelect" class="form-select">
@@ -115,36 +114,50 @@
                                 </select>
                             </fieldset>
                         </div>
-                        <div class="col-12 mt-1">
-                            <h6>Jenis kategori</h6>
+                        <div class="col-6 mt-1">
+                            <h6>Stok</h6>
                             <fieldset class="form-group">
-                                <select name="ktgr_id" id="basicSelect" class="form-select">
-                                    <option selected>pilih kategori produk</option>
-                                    @foreach($kategori as $valId)
-                                    <option value="{{$valId->ktgr_id}}">{{$valId->jenis_kategori}}</option>
+                                <select name="stok_id" id="basicSelect" class="form-select">
+                                    <option selected>pilih stok</option>
+                                    @foreach($stok as $stk)
+                                    <option value="{{$stk->stok_id}}">
+                                        {{$stk->jumlah}},
+                                        {{$stk->nama_warna}},
+                                        {{$stk->jenis_kain}}
+                                    </option>
                                     @endforeach
                                 </select>
                             </fieldset>
                         </div>
-                        <div class="col-12 mt-1">
-                            <h6>Jenis kategori</h6>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 mt-1">
+                            <h6>Supplier</h6>
                             <fieldset class="form-group">
-                                <select name="ktgr_id" id="basicSelect" class="form-select">
-                                    <option selected>pilih kategori produk</option>
-                                    @foreach($kategori as $valId)
-                                    <option value="{{$valId->ktgr_id}}">{{$valId->jenis_kategori}}</option>
+                                <select name="supplier_id" id="basicSelect" class="form-select">
+                                    <option selected>pilih supplier</option>
+                                    @foreach($supplier as $sup)
+                                    <option value="{{$sup->supplier_id}}">{{$sup->nama_supplier}}</option>
                                     @endforeach
                                 </select>
                             </fieldset>
                         </div>
-                        <div class="col-12 mt-1">
+                        <div class="col-6 mt-1">
                             <h6>Nama produk</h6>
                             <input class="form-control" type="text" name="nama_produk" placeholder="masukkan nama produk" aria-label="default input example">
                         </div>
-                        <div class="col-12 mt-1">
-                            <h6>Foto produk</h6>
-                            <input class="form-control" type="file" name="foto_prdk" aria-label="default input example">
+                    </div>
+                    <div class="row">
+                        <div class="col-6 mt-1">
+                            <h6>Foto depan</h6>
+                            <input class="form-control" type="file" name="foto_dep" aria-label="default input example">
                         </div>
+                        <div class="col-6 mt-1">
+                            <h6>Foto belakang</h6>
+                            <input class="form-control" type="file" name="foto_bel" aria-label="default input example">
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-12 mt-2">
                             <h6>Deskripsi produk</h6>
                             <div class="card-body">
@@ -154,13 +167,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 mt-1">
-                            <h6>Harga</h6>
-                            <input class="form-control" type="number" name="harga" placeholder="masukkan nama produk" aria-label="default input example">
-                        </div>
-                        <div class="col-12 mt-1">
-                            <h6>Satuan</h6>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 mt-1">
+                            <h6>Satuan produk</h6>
                             <input class="form-control" type="text" name="satuan" placeholder="masukkan satuan produk" aria-label="default input example">
+                        </div>
+                        <div class="col-6 mt-1">
+                            <h6>Size</h6>
+                            <input class="form-control" type="text" name="size" placeholder="masukkan ukuran produk" aria-label="default input example">
                         </div>
                     </div>
                 </div>
@@ -186,26 +201,57 @@
                 <div class="modal-body">
                     @csrf
                     <div class="row">
-                        <div class="col-12 mt-1">
-                            <input type="hidden" class="form-control" name="produk_id" value="{{$row->produk_id}}">
+                        <div class="col-6 mt-1">
                             <h6>Jenis kategori</h6>
                             <fieldset class="form-group">
                                 <select name="ktgr_id" id="basicSelect" class="form-select">
-                                    <option value="{{$valId->ktgr_id}}" selected>{{$row->jenis_kategori}}</option>
+                                    <option value="{{$row->ktgr_id}}" selected>{{$row->jenis_kategori}}</option>
                                     @foreach($kategori as $valId)
                                     <option value="{{$valId->ktgr_id}}">{{$valId->jenis_kategori}}</option>
                                     @endforeach
                                 </select>
                             </fieldset>
                         </div>
-                        <div class="col-12 mt-1">
+                        <div class="col-6 mt-1">
+                            <h6>Stok</h6>
+                            <fieldset class="form-group">
+                                <select name="stok_id" id="basicSelect" class="form-select">
+                                    <option value="{{$row->stok_id}}" selected>{{$row->jumlah}}, {{$row->nama_warna}}, {{$row->jenis_kain}}</option>
+                                    @foreach($stok as $stk)
+                                    <option value="{{$stk->stok_id}}">{{$stk->jumlah}}, {{$stk->nama_warna}}, {{$stk->jenis_kain}}</option>
+                                    @endforeach
+                                </select>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 mt-1">
+                            <h6>Supplier</h6>
+                            <fieldset class="form-group">
+                                <select name="supplier_id" id="basicSelect" class="form-select">
+                                    <option value="{{$row->supplier_id}}" selected>{{$row->nama_supplier}}</option>
+                                    @foreach($supplier as $sup)
+                                    <option value="{{$sup->supplier_id}}">{{$sup->nama_supplier}}</option>
+                                    @endforeach
+                                </select>
+                            </fieldset>
+                        </div>
+                        <div class="col-6 mt-1">
                             <h6>Nama produk</h6>
                             <input class="form-control" type="text" name="nama_produk" value="{{$row->nama_produk}}" placeholder="masukkan nama produk" aria-label="default input example">
                         </div>
-                        <div class="col-12 mt-1">
-                            <h6>Foto produk</h6>
-                            <input class="form-control" type="file" name="foto_prdk" value="{{$row->foto_prdk}}" aria-label="default input example">
+                    </div>
+                    <div class="row">
+                        <div class="col-6 mt-1">
+                            <h6>Foto depan</h6>
+                            <input class="form-control" type="file" name="foto_dep" aria-label="default input example">
                         </div>
+                        <div class="col-6 mt-1">
+                            <h6>Foto belakang</h6>
+                            <input class="form-control" type="file" name="foto_bel" aria-label="default input example">
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-12 mt-2">
                             <h6>Deskripsi produk</h6>
                             <div class="card-body">
@@ -215,13 +261,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 mt-1">
-                            <h6>Harga</h6>
-                            <input class="form-control" type="number" name="harga" value="{{$row->harga}}" placeholder="masukkan nama produk" aria-label="default input example">
-                        </div>
-                        <div class="col-12 mt-1">
-                            <h6>Satuan</h6>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 mt-1">
+                            <h6>Satuan produk</h6>
                             <input class="form-control" type="text" name="satuan" value="{{$row->satuan}}" placeholder="masukkan satuan produk" aria-label="default input example">
+                        </div>
+                        <div class="col-6 mt-1">
+                            <h6>Size</h6>
+                            <input class="form-control" type="text" name="size" value="{{$row->size}}" placeholder="masukkan ukuran produk" aria-label="default input example">
                         </div>
                     </div>
                 </div>

@@ -37,8 +37,10 @@
                                 <th class="text-center">Nama warna</th>
                                 <th class="text-center">Jumlah</th>
                                 <th class="text-center">Jenis kain</th>
-                                <th class="text-center">Harga beli</th>
-                                <th class="text-center">Harga jual</th>
+                                <th class="text-center">Harga beli satuan</th>
+                                <th class="text-center">Total harga beli</th>
+                                <th class="text-center">Harga juala satuan</th>
+                                <th class="text-center">Total harga jual</th>
                                 <th class="text-center">Tanggal masuk</th>
                                 <th class="text-center">Aksi</th>
                             </tr>
@@ -52,7 +54,9 @@
                                 <td>{{$val->jumlah}}</td>
                                 <td>{{$val->jenis_kain}}</td>
                                 <td>{{$val->harga_beli}}</td>
+                                <td><?= $total_beli = ($val->jumlah * $val->harga_beli); ?></td>
                                 <td>{{$val->harga_jual}}</td>
+                                <td><?= $total_beli = ($val->jumlah * $val->harga_jual); ?></td>
                                 <td>{{$val->tgl_masuk}}</td>
                                 <td>
                                     <div class="d-flex justify-content-center">

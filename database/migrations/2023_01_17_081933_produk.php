@@ -21,9 +21,9 @@ return new class extends Migration
             $table->foreignId('supplier_id');
 
             $table->string('nama_produk', 35);
-            $table->string('foto_prdk', 30);
+            $table->string('foto_dep', 30);
+            $table->string('foto_bel', 30);
             $table->longText('deskripsi');
-            $table->float('harga');
             $table->string('satuan', 10);
             $table->string('size', 10);
             $table->timestamps();
