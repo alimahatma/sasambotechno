@@ -80,11 +80,13 @@ class UserController extends Controller
             'password' => 'required'
         ]);
         if (Auth::attempt($req->only('email', 'password'))) {
-            if (Auth::user()->role == 'super_admin') {
+            if (Auth::user()->role == 'superadmin') {
                 return redirect('user');
-            } elseif (Auth::user()->role == 'admin') {
+            } elseif (Auth::user()->role == 'kasir') {
                 return redirect('index');
-            } elseif (Auth::user()->role == 'pengguna') {
+            } elseif (Auth::user()->role == 'produksi') {
+                return redirect('pesanan');
+            } elseif (Auth::user()->role == 'pelanggan') {
                 return redirect('home');
             } else {
                 print("anda tidak memiliki hak akses");
