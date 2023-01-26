@@ -13,22 +13,20 @@ use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
 {
-    //construct for activate verivied email
-    public function __construct()
-    {
-        // $this->middleware(['auth', 'verified']);
-    }
-
     // get data user return to view admin
     public function GetAlluser()
     {
-        $in = Instansi::select('logo')->get();
-        $user = User::all();
-        return view('superadmin.user', [
-            'title' => 'akun user',
-            'users' => $user,
-            'instansi' => $in
-        ]);
+        if (Auth::user()->role == 'super_admin') {
+            $in = Instansi::select('logo')->get();
+            $user = User::all();
+            return view('superadmin.user', [
+                'title' => 'akun user',
+                'users' => $user,
+                'instansi' => $in
+            ]);
+        } else {
+            print('akses di tolak');
+        }
     }
 
     // get view register

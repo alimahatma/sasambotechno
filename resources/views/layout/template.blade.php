@@ -74,6 +74,7 @@
                                 <span>Dashboard</span>
                             </a>
                         </li> -->
+                        @if(Auth::user()->role == 'super_admin')
                         <li class="sidebar-item">
                             <a href="instansi" class='sidebar-link'>
                                 <i class="fas fa-hotel"></i>
@@ -152,6 +153,33 @@
                                 <span>Logout</span>
                             </a>
                         </li>
+                        @elseif(Auth::user()->role == 'admin')
+                        <li class="sidebar-item">
+                            <a href="home" class='sidebar-link'>
+                                <i class="fas fa-pen-fancy"></i>
+                                <span>Home</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="logout" class='sidebar-link'>
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Logout</span>
+                            </a>
+                        </li>
+                        @elseif(Auth::user()->role == 'pengguna')
+                        <li class="sidebar-item">
+                            <a href="index" class='sidebar-link'>
+                                <i class="fas fa-pen-fancy"></i>
+                                <span>Home</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="logout" class='sidebar-link'>
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Logout</span>
+                            </a>
+                        </li>
+                        @endif
                     </ul>
                 </div>
             </div>

@@ -27,16 +27,16 @@ class DatabaseSeeder extends Seeder
         // insert record for database seeders
         $data = array(
             [
-                'name' => 'bahri',
-                'email' => 'bahrysaipul266@gmail.com',
+                'name' => 'super admin',
+                'email' => 'sasambotechno@gmail.com',
                 'password' => Hash::make('superadmin098'),
-                'role' => 'super_admin'
+                'role' => 'superadmin'
             ],
             [
-                'name' => 'admin',
-                'email' => 'sbahry063@gmail.com',
-                'password' => Hash::make('admin098'),
-                'role' => 'admin'
+                'name' => 'administrator',
+                'email' => 'bahrysaipul266@gmail.com',
+                'password' => Hash::make('kasir098'),
+                'role' => 'kasir'
             ]
         );
         User::insert($data);

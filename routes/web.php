@@ -12,11 +12,13 @@ use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\KurrirController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\PesananController;
+use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\SablonController;
 use App\Http\Controllers\StokController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\WarnaController;
+use App\Http\Middleware\Authenticate;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Auth;
 
@@ -48,11 +50,21 @@ Route::get('/video', [HomeController::class, 'SendToVideo'])->name('video');
 Route::get('/contact', [HomeController::class, 'SendToContact'])->name('contact');
 
 // route authentication
-Route::get('/register', [UserController::class, 'GetRegister'])->name('register');
-Route::post('/addRegister', [UserController::class, 'PostRegister'])->name('addRegister');
 Route::get('/login', [UserController::class, 'GetLogin'])->name('login');
-Route::post('/loginAuth', [UserController::class, 'AuthLogin'])->name('LoginAuth');
-Route::get('/logout', [UserController::class, 'Logout'])->name('logout');
+Route::name('auth')->group(function () {
+    Route::get('/register', [UserController::class, 'GetRegister'])->name('register');
+    Route::get('/register', [UserController::class, 'GetRegister'])->name('register');
+    Route::post('/addRegister', [UserController::class, 'PostRegister'])->name('addRegister');
+    Route::post('/loginAuth', [UserController::class, 'AuthLogin'])->name('LoginAuth');
+    // Route::post('/loginAuth', [Authenticate::class, 'AuthLogin'])->name('LoginAuth');
+    Route::get('/logout', [UserController::class, 'Logout'])->name('logout');
+
+    // route for reset password
+    Route::get('/requestReset', [ResetPasswordController::class, 'ViewResetPasswd'])->name('RequestReset');
+    Route::post('/sendResetPasswd', [ResetPasswordController::class, 'SendResetPasswd'])->name('SendResetPasswd');
+    Route::get('/resetpasswdform/{token}', [ResetPasswordController::class, 'ResetPasswdForm'])->name('resetpasswdform.get');
+    Route::post('/resetpasswdform', [ResetPasswordController::class, 'SendResetForm'])->name('resetpasswdform');
+});
 
 // route role admin
 Route::name('admin')->group(function () {
