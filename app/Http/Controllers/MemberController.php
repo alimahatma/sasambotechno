@@ -6,6 +6,7 @@ use App\Models\Instansi;
 use App\Models\Member;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -13,16 +14,27 @@ class MemberController extends Controller
 {
     public function GetMember()
     {
-        $user = User::all();
-        // dd($user);
-        $instansi = Instansi::select('logo')->get();
-        $data = DB::table('member')->join('users', 'users.user_id', '=', 'member.user_id')->get();
-        return view('superadmin.member', [
-            'title' => 'Data member',
-            'instansi' => $instansi,
-            'member' => $data,
-            'user' => $user,
-        ]);
+        if (Auth::user()->role == 'superadmin') {
+            $user = User::all();
+            $instansi = Instansi::select('logo')->get();
+            $data = DB::table('member')->join('users', 'users.user_id', '=', 'member.user_id')->get();
+            return view('superadmin.member', [
+                'title' => 'Data member',
+                'instansi' => $instansi,
+                'member' => $data,
+                'user' => $user,
+            ]);
+        } elseif (Auth::user()->role == 'pelanggan') {
+            $user = User::all();
+            $instansi = Instansi::select('logo')->get();
+            $data = DB::table('member')->join('users', 'users.user_id', '=', 'member.user_id')->get();
+            return view('members.addProfile', [
+                'title' => 'profile',
+                'instansi' => $instansi,
+                'member' => $data,
+                'users' => $user,
+            ]);
+        }
     }
     public function AddMember(Request $req)
     {
@@ -36,7 +48,6 @@ class MemberController extends Controller
             'kabupaten' => 'required',
             'provinsi' => 'required',
         ]);
-        //dd($val); //user_id_id	nama_lengkap	telepon	gender	desa	kecamatan
         try {
             $data = new Member([
                 'user_id' => $req->user_id,
@@ -50,7 +61,11 @@ class MemberController extends Controller
             ]);
             // dd($data);
             $data->save();
-            return redirect('member')->with('success', 'data berhasil di tambah');
+            if (Auth::user()->role == 'superadmin') {
+                return redirect('member')->with('success', 'data berhasil di tambah');
+            } elseif (Auth::user()->role == 'pelanggan') {
+                return redirect('profile')->with('success', 'profile berhasil di simpan');
+            }
         } catch (\Exception $e) {
             Log::error($e->getMessage());
             return redirect('member')->with('message', 'gagal');

@@ -16,7 +16,7 @@ class UserController extends Controller
     // get data user return to view admin
     public function GetAlluser()
     {
-        if (Auth::user()->role == 'super_admin') {
+        if (Auth::user()->role == 'superadmin') {
             $in = Instansi::select('logo')->get();
             $user = User::all();
             return view('superadmin.user', [

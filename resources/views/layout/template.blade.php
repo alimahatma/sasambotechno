@@ -74,7 +74,7 @@
                                 <span>Dashboard</span>
                             </a>
                         </li> -->
-                        @if(Auth::user()->role == 'super_admin')
+                        @if(Auth::user()->role == 'superadmin')
                         <li class="sidebar-item">
                             <a href="instansi" class='sidebar-link'>
                                 <i class="fas fa-hotel"></i>
@@ -153,11 +153,28 @@
                                 <span>Logout</span>
                             </a>
                         </li>
-                        @elseif(Auth::user()->role == 'admin')
+                        @elseif(Auth::user()->role == 'kasir')
                         <li class="sidebar-item">
-                            <a href="home" class='sidebar-link'>
-                                <i class="fas fa-pen-fancy"></i>
-                                <span>Home</span>
+                            <a href="#" class='sidebar-link'>
+                                <i class="fas fa-shopping-bag"></i>
+                                <span>Pesanan</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="#" class='sidebar-link'>
+                                <i class="fas fa-receipt"></i>
+                                <span>Cetak invoice</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="#" class='sidebar-link'>
+                                <i class="fas fa-cube"></i>
+                                <span>Pesanan di proses</span>
+                            </a>
+                        <li class="sidebar-item">
+                            <a href="#" class='sidebar-link'>
+                                <i class="fas fa-cubes"></i>
+                                <span>Pesanan siap kirim</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
@@ -166,11 +183,54 @@
                                 <span>Logout</span>
                             </a>
                         </li>
-                        @elseif(Auth::user()->role == 'pengguna')
+                        @elseif(Auth::user()->role == 'produksi')
                         <li class="sidebar-item">
-                            <a href="index" class='sidebar-link'>
+                            <a href="pesanan" class='sidebar-link'>
                                 <i class="fas fa-pen-fancy"></i>
-                                <span>Home</span>
+                                <span>Pesanan</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="logout" class='sidebar-link'>
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Logout</span>
+                            </a>
+                        </li>
+                        @elseif(Auth::user()->role == 'pelanggan')
+                        <li class="sidebar-item">
+                            <a href="getprofile" class='sidebar-link'>
+                                <i class="fas fa-user-edit"></i>
+                                <span>Lengkapi data</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="profile" class='sidebar-link'>
+                                <i class="fas fa-user"></i>
+                                <span>Profile</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="pilihbaju" class='sidebar-link'>
+                                <i class="fas fa-tshirt"></i>
+                                <span>Pilih baju</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="trackingsablon" class='sidebar-link'>
+                                <i class="fas fa-pen-fancy"></i>
+                                <span>Ukuran sablon</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="trackingkurir" class='sidebar-link'>
+                                <i class="fas fa-truck"></i>
+                                <span>Jenis pengiriman</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="invoice" class='sidebar-link'>
+                                <i class="fas fa-receipt"></i>
+                                <span>Lihat invoice</span>
                             </a>
                         </li>
                         <li class="sidebar-item">

@@ -73,7 +73,14 @@ Route::name('admin')->group(function () {
 
 // route for role access member or client
 Route::name('members')->group(function () {
-    Route::get('/home', [RoleMemberController::class, 'GetIndex'])->name('akun')->middleware('verified');
+    Route::get('/home', [RoleMemberController::class, 'GetHome'])->name('home')->middleware('verified');
+    Route::get('/pilihbaju', [RoleMemberController::class, 'GetIndex'])->name('pilihbaju')->middleware('verified');
+    Route::get('/trackingsablon', [RoleMemberController::class, 'GetSablon'])->name('trackingSablon')->middleware('verified');
+    Route::get('/trackingkurir', [RoleMemberController::class, 'GetKurirs'])->name('trackingKurir')->middleware('verified');
+    Route::get('/getprofile', [MemberController::class, 'GetMember'])->name('getProfile')->middleware('verified');
+    Route::post('/saveprofile', [MemberController::class, 'AddMember'])->name('addProfile')->middleware('verified');
+    Route::get('/profile', [RoleMemberController::class, 'GetProfile'])->name('Profile')->middleware('verified');
+    Route::get('/invoice', [RoleMemberController::class, 'GetInvoice'])->name('invoice')->middleware('verified');
 });
 
 // route for role super admin
