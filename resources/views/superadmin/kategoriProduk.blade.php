@@ -24,7 +24,7 @@
             <div class="card-body">
                 <!-- Button trigger modal -->
                 <div class="mb-2">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAdd">
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAdd">
                         Tambah Data
                     </button>
                 </div>

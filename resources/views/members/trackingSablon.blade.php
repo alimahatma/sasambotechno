@@ -18,7 +18,8 @@
                     @endif
                 </div>
                 @foreach($sablon as $sab)
-                <div class="card col-md-4 col-lg-3 col-sm-6 d-flex justify-content-between shadow-sm">
+                @if($sab->harga!=0)
+                <div class="card mx-auto col-md-4 col-lg-3 col-sm-6 d-flex justify-content-between shadow-sm">
                     <div class="mt-4">
                         <div class="row">
                             <div class="col-md-6 col-lg-6 col-sm-6 mb-3">
@@ -45,6 +46,7 @@
                         </div>
                     </div>
                 </div>
+                @endif
                 @endforeach
             </div>
         </div>
@@ -60,66 +62,27 @@
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Pesan sablon</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="updtmember" method="post" enctype="multipart/form-data">
+            <form action="trx_sablon/addtrxSablon" method="post" enctype="multipart/form-data">
                 <div class="modal-body">
                     @csrf
                     <div class="row">
-                        <div class="col mb-3">
-                            <input type="hidden" name="id_member" value="{{$row->id_member}}" class="form-control">
-                            @foreach($member as $row)
-                            @if(Auth::user()->user_id == $row->user_id)
-                            <input type="text" class="form-control" name="member_id" value="{{$row->member_id}}">
+                        <div class="col-12 mb-3">
+                            @foreach($member as $mbr)
+                            @if(Auth::user()->user_id == $mbr->user_id)
+                            <input type="text" class="form-control" name="member_id" value="{{$mbr->member_id}}">
                             @endif
                             @endforeach
-                            <!-- <input class="form-control" type="text" name="nama_member" value="{{$row->nama_member}}" placeholder="nama member" aria-label="default input example" autofocus> -->
+                            <input class="form-control" type="text" name="sablon_id" value="{{$row->sablon_id}}" aria-label="default input example" autofocus>
                         </div>
-                        <!-- <div class="col-md-6 mb-3">
-                            <h6>Tgl lahir</h6>
-                            <input class="form-control" type="date" name="tgl_lhr" value="{{$row->tgl_lhr}}" placeholder="tanggal lahir" aria-label="default input example">
-                        </div> -->
-                    </div>
-                    <!-- <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <h6>Foto</h6>
-                            <input class="form-control" type="file" name="foto" value="{{$row->foto}}" aria-label="default input example">
+                        <div class="col-12 mb-3">
+                            <h6>Jumlah</h6>
+                            <input class="form-control" type="number" name="jml" placeholder="masukkan jumlah sablon" aria-label="default input example">
                         </div>
-                        <div class="col-md-6 mb-3">
-                            <h6>Gender</h6>
-                            <div class="d-flex justify-content-around mt-3">
-                                <div class="form-check form-check-primary">
-                                    <input class="form-check-input" type="radio" name="gender" value="laki-laki" id="Primary">
-                                    <label class="form-check-label" for="Primary">
-                                        Laki-laki
-                                    </label>
-                                </div>
-                                <div class="form-check form-check-primary">
-                                    <input class="form-check-input" type="radio" name="gender" value="perempuan" id="Primary">
-                                    <label class="form-check-label" for="Primary">
-                                        Perempuan
-                                    </label>
-                                </div>
-                            </div>
+                        <div class="col-12 mt-2">
+                            @foreach($instansi as $inst)
+                            <h6>Kirim desain ke nomor admin : {{$inst->whatsapp}}</h6>
+                            @endforeach
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <h6>Alamat</h6>
-                            <input class="form-control" type="text" name="alamat" value="{{$row->alamat}}" placeholder="alamat" aria-label="default input example">
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <h6>Github</h6>
-                            <input class="form-control" type="text" name="github" value="{{$row->github}}" placeholder="username github" aria-label="default input example">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12 mb-3">
-                            <h6>Telepon</h6>
-                            <input class="form-control" type="text" name="telepon" value="{{$row->telepon}}" placeholder="telepon" aria-label="default input example">
-                        </div>
-                    </div> -->
-                    <div class="col mt-2">
-                        <h6>Kirim desain ke nomor admin : 123456789</h6>
-                        <p></p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>

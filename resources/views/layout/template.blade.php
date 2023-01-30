@@ -148,6 +148,12 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
+                            <a href="trx_sablon" class='sidebar-link'>
+                                <i class="fas fa-luggage-cart"></i>
+                                <span>Tansaksi sablon</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
                             <a href="logout" class='sidebar-link'>
                                 <i class="fas fa-sign-out-alt"></i>
                                 <span>Logout</span>
@@ -212,19 +218,25 @@
                         <li class="sidebar-item">
                             <a href="pilihbaju" class='sidebar-link'>
                                 <i class="fas fa-tshirt"></i>
-                                <span>Pilih baju</span>
+                                <span>Baju</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
                             <a href="trackingsablon" class='sidebar-link'>
                                 <i class="fas fa-pen-fancy"></i>
-                                <span>Ukuran sablon</span>
+                                <span>Sablon</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
                             <a href="trackingkurir" class='sidebar-link'>
                                 <i class="fas fa-truck"></i>
-                                <span>Jenis pengiriman</span>
+                                <span>Kurir tersedia</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="pesanananda" class='sidebar-link'>
+                                <i class="fas fa-box"></i>
+                                <span>Pesanan anda</span>
                             </a>
                         </li>
                         <li class="sidebar-item">

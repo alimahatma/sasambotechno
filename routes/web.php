@@ -17,6 +17,7 @@ use App\Http\Controllers\SablonController;
 use App\Http\Controllers\StokController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\TrxSablonController;
 use App\Http\Controllers\WarnaController;
 use App\Http\Middleware\Authenticate;
 use Illuminate\Auth\Events\Verified;
@@ -64,23 +65,6 @@ Route::name('auth')->group(function () {
     Route::post('/sendResetPasswd', [ResetPasswordController::class, 'SendResetPasswd'])->name('SendResetPasswd');
     Route::get('/resetpasswdform/{token}', [ResetPasswordController::class, 'ResetPasswdForm'])->name('resetpasswdform.get');
     Route::post('/resetpasswdform', [ResetPasswordController::class, 'SendResetForm'])->name('resetpasswdform');
-});
-
-// route role admin
-Route::name('admin')->group(function () {
-    Route::get('/index', [RoleAdminController::class, 'GetIndex'])->name('akun')->middleware('verified');
-});
-
-// route for role access member or client
-Route::name('members')->group(function () {
-    Route::get('/home', [RoleMemberController::class, 'GetHome'])->name('home')->middleware('verified');
-    Route::get('/pilihbaju', [RoleMemberController::class, 'GetIndex'])->name('pilihbaju')->middleware('verified');
-    Route::get('/trackingsablon', [RoleMemberController::class, 'GetSablon'])->name('trackingSablon')->middleware('verified');
-    Route::get('/trackingkurir', [RoleMemberController::class, 'GetKurirs'])->name('trackingKurir')->middleware('verified');
-    Route::get('/getprofile', [MemberController::class, 'GetMember'])->name('getProfile')->middleware('verified');
-    Route::post('/saveprofile', [MemberController::class, 'AddMember'])->name('addProfile')->middleware('verified');
-    Route::get('/profile', [RoleMemberController::class, 'GetProfile'])->name('Profile')->middleware('verified');
-    Route::get('/invoice', [RoleMemberController::class, 'GetInvoice'])->name('invoice')->middleware('verified');
 });
 
 // route for role super admin
@@ -171,4 +155,30 @@ Route::prefix('member')->group(function () {
     Route::post('/addmember', [MemberController::class, 'AddMember'])->name('addmember');
     Route::post('/updtmember', [MemberController::class, 'UpdtMember'])->name('updtmember');
     Route::get('/delete/{id}', [MemberController::class, 'DeleteMember'])->name('deletemember');
+});
+
+// route transaksi sablon
+Route::prefix('trx_sablon')->group(function () {
+    Route::get('/', [TrxSablonController::class, 'GetTrxSablon'])->name('trxSablon');
+    Route::post('/addtrxSablon', [TrxSablonController::class, 'AddTrxSablon'])->name('addtrxSablon');
+    Route::post('/updttrxSablon', [TrxSablonController::class, 'UpdtTrxSablon'])->name('updttrxSablon');
+    Route::get('/delete/{id}', [TrxSablonController::class, 'DeleteTrxSablon'])->name('deletetrxSablon');
+});
+
+// route role admin
+Route::name('admin')->group(function () {
+    Route::get('/index', [RoleAdminController::class, 'GetIndex'])->name('akun')->middleware('verified');
+});
+
+// route for role access member or client
+Route::name('members')->group(function () {
+    Route::get('/home', [RoleMemberController::class, 'GetHome'])->name('home')->middleware('verified');
+    Route::get('/pilihbaju', [RoleMemberController::class, 'GetCloth'])->name('pilihbaju')->middleware('verified');
+    Route::get('/trackingsablon', [TrxSablonController::class, 'GetTrxSablon'])->name('trackingSablon')->middleware('verified');
+    Route::get('/trackingkurir', [RoleMemberController::class, 'GetKurirs'])->name('trackingKurir')->middleware('verified');
+    Route::get('/getprofile', [MemberController::class, 'GetMember'])->name('getProfile')->middleware('verified');
+    Route::post('/saveprofile', [MemberController::class, 'AddMember'])->name('addProfile')->middleware('verified');
+    Route::get('/profile', [RoleMemberController::class, 'GetProfile'])->name('Profile')->middleware('verified');
+    Route::get('/pesanananda', [TrxSablonController::class, 'GetPesananAnda'])->name('pesananAnda')->middleware('verified');
+    Route::get('/invoice', [RoleMemberController::class, 'GetInvoice'])->name('invoice')->middleware('verified');
 });

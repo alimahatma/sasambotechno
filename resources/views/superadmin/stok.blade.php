@@ -56,7 +56,7 @@
                                 <td>{{$val->harga_beli}}</td>
                                 <td><?= $total_beli = ($val->jumlah * $val->harga_beli); ?></td>
                                 <td>{{$val->harga_jual}}</td>
-                                <td><?= $total_beli = ($val->jumlah * $val->harga_jual); ?></td>
+                                <td><?= $total_jual = ($val->jumlah * $val->harga_jual); ?></td>
                                 <td>{{$val->tgl_masuk}}</td>
                                 <td>
                                     <div class="d-flex justify-content-center">
@@ -114,11 +114,11 @@
                             <input class="form-control" type="text" name="jenis_kain" placeholder="input jenis kain" aria-label="default input example">
                         </div>
                         <div class="col-12 mt-1">
-                            <h6>Harga beli</h6>
+                            <h6>Harga beli/pcs</h6>
                             <input class="form-control" type="number" name="harga_beli" placeholder="input harga beli" aria-label="default input example">
                         </div>
                         <div class="col-12 mt-1">
-                            <h6>Harga jual</h6>
+                            <h6>Harga jual/pcs</h6>
                             <input class="form-control" type="number" name="harga_jual" placeholder="input harga jual" aria-label="default input example">
                         </div>
                         <div class="col-12 mt-1">
@@ -142,7 +142,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah data</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Update data</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="/stok/updtstok" method="post">
@@ -170,11 +170,11 @@
                             <input class="form-control" type="text" name="jenis_kain" value="{{$stk->jenis_kain}}" placeholder="input jenis kain" aria-label="default input example">
                         </div>
                         <div class="col-12 mt-1">
-                            <h6>Harga beli</h6>
+                            <h6>Harga beli/pcs</h6>
                             <input class="form-control" type="number" name="harga_beli" value="{{$stk->harga_beli}}" placeholder="input harga beli" aria-label="default input example">
                         </div>
                         <div class="col-12 mt-1">
-                            <h6>Harga jual</h6>
+                            <h6>Harga jual/pcs</h6>
                             <input class="form-control" type="number" name="harga_jual" value="{{$stk->harga_jual}}" placeholder="input harga jual" aria-label="default input example">
                         </div>
                         <div class="col-12 mt-1">

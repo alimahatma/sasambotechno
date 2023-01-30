@@ -39,33 +39,8 @@
                                 <th class="text-center">Aksi</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <?php $i = 1; ?>
-                            @foreach($users as $val)
-                            <tr class="text-center" id="live_user">
-                                <td><?= $i++ ?></td>
-                                <td>{{$val->name}}</td>
-                                <td>{{$val->email}}</td>
-                                <td>{{$val->role}}</td>
-                                <td class="d-flex justify-content-center">
-                                    <!-- <div class="col-md-6 col-lg-3">
-                                        <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalUpdate{{$val->user_id}}">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
-                                    </div> -->
-                                    <div class="col-md-6 col-lg-3">
-                                        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalUpdate{{$val->user_id}}">
-                                            <i class="fas fa-user-check"></i>
-                                        </button>
-                                    </div>
-                                    <div class="col-md-6 col-lg-3">
-                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete{{$val->user_id}}">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            @endforeach
+                        <tbody id="live_user">
+
                         </tbody>
                     </table>
                 </div>
@@ -162,28 +137,54 @@
 </div>
 @endforeach
 
+<?php $i = 1; ?>
+@foreach($users as $row)
+<tr>
+    <td>{{$i++}}</td>
+    <td>{{$row->name}}</td>
+    <td>{{$row->email}}</td>
+    <td>{{$row->role}}</td>
+</tr>
+@endforeach
+
 <script>
     $('document').ready(function() {
-        setInterval(function() {
-            console.log(`{{$users}}`)
-            GetUser()
-        }, 200)
+        // setInterval(function() {
+        GetUser()
+        // }, 200)
     })
 
     function GetUser() {
-        let data = `{{$users}}`;
+        const users = `{{$users}}`
+        let el, index
         $.ajax({
-            url: data,
-            type: 'GET',
-            cache: false,
-            success: function(data) {
-                data.forEach(element, index => {
-                    var data = '<tr id="users' + index + '"><td>' + elemant.name + '</td><td>' + elemant.email + '</td><td>' + elemant.role + '</td>';
+            success: function() {
+                users.forEach(el, index => {
+                    users += `
+                    <tr>
+                        <td>el.index</td>
+                        <td>el.name</td>
+                        <td>el.email</td>
+                        <td>el.role</td>
+                    </tr>`
                 })
-                $('#live_user').html(data)
-                return data
+                $('#live_user').html(users)
+                console.log(users)
             }
         })
     }
+
+    // function StartRealtime() {
+    //     const dataUser = document.getElementById('live_user')
+    //     setInterval(function() {
+    //         fetch('UserController.php').then(function(response) {
+    //             return response.json();
+    //         }).then(function(data) {
+    //             dataUser.textContent = data.live_user;
+    //         }).catch(function(error) {
+    //             console.log(error)
+    //         })
+    //     }, 200);
+    // }
 </script>
 @endsection

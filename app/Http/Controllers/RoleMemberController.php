@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Instansi;
+use App\Models\Kurir;
 use App\Models\Member;
+use App\Models\Produk;
 use App\Models\Sablon;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -19,32 +21,22 @@ class RoleMemberController extends Controller
             'instansi' => $data
         ]);
     }
-    public function GetIndex()
-    {
-        $data = Instansi::all();
-        return view('members.pilihbaju', [
-            'title' => 'pilih pakaian',
-            'instansi' => $data
-        ]);
-    }
-    public function GetSablon()
-    {
-        $member = Member::all();
-        $sablon = Sablon::all();
-        $data = Instansi::all();
-        return view('members.trackingSablon', [
-            'title' => 'jenis sablon',
-            'instansi' => $data,
-            'sablon' => $sablon,
-            'member' => $member,
-        ]);
-    }
+    // public function GetIndex()
+    // {
+    //     $data = Instansi::all();
+    //     return view('members.pilihbaju', [
+    //         'title' => 'pilih pakaian',
+    //         'instansi' => $data
+    //     ]);
+    // }
     public function GetKurirs()
     {
+        $kurir = Kurir::all();
         $data = Instansi::all();
         return view('members.trackingKurir', [
             'title' => 'kurir tersedia',
-            'instansi' => $data
+            'instansi' => $data,
+            'kurir' => $kurir,
         ]);
     }
     public function GetInvoice()
@@ -65,6 +57,21 @@ class RoleMemberController extends Controller
             'title' => 'profile anda',
             'instansi' => $data,
             'member' => $member,
+        ]);
+    }
+    public function GetCloth()
+    {
+        $data = Instansi::all();
+        $prdk = DB::table('produk')
+            ->join('ktgr_produk', 'ktgr_produk.ktgr_id', '=', 'produk.ktgr_id')
+            ->join('stok', 'stok.stok_id', '=', 'produk.stok_id')
+            ->join('warna', 'warna.warna_id', '=', 'stok.warna_id')
+            ->join('supplier', 'supplier.supplier_id', '=', 'produk.supplier_id')
+            ->get();
+        return view('members.pilihbaju', [
+            'title' => 'stok baju',
+            'instansi' => $data,
+            'pilihbaju' => $prdk,
         ]);
     }
 }
