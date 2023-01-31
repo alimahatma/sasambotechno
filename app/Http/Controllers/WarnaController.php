@@ -24,10 +24,12 @@ class WarnaController extends Controller
     {
         $req->validate([
             'nama_warna' => 'required',
+            'jml_stok' => 'required',
         ]);
         try {
             $data = new Warna([
                 'nama_warna' => $req->nama_warna,
+                'jml_stok' => $req->jml_stok,
             ]);
             $data->save();
             return redirect('warna')->with('success', 'berhasil di tambah');
@@ -40,10 +42,12 @@ class WarnaController extends Controller
     {
         $req->validate([
             'nama_warna' => 'required',
+            'jml_stok' => 'required',
         ]);
         try {
             $data = array(
                 'nama_warna' => $req->post('nama_warna'),
+                'jml_stok' => $req->post('jml_stok'),
             );
             Warna::where('warna_id', '=', $req->post('warna_id'))->update($data);
             return redirect('warna')->with('success', 'berhasil di update');

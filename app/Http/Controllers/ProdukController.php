@@ -17,16 +17,15 @@ class ProdukController extends Controller
     public function GetAllProduk()
     {
         // join for load data stok on form input produk
-        Warna::all();
-        $stok = DB::table('stok')->join('warna', 'warna.warna_id', '=', 'stok.warna_id')->get();
+        $warna = Warna::all();
+        // $stok = DB::table('stok')->join('warna', 'warna.warna_id', '=', 'stok.warna_id')->get();
         // dd($stok);
         $data = Instansi::select('logo')->get();
         $kategori = KategoriProduk::all();
         $supplier = Supplier::all();
         $prdk = DB::table('produk')
             ->join('ktgr_produk', 'ktgr_produk.ktgr_id', '=', 'produk.ktgr_id')
-            ->join('stok', 'stok.stok_id', '=', 'produk.stok_id')
-            ->join('warna', 'warna.warna_id', '=', 'stok.warna_id')
+            ->join('warna', 'warna.warna_id', '=', 'produk.warna_id')
             ->join('supplier', 'supplier.supplier_id', '=', 'produk.supplier_id')
             ->get();
         // dd($prdk);
@@ -35,22 +34,26 @@ class ProdukController extends Controller
             'produks' => $prdk,
             'instansi' => $data,
             'kategori' => $kategori,
+            'warna' => $warna,
             'supplier' => $supplier,
-            'stok' => $stok,
         ]);
     }
     public function AddProduct(Request $request)
     {
         $request->validate([
             'ktgr_id' => 'required',
-            'stok_id' => 'required',
             'supplier_id' => 'required',
+            'warna_id' => 'required',
             'nama_produk' => 'required',
-            'foto_dep' => 'required',
-            'foto_bel' => 'required',
-            'deskripsi' => 'required',
+            'foto_dep' => 'required|image|mimes:png,jpg,jpeg|max:2048',
+            'foto_bel' => 'required|image|mimes:png,jpg,jpeg|max:2048',
             'satuan' => 'required',
-            'size' => 'required'
+            'jenis_kain' => 'required',
+            'size' => 'required',
+            'harga_beli' => 'required',
+            'harga_jual' => 'required',
+            'tgl_masuk' => 'required',
+            'deskripsi' => 'required',
         ]);
         try {
             // convert foto depan produk
@@ -62,14 +65,18 @@ class ProdukController extends Controller
             $request->foto_bel->move(public_path('foto_produk'), $fotoBelakang);
             $data = new Produk([
                 'ktgr_id' => $request->ktgr_id,
-                'stok_id' => $request->stok_id,
                 'supplier_id' => $request->supplier_id,
+                'warna_id' => $request->warna_id,
                 'nama_produk' => $request->nama_produk,
                 'foto_dep' => $fotoDepan,
                 'foto_bel' => $fotoBelakang,
-                'deskripsi' => $request->deskripsi,
                 'satuan' => $request->satuan,
+                'jenis_kain' => $request->jenis_kain,
                 'size' => $request->size,
+                'harga_beli' => $request->harga_beli,
+                'harga_jual' => $request->harga_jual,
+                'tgl_masuk' => $request->tgl_masuk,
+                'deskripsi' => $request->deskripsi,
             ]);
             $data->save();
             return redirect('produks')->with('success', 'data berhasil di tambahkan..!');
@@ -80,16 +87,21 @@ class ProdukController extends Controller
     }
     public function UpdtProduct(Request $request)
     {
+
         $request->validate([
             'ktgr_id' => 'required',
-            'stok_id' => 'required',
             'supplier_id' => 'required',
+            'warna_id' => 'required',
             'nama_produk' => 'required',
-            'foto_dep' => 'required',
-            'foto_bel' => 'required',
-            'deskripsi' => 'required',
+            'foto_dep' => 'required|image|mimes:png,jpg,jpeg|max:2048',
+            'foto_bel' => 'required|image|mimes:png,jpg,jpeg|max:2048',
             'satuan' => 'required',
-            'size' => 'required'
+            'jenis_kain' => 'required',
+            'size' => 'required',
+            'harga_beli' => 'required',
+            'harga_jual' => 'required',
+            'tgl_masuk' => 'required',
+            'deskripsi' => 'required',
         ]);
         try {
             // convert foto depan produk
@@ -101,14 +113,18 @@ class ProdukController extends Controller
             $request->foto_bel->move(public_path('foto_produk'), $fotoBelakang);
             $data = array(
                 'ktgr_id' => $request->post('ktgr_id'),
-                'stok_id' => $request->post('stok_id'),
                 'supplier_id' => $request->post('supplier_id'),
+                'warna_id' => $request->post('warna_id'),
                 'nama_produk' => $request->post('nama_produk'),
                 'foto_dep' => $fotoDepan,
                 'foto_bel' => $fotoBelakang,
-                'deskripsi' => $request->post('deskripsi'),
                 'satuan' => $request->post('satuan'),
+                'jenis_kain' => $request->post('jenis_kain'),
                 'size' => $request->post('size'),
+                'harga_beli' => $request->post('harga_beli'),
+                'harga_jual' => $request->post('harga_jual'),
+                'tgl_masuk' => $request->post('tgl_masuk'),
+                'deskripsi' => $request->post('deskripsi'),
             );
             Produk::where('produk_id', '=', $request->post('produk_id'))->update($data);
             return redirect('produks')->with('success', 'data berhasil di update..!');

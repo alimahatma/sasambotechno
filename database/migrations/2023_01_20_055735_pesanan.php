@@ -15,15 +15,17 @@ return new class extends Migration
     {
         Schema::create('pesanan', function (Blueprint $table) {
             $table->id('pesanan_id');
-
-            $table->foreignId('produk_id');
+            $table->foreignId('procus_id');
+            $table->foreignId('member_id');
             $table->foreignId('sablon_id');
             $table->foreignId('kurir_id');
-
-            $table->enum('status_pesanan', ['masuk', 'kemas', 'kirim', 'diterima'])->default('masuk');
-            $table->date('tgl_checkout');
+            $table->integer('jml_order')->length(10)->unsigned();
+            $table->date('tgl_order');
+            $table->enum('stts_produksi', ['diterima', 'produksi', 'packing', 'kasir'])->default('diterima');
+            $table->enum('status_pesanan', ['pending', 'diterima', 'kirim', 'selesai'])->default('pending');
             $table->timestamps();
-            $table->foreign('produk_id')->references('produk_id')->on('produk')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreign('procus_id')->references('procus_id')->on('produk_custom')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreign('member_id')->references('member_id')->on('member')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreign('sablon_id')->references('sablon_id')->on('sablon')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreign('kurir_id')->references('kurir_id')->on('kurir')->cascadeOnUpdate()->cascadeOnDelete();
         });

@@ -14,6 +14,7 @@ class HomeController extends Controller
     {
         $instansi = Instansi::all();
         $ktgrprdk = KategoriProduk::all();
+        // dd($ktgrprdk);
         $produk = Produk::all();
         $stok = DB::table('stok')->join('produk', 'produk.produk_id', '=', 'stok.produk_id')->join('ktgr_produk', 'ktgr_produk.ktgr_id', '=', 'produk.ktgr_id');
         return view('home.landingpage', [

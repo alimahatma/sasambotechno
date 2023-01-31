@@ -13,10 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('warna', function (Blueprint $table) {
-            $table->id('warna_id');
-            $table->string('nama_warna', 25);
+        Schema::create('ktgr_prdk_custom', function (Blueprint $table) {
+            $table->id('ktgr_procus_id');
+            $table->foreignId('ktgr_id');
+            $table->string('jenis_procus', 50);
+            $table->string('foto_procus', 30);
             $table->timestamps();
+            $table->foreign('ktgr_id')->references('ktgr_id')->on('ktgr_produk')->cascadeOnUpdate()->cascadeOnDelete();
         });
     }
 
@@ -27,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::drop('warna');
+        Schema::drop('ktgr_prdk_custom');
     }
 };

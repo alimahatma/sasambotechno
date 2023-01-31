@@ -52,7 +52,7 @@
                                 <th class="text-center">WhatsApp</th>
                                 <th class="text-center">Instagram</th>
                                 <th class="text-center">Facebook</th>
-                                <th class="text-center">Building</th>
+                                <th class="text-center">Billing</th>
                                 <th class="text-center">Aksi</th>
                             </tr>
                         </thead>
@@ -72,7 +72,7 @@
                                 <td>{{$val->whatsapp}}</td>
                                 <td>{{$val->instagram}}</td>
                                 <td>{{$val->facebook}}</td>
-                                <td>{{$val->building}}</td>
+                                <td>{{$val->billing}}</td>
                                 <td>
                                     <div class="d-flex justify-content-center">
                                         <div class="col-md-6 col-lg-6">
@@ -184,8 +184,8 @@
                     </div>
                     <div class="row mt-2">
                         <div class="col-12">
-                            <h6>Building</h6>
-                            <input class="form-control" type="text" name="building" aria-label="default input example">
+                            <h6>Billing</h6>
+                            <input class="form-control" type="text" name="billing" aria-label="default input example">
                         </div>
                     </div>
                 </div>
@@ -287,8 +287,8 @@
                     </div>
                     <div class="row mt-2">
                         <div class="col-12">
-                            <h6>Building</h6>
-                            <input class="form-control" type="text" name="building" value="{{$inst->building}}" aria-label=" default input example">
+                            <h6>Billing</h6>
+                            <input class="form-control" type="text" name="billing" value="{{$inst->billing}}" aria-label=" default input example">
                         </div>
                     </div>
                 </div>

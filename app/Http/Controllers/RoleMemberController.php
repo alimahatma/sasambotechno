@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Instansi;
+use App\Models\KategoriProduk;
 use App\Models\Kurir;
 use App\Models\Member;
 use App\Models\Produk;
 use App\Models\Sablon;
 use App\Models\User;
+use App\Models\Warna;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -15,10 +17,12 @@ class RoleMemberController extends Controller
 {
     public function GetHome()
     {
+        $ktgrs = Produk::select('nama_produk', 'foto_dep', 'foto_bel')->get();
         $data = Instansi::all();
         return view('members.home', [
             'title' => 'home',
-            'instansi' => $data
+            'instansi' => $data,
+            'kategori' => $ktgrs,
         ]);
     }
     // public function GetIndex()
@@ -61,17 +65,24 @@ class RoleMemberController extends Controller
     }
     public function GetCloth()
     {
+        $warna = Warna::all();
+        $product = DB::table('produk')->join('warna', 'warna.warna_id', '=', 'produk.warna_id')->get();
         $data = Instansi::all();
         $prdk = DB::table('produk')
             ->join('ktgr_produk', 'ktgr_produk.ktgr_id', '=', 'produk.ktgr_id')
-            ->join('stok', 'stok.stok_id', '=', 'produk.stok_id')
-            ->join('warna', 'warna.warna_id', '=', 'stok.warna_id')
+            ->join('warna', 'warna.warna_id', '=', 'produk.warna_id')
             ->join('supplier', 'supplier.supplier_id', '=', 'produk.supplier_id')
             ->get();
+        // dd($prdk);
+        $ktgrs = Produk::select('nama_produk', 'foto_dep', 'foto_bel')->get();
+        // dd($ktgrs);
         return view('members.pilihbaju', [
             'title' => 'stok baju',
             'instansi' => $data,
-            'pilihbaju' => $prdk,
+            'produks' => $prdk,
+            'warna' => $warna,
+            'product' => $product,
+            'kategori' => $ktgrs,
         ]);
     }
 }

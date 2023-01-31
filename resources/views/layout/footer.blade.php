@@ -61,9 +61,9 @@
                             </a>
                         </li>
                         <li class="__spaces">
-                            <a href="{{$row->building}}" class="color-teks size__font">
+                            <a href="{{$row->billing}}" class="color-teks size__font">
                                 <i class="uil uil-airplay"></i>
-                                building
+                                Billing
                             </a>
                         </li>
                     </ul>

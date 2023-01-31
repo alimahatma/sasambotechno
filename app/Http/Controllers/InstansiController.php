@@ -35,7 +35,7 @@ class InstansiController extends Controller
             'whatsapp' => 'required',
             'instagram' => 'required',
             'facebook' => 'required',
-            'building' => 'required',
+            'billing' => 'required',
         ]);
         // dd($req);
         try {
@@ -53,13 +53,13 @@ class InstansiController extends Controller
                 'whatsapp' => $req->whatsapp,
                 'instagram' => $req->instagram,
                 'facebook' => $req->facebook,
-                'building' => $req->building,
+                'billing' => $req->billing,
             ]);
             $data->save();
             return redirect('instansi')->with('success', 'data berhasil di tambahkan');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            return redirect('instansi')->with('message', 'register gagal');
+            return redirect('instansi')->with('errors', 'register gagal');
         }
     }
     public function UpdtInstansi(Request $req)
@@ -76,7 +76,7 @@ class InstansiController extends Controller
             'whatsapp' => 'required',
             'instagram' => 'required',
             'facebook' => 'required',
-            'building' => 'required',
+            'billing' => 'required',
         ]);
         // dd($req);
         try {
@@ -94,7 +94,7 @@ class InstansiController extends Controller
                 'whatsapp' => $req->post('whatsapp'),
                 'instagram' => $req->post('instagram'),
                 'facebook' => $req->post('facebook'),
-                'building' => $req->post('building'),
+                'billing' => $req->post('billing'),
             );
             Instansi::where('inst_id', '=', $req->post('inst_id'))->update($data);
             return redirect('instansi')->with('success', 'data berhasil di update');

@@ -11,8 +11,8 @@
             </div>
         </div>
         <div class="col-sm-6 col-md-4 col-xl-3">
-            <div class="card">
-                <div class="page-header mx-auto  mt-2">
+            <div class="card shadow rounded">
+                <div class="page-header mx-auto mt-2">
                     <h6>Register akun</h6>
                 </div>
                 <div class="container">

@@ -13,23 +13,27 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('produk', function (Blueprint $table) {
-            $table->id('produk_id');
-
+        Schema::create('produk_custom', function (Blueprint $table) {
+            $table->id('procus_id');
             $table->foreignId('ktgr_id');
-            $table->foreignId('stok_id');
             $table->foreignId('supplier_id');
-
+            $table->foreignId('ktgr_procus_id');
+            $table->foreignId('warna_id');
             $table->string('nama_produk', 35);
             $table->string('foto_dep', 30);
             $table->string('foto_bel', 30);
-            $table->longText('deskripsi');
             $table->string('satuan', 10);
+            $table->string('jenis_kain', 25);
             $table->string('size', 10);
+            $table->double('harga_beli');
+            $table->double('harga_jual');
+            $table->date('tgl_masuk');
+            $table->longText('deskripsi');
             $table->timestamps();
-            $table->foreign('ktgr_id')->references('ktgr_id')->on('ktgr_produk')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreign('stok_id')->references('stok_id')->on('stok')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreign('supplier_id')->references('supplier_id')->on('supplier')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreign('ktgr_id')->references('ktgr_id')->on('ktgr_produk')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreign('ktgr_procus_id')->references('ktgr_procus_id')->on('ktgr_prdk_custom')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreign('warna_id')->references('warna_id')->on('warna')->cascadeOnUpdate()->cascadeOnDelete();
         });
     }
 
@@ -40,6 +44,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::drop('produk');
+        Schema::drop('produk_custom');
     }
 };

@@ -13,15 +13,15 @@ class StokController extends Controller
 {
     public function GetStok()
     {
-        $warna = Warna::all();
-        $data = DB::table('stok')->join('warna', 'warna.warna_id', '=', 'stok.warna_id')->get();
-        $instansi = Instansi::select('logo')->get();
-        return view('superadmin.stok', [
-            'title' => 'Data stok',
-            'instansi' => $instansi,
-            'stok' => $data,
-            'warna' => $warna,
-        ]);
+        // $warna = Warna::all();
+        // $data = DB::table('stok')->join('warna', 'warna.warna_id', '=', 'stok.warna_id')->get();
+        // $instansi = Instansi::select('logo')->get();
+        // return view('superadmin.stok', [
+        //     'title' => 'Data stok',
+        //     'instansi' => $instansi,
+        //     'stok' => $data,
+        //     'warna' => $warna,
+        // ]);
     }
     public function AddStok(Request $req)
     {

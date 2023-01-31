@@ -35,6 +35,7 @@
                             <tr>
                                 <th class="text-center">No</th>
                                 <th class="text-center">Nama warna</th>
+                                <th class="text-center">Jumlah stok</th>
                                 <th class="text-center">Aksi</th>
                             </tr>
                         </thead>
@@ -44,6 +45,7 @@
                             <tr class="text-center">
                                 <td><?= $i++ ?></td>
                                 <td>{{$val->nama_warna}}</td>
+                                <td>{{$val->jml_stok}}</td>
                                 <td>
                                     <div class="d-flex justify-content-center">
                                         <div class="col-md-6 col-lg-3">
@@ -84,6 +86,10 @@
                             <h6>Nama warna</h6>
                             <input class="form-control" type="text" name="nama_warna" placeholder="masukkan nama warna" aria-label="default input example">
                         </div>
+                        <div class="col-12 mt-1">
+                            <h6>Jumlah stok warna</h6>
+                            <input class="form-control" type="number" name="jml_stok" placeholder="masukkan jumlah stok pada warna" aria-label="default input example">
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -112,6 +118,10 @@
                             <input type="hidden" name="warna_id" value="{{$row->warna_id}}" class="form-control">
                             <h6>Nama warna</h6>
                             <input class="form-control" type="text" value="{{$row->nama_warna}}" name="nama_warna" placeholder="masukkan nama warna" aria-label="default input example">
+                        </div>
+                        <div class="col-12 mt-1">
+                            <h6>Jumlah stok warna</h6>
+                            <input class="form-control" type="number" name="jml_stok" value="{{$row->jml_stok}}" placeholder="masukkan jumlah stok pada warna" aria-label="default input example">
                         </div>
                     </div>
                 </div>

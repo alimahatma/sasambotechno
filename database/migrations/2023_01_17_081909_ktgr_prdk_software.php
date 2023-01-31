@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('notifications', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('type');
-            $table->morphs('notifiable');
-            $table->text('data');
-            $table->timestamp('read_at')->nullable();
+        Schema::create('ktgr_prdk_software', function (Blueprint $table) {
+            $table->id('ktgr_prosoft_id');
+            $table->foreignId('ktgr_id');
+            $table->string('jenis_prosoft', 50);
+            $table->string('foto_prosoft', 30);
             $table->timestamps();
+            $table->foreign('ktgr_id')->references('ktgr_id')->on('ktgr_produk')->cascadeOnUpdate()->cascadeOnDelete();
         });
     }
 
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('notifications');
+        Schema::drop('ktgr_prdk_software');
     }
 };

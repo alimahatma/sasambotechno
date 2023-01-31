@@ -92,7 +92,7 @@ class UserController extends Controller
                 print("anda tidak memiliki hak akses");
             }
         }
-        return back()->withErrors(['password', 'email atau password salah']);
+        return back()->withErrors(['message', 'email atau password salah']);
     }
 
     // funtion for logout

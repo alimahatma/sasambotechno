@@ -52,8 +52,6 @@
         </div>
     </div>
 </div>
-
-
 @foreach($sablon as $row)
 <div class="modal fade" id="modalBeli{{$row->sablon_id}}" tabindex=" -1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">

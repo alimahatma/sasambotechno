@@ -106,12 +106,6 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="stok" class='sidebar-link'>
-                                <i class="fas fa-layer-group"></i>
-                                <span>Stok</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
                             <a href="supplier" class='sidebar-link'>
                                 <i class="fab fa-supple"></i>
                                 <span>Supplier</span>
@@ -119,7 +113,7 @@
                         </li>
                         <li class="sidebar-item">
                             <a href="produks" class='sidebar-link'>
-                                <i class="fas fa-bars"></i>
+                                <i class="fas fa-layer-group"></i>
                                 <span>Produks</span>
                             </a>
                         </li>
