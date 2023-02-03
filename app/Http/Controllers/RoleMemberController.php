@@ -3,36 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Models\Instansi;
-use App\Models\KategoriProduk;
 use App\Models\Kurir;
-use App\Models\Member;
-use App\Models\Produk;
-use App\Models\Sablon;
 use App\Models\User;
 use App\Models\Warna;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class RoleMemberController extends Controller
 {
     public function GetHome()
     {
-        $ktgrs = Produk::select('nama_produk', 'foto_dep', 'foto_bel')->get();
+        $procategori = DB::table('ktgr_prdk_custom')->join('ktgr_produk', 'ktgr_produk.ktgr_id', '=', 'ktgr_prdk_custom.ktgr_procus_id')->get();
+        $procus = DB::table('produk_custom')->join('ktgr_prdk_custom', 'ktgr_prdk_custom.ktgr_procus_id', '=', 'produk_custom.ktgr_procus_id')->get();
         $data = Instansi::all();
         return view('members.home', [
             'title' => 'home',
             'instansi' => $data,
-            'kategori' => $ktgrs,
+            'kategoricustom' => $procategori,
+            'procus' => $procus,
         ]);
     }
-    // public function GetIndex()
-    // {
-    //     $data = Instansi::all();
-    //     return view('members.pilihbaju', [
-    //         'title' => 'pilih pakaian',
-    //         'instansi' => $data
-    //     ]);
-    // }
     public function GetKurirs()
     {
         $kurir = Kurir::all();
@@ -63,26 +52,41 @@ class RoleMemberController extends Controller
             'member' => $member,
         ]);
     }
-    public function GetCloth()
+    public function DetailCustom($id)
     {
-        $warna = Warna::all();
-        $product = DB::table('produk')->join('warna', 'warna.warna_id', '=', 'produk.warna_id')->get();
         $data = Instansi::all();
-        $prdk = DB::table('produk')
-            ->join('ktgr_produk', 'ktgr_produk.ktgr_id', '=', 'produk.ktgr_id')
-            ->join('warna', 'warna.warna_id', '=', 'produk.warna_id')
-            ->join('supplier', 'supplier.supplier_id', '=', 'produk.supplier_id')
+
+        // menampilkan foto produk, ukuran produk, berdasarkan nama produk yang sama
+        $procategori = DB::table('ktgr_prdk_custom')
+            ->join('ktgr_produk', 'ktgr_produk.ktgr_id', '=', 'ktgr_prdk_custom.ktgr_procus_id')
+            ->join('produk_custom', 'ktgr_prdk_custom.ktgr_procus_id', '=', 'produk_custom.ktgr_procus_id')
             ->get();
-        // dd($prdk);
-        $ktgrs = Produk::select('nama_produk', 'foto_dep', 'foto_bel')->get();
-        // dd($ktgrs);
-        return view('members.pilihbaju', [
+        $procus = DB::table('produk_custom')->join('ktgr_prdk_custom', 'ktgr_prdk_custom.ktgr_procus_id', '=', 'produk_custom.ktgr_procus_id')->get();
+        $prdkGroup = DB::table('produk_custom')
+            ->select('nama_produk')
+            ->join('ktgr_prdk_custom', 'ktgr_prdk_custom.ktgr_procus_id', '=', 'produk_custom.ktgr_procus_id')
+            ->groupBy('nama_produk', 'nama_produk')
+            ->get();
+
+        // query menampilkan warna berdasarkan produk
+        $color = Warna::all();
+        $proColor = DB::table('produk_custom')
+            ->join('ktgr_prdk_custom', 'ktgr_prdk_custom.ktgr_procus_id', '=', 'produk_custom.ktgr_procus_id')
+            ->join('warna', 'warna.warna_id', 'produk_custom.warna_id')
+            ->get();
+
+        // query load data jasa kiri / kurir
+        $jakir = Kurir::all();
+        return view('home.pilihbaju', [
             'title' => 'stok baju',
             'instansi' => $data,
-            'produks' => $prdk,
-            'warna' => $warna,
-            'product' => $product,
-            'kategori' => $ktgrs,
+            'kategoriCus' => $procategori,
+            'procus' => $procus,
+            'id' => $id, //ambil id dari url dan kirim ke view
+            'prdkgroup' => $prdkGroup,
+            'colors' => $color,
+            'procolor' => $proColor,
+            'jakir' => $jakir,
         ]);
     }
 }

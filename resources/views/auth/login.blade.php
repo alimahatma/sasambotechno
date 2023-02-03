@@ -13,7 +13,7 @@
         <div class="col-sm-6 col-md-4 col-xl-3">
             <div class="card shadow rounded">
                 <div class="page-header mx-auto  mt-2">
-                    <h6>Login</h6>
+                    <h6 class="color__green">Login</h6>
                 </div>
                 <div class="container">
                     <form action="loginAuth" method="post">
@@ -43,12 +43,12 @@
                             </div>
                         </div>
                         <div class="d-grid gap-2 d-md-block mt-3 mb-3">
-                            <button class="btn btn-sm col-12" style="background-color: #40883C;" type="submit">Login</button>
+                            <button class="btn btn-sm col-12" style="background-color: #0FAA5D;" type="submit">Login</button>
                         </div>
                         <div class="row mb-3">
                             <div class="col-sm-9 col-md-9 col-lg-9 mx-auto">
-                                <a class="text-decoration-none text-center" href="register" style="color: #40883C;">sign up /</a>
-                                <a class="text-decoration-none text-center" href="requestReset" style="color: #40883C;">forgot password</a>
+                                <a class="text-decoration-none text-center" href="register" style="color: #0FAA5D;">sign up /</a>
+                                <a class="text-decoration-none text-center" href="requestReset" style="color: #0FAA5D;">forgot password</a>
                             </div>
                         </div>
                     </form>

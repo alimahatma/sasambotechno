@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-    <link rel="shortcut icon" href="{{asset('assetsaja')}}/assets/images/logo/favicon.ico" type="image/x-icon">
+    <!-- <link rel="shortcut icon" href="{{asset('assetsaja')}}/assets/images/logo/favicon.ico" type="image/x-icon"> -->
 
     <!-- custom css link -->
     <link rel="stylesheet" href="{{asset('assetsaja')}}/css/style-prefix.css">
@@ -19,40 +19,104 @@
 </head>
 
 <body>
-
     <div class="product-container">
-
         <div class="container">
             <div class="product-box">
 
                 <!-- produk grid -->
                 <div class="product-main">
-                    <h2 class="title">Kategori produk</h2>
+                    <h2 class="title" style="text-align: center; margin-top: 2rem; color:#40883C;">Kategori produk custom</h2>
                     <div class="product-grid">
-                        @foreach($kategori as $ktgr)
+                        @foreach($kategoricustom as $ktgr)
                         <div class="showcase">
                             <div class="showcase-banner">
-                                <a href="/login">
-                                    <!-- <img src="{{asset('assetsaja')}}/images/products/jacket-3.jpg" alt="Mens Winter Leathers Jackets" width="300" class="product-img default">
-                                    <img src="{{asset('assetsaja')}}/images/products/jacket-4.jpg" alt="Mens Winter Leathers Jackets" width="300" class="product-img hover"> -->
-                                    <img src="/foto_produk/{{$ktgr->foto_dep}}" alt="404" class="product-img default">
-                                    <img src="/foto_produk/{{$ktgr->foto_dep}}" alt="404" class="product-img hover">
-                                    <p class="showcase-badge">1%</p>
+                                <a href="/pilihbaju">
+                                    <img src="/foto_ktgr/{{$ktgr->foto_procus}}" alt="404" class="product-img default">
+                                    <img src="/foto_ktgr/{{$ktgr->foto_procus}}" alt="404" class="product-img hover">
                                 </a>
                             </div>
                             <div class="showcase-content">
-                                <a href="#" class="showcase-category">{{$ktgr->nama_produk}}</a>
+                                <a href="/pilihbaju" class="showcase-category" style="color:#40883C;">{{$ktgr->jenis_procus}}</a>
                                 <div class="showcase-rating">
-                                    <ion-icon name="star"></ion-icon>
-                                    <ion-icon name="star"></ion-icon>
-                                    <ion-icon name="star"></ion-icon>
-                                    <ion-icon name="star"></ion-icon>
-                                    <ion-icon name="star-outline"></ion-icon>
                                 </div>
                             </div>
                         </div>
                         @endforeach
                     </div>
+                </div>
+                <!-- end produk grid -->
+
+                <!-- produk grid -->
+                <div class="product-main">
+                    @foreach($kategoricustom as $ktgr)
+                    <div class="title" style="text-align: center; margin-top: 2rem; color: #40883C">{{$ktgr->jenis_procus}}</div>
+                    <div class="product-grid">
+                        @foreach($procus as $pro)
+                        @if($ktgr->ktgr_procus_id == $pro->ktgr_procus_id)
+                        <div class="showcase">
+                            <div class="showcase-banner">
+                                <a href="/pilihbaju">
+                                    <img src="/foto_produk/{{$pro->foto_dep}}" alt="404" class="product-img default">
+                                    <img src="/foto_produk/{{$pro->foto_bel}}" alt="404" class="product-img hover">
+                                </a>
+                            </div>
+                            <div class="showcase-content">
+                                <p class="showcase-title" style="color: #40883C;">{{$pro->nama_produk}}</p>
+                                <del class="showcase-title">Rp. {{$pro->harga_jual}}</del>
+                                <p class="price" style="color: #40883C;">Rp. {{$pro->harga_jual}}</p>
+                                <div class="showcase-rating">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="showcase">
+                            <div class="showcase-banner">
+                                <a href="/pilihbaju">
+                                    <img src="/foto_produk/{{$pro->foto_dep}}" alt="404" class="product-img default">
+                                    <img src="/foto_produk/{{$pro->foto_bel}}" alt="404" class="product-img hover">
+                                </a>
+                            </div>
+                            <div class="showcase-content">
+                                <p class="showcase-title" style="color: #40883C;">{{$pro->nama_produk}}</p>
+                                <del class="showcase-title">Rp. {{$pro->harga_jual}}</del>
+                                <p class="price" style="color: #40883C;">Rp. {{$pro->harga_jual}}</p>
+                                <div class="showcase-rating">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="showcase">
+                            <div class="showcase-banner">
+                                <a href="/pilihbaju">
+                                    <img src="/foto_produk/{{$pro->foto_dep}}" alt="404" class="product-img default">
+                                    <img src="/foto_produk/{{$pro->foto_bel}}" alt="404" class="product-img hover">
+                                </a>
+                            </div>
+                            <div class="showcase-content">
+                                <p class="showcase-title" style="color: #40883C;">{{$pro->nama_produk}}</p>
+                                <del class="showcase-title">Rp. {{$pro->harga_jual}}</del>
+                                <p class="price" style="color: #40883C;">Rp. {{$pro->harga_jual}}</p>
+                                <div class="showcase-rating">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="showcase">
+                            <div class="showcase-banner">
+                                <a href="/pilihbaju">
+                                    <img src="/foto_produk/{{$pro->foto_dep}}" alt="404" class="product-img default">
+                                    <img src="/foto_produk/{{$pro->foto_bel}}" alt="404" class="product-img hover">
+                                </a>
+                            </div>
+                            <div class="showcase-content">
+                                <p class="showcase-title" style="color: #40883C;">{{$pro->nama_produk}}</p>
+                                <del class="showcase-title">Rp. {{$pro->harga_jual}}</del>
+                                <p class="price" style="color: #40883C;">Rp. {{$pro->harga_jual}}</p>
+                                <div class="showcase-rating">
+                                </div>
+                            </div>
+                        </div>
+                        @endif
+                        @endforeach
+                    </div>
+                    @endforeach
                 </div>
                 <!-- end produk grid -->
             </div>

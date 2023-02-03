@@ -1,81 +1,59 @@
 @include('layout.header')
-<div class="container">
-    <div class="row mt-3">
-        <div class="col-sm-5 col-lg-3 col-md-4">
-            <div class="card mb-4 box-shadow">
-                <div class="card-header">
-                    <h4 class="my-0 font-weight-normal">Kaos</h4>
-                </div>
-                <div class="card-body">
-                    <h1 class="card-title pricing-card-title">$0 <small class="text-muted">/ mo</small></h1>
-                    <ul class="list-unstyled mt-3 mb-4">
-                        <li>10 users included</li>
-                        <li>2 GB of storage</li>
-                        <li>Email support</li>
-                        <li>Help center access</li>
-                    </ul>
-                    <div class="mx-auto col-3">
-                        <button type="button" class="btn btn-lg btn-block btn-success">Beli</button>
+<div class="product-container">
+    <div class="container">
+        <div class="product-box">
+
+            <!-- produk grid -->
+            <div class="product-main">
+                <h2 class="title" style="text-align: center; margin-top: 2rem; color:#0FAA5D;">Kategori produk custom</h2>
+                <div class="product-grid">
+                    @foreach($kategoricustom as $ktgr)
+                    <div class="showcase">
+                        <div class="showcase-banner">
+                            <a href="pesanan/detailcustom/{{$ktgr->ktgr_procus_id}}">
+                                <img src="/foto_ktgr/{{$ktgr->foto_procus}}" alt="404" class="product-img default">
+                                <img src="/foto_ktgr/{{$ktgr->foto_procus}}" alt="404" class="product-img hover">
+                            </a>
+                        </div>
+                        <div class="showcase-content">
+                            <a href="pesanan/detailcustom/{{$ktgr->ktgr_procus_id}}" class="showcase-category" style="color:#0FAA5D;">{{$ktgr->jenis_procus}}</a>
+                            <div class="showcase-rating">
+                            </div>
+                        </div>
                     </div>
+                    @endforeach
                 </div>
             </div>
-        </div>
-        <div class="col-sm-5 col-lg-3 col-md-4">
-            <div class="card mb-4 box-shadow">
-                <div class="card-header">
-                    <h4 class="my-0 font-weight-normal">Kaos</h4>
-                </div>
-                <div class="card-body">
-                    <h1 class="card-title pricing-card-title">$0 <small class="text-muted">/ mo</small></h1>
-                    <ul class="list-unstyled mt-3 mb-4">
-                        <li>10 users included</li>
-                        <li>2 GB of storage</li>
-                        <li>Email support</li>
-                        <li>Help center access</li>
-                    </ul>
-                    <div class="mx-auto col-3">
-                        <button type="button" class="btn btn-lg btn-block btn-success">Beli</button>
+            <!-- end produk grid -->
+
+            <!-- produk grid -->
+            <div class="product-main">
+                @foreach($kategoricustom as $ktgr)
+                <div class="title" style="text-align: center; margin-top: 2rem; color: #0FAA5D">{{$ktgr->jenis_procus}}</div>
+                <div class="product-grid">
+                    @foreach($procus as $pro)
+                    @if($ktgr->ktgr_procus_id == $pro->ktgr_procus_id)
+                    <div class="showcase">
+                        <div class="showcase-banner">
+                            <a href="pesanan/detailcustom/{{$ktgr->ktgr_procus_id}}">
+                                <img src="/foto_produk/{{$pro->foto_dep}}" alt="404" class="product-img default">
+                                <img src="/foto_produk/{{$pro->foto_bel}}" alt="404" class="product-img hover">
+                            </a>
+                        </div>
+                        <div class="showcase-content">
+                            <p class="showcase-title" style="color: #0FAA5D;">{{$pro->nama_produk}}</p>
+                            <del class="showcase-title">Rp. {{$pro->harga_jual}}</del>
+                            <p class="price" style="color: #0FAA5D;">Rp. {{$pro->harga_jual}}</p>
+                            <div class="showcase-rating">
+                            </div>
+                        </div>
                     </div>
+                    @endif
+                    @endforeach
                 </div>
+                @endforeach
             </div>
-        </div>
-        <div class="col-sm-5 col-lg-3 col-md-4">
-            <div class="card mb-4 box-shadow">
-                <div class="card-header">
-                    <h4 class="my-0 font-weight-normal">Kaos</h4>
-                </div>
-                <div class="card-body">
-                    <h1 class="card-title pricing-card-title">$0 <small class="text-muted">/ mo</small></h1>
-                    <ul class="list-unstyled mt-3 mb-4">
-                        <li>10 users included</li>
-                        <li>2 GB of storage</li>
-                        <li>Email support</li>
-                        <li>Help center access</li>
-                    </ul>
-                    <div class="mx-auto col-3">
-                        <button type="button" class="btn btn-lg btn-block btn-success">Beli</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-5 col-lg-3 col-md-4">
-            <div class="card mb-4 box-shadow">
-                <div class="card-header">
-                    <h4 class="my-0 font-weight-normal">Kaos</h4>
-                </div>
-                <div class="card-body">
-                    <h1 class="card-title pricing-card-title">$0 <small class="text-muted">/ mo</small></h1>
-                    <ul class="list-unstyled mt-3 mb-4">
-                        <li>10 users included</li>
-                        <li>2 GB of storage</li>
-                        <li>Email support</li>
-                        <li>Help center access</li>
-                    </ul>
-                    <div class="mx-auto col-3">
-                        <button type="button" class="btn btn-lg btn-block btn-success">Beli</button>
-                    </div>
-                </div>
-            </div>
+            <!-- end produk grid -->
         </div>
     </div>
 </div>

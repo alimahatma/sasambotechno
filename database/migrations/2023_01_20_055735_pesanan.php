@@ -19,7 +19,9 @@ return new class extends Migration
             $table->foreignId('member_id');
             $table->foreignId('sablon_id');
             $table->foreignId('kurir_id');
+            $table->foreignId('payment_id');
             $table->integer('jml_order')->length(10)->unsigned();
+            $table->enum('pay_status', ['belum lunas', 'lunas'])->default('belum lunas');
             $table->date('tgl_order');
             $table->enum('stts_produksi', ['diterima', 'produksi', 'packing', 'kasir'])->default('diterima');
             $table->enum('status_pesanan', ['pending', 'diterima', 'kirim', 'selesai'])->default('pending');
@@ -28,6 +30,7 @@ return new class extends Migration
             $table->foreign('member_id')->references('member_id')->on('member')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreign('sablon_id')->references('sablon_id')->on('sablon')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreign('kurir_id')->references('kurir_id')->on('kurir')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreign('payment_id')->references('payment_id')->on('payment')->cascadeOnUpdate()->cascadeOnDelete();
         });
     }
 

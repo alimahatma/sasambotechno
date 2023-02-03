@@ -10,6 +10,6 @@ class Pesanan extends Model
     use HasFactory;
     protected $table = 'pesanan';
     protected $primaryKey = 'pesanan_id';
-    protected $fillable = ['produk_id',    'sablon_id',    'kurir_id',    'status_pesanan',    'tgl_checkout', 'created_at', 'updated_at'];
+    protected $fillable = ['procus_id',    'member_id',    'sablon_id',    'kurir_id',    'payment_id',    'jml_order',    'pay_status',    'tgl_order',    'stts_produksi',    'status_pesanan'];
     public $timestamps = false;
 }

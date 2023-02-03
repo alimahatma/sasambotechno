@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('ktgr_id');
             $table->foreignId('ktgr_prosoft_id');
             $table->string('jenis_software', 30);
-            $table->string('foto_prosoft', 30);
+            $table->string('foto_software', 30);
             $table->longText('deskripsi_prosoft');
             $table->timestamps();
             $table->foreign('ktgr_id')->references('ktgr_id')->on('ktgr_produk')->cascadeOnUpdate()->cascadeOnDelete();

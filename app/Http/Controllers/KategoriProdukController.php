@@ -23,7 +23,7 @@ class KategoriProdukController extends Controller
     {
         $data = $request->validate([
             'jenis_kategori' => 'required',
-            'foto_ktgr' => 'required',
+            'foto_ktgr' => 'required|image|mimes:png,jpg,jpeg|max:1024',
         ]);
         try {
             $fotoKtgr = time() . '.' . $request->foto_ktgr->extension();
@@ -36,14 +36,14 @@ class KategoriProdukController extends Controller
             return redirect('kategoriProduk')->with('success', 'data berhasil di simapan..!');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            return redirect('instansi')->with('message', 'register gagal');
+            return redirect('instansi')->with('message', 'gagal menambahkan data');
         }
     }
     public function UpdtKategori(Request $request)
     {
         $data = $request->validate([
             'jenis_kategori' => 'required',
-            'foto_ktgr' => 'required',
+            'foto_ktgr' => 'required|image|mimes:png,jpg,jpeg|max:1024',
         ]);
         try {
             $fotoKtgr = time() . '.' . $request->foto_ktgr->extension();

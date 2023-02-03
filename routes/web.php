@@ -3,15 +3,17 @@
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InstansiController;
 use App\Http\Controllers\KategoriProdukController;
-use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\KtgrProCusController;
+use App\Http\Controllers\KtgrProSoftController;
+use App\Http\Controllers\ProCusController;
 use App\Http\Controllers\RoleAdminController;
 use App\Http\Controllers\RoleMemberController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\KurrirController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\PesananController;
+use App\Http\Controllers\ProSoftController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\SablonController;
 use App\Http\Controllers\StokController;
@@ -91,12 +93,36 @@ Route::prefix('kategoriProduk')->group(function () {
     Route::get('/delete/{id}', [KategoriProdukController::class, 'Delete'])->name('delete');
 });
 
-// route table produk
-Route::prefix('produks')->group(function () {
-    Route::get('/', [ProdukController::class, 'GetAllProduk'])->name('produk');
-    Route::post('/addproduk', [ProdukController::class, 'AddProduct'])->name('addproduk');
-    Route::post('/updtproduk', [ProdukController::class, 'UpdtProduct'])->name('updtproduk');
-    Route::get('/deleteproduk/{id}', [ProdukController::class, 'DeleteProduk'])->name('deleteproduk');
+// route table kategori produk custom
+Route::prefix('kategoriProcus')->group(function () {
+    Route::get('/', [KtgrProCusController::class, 'GetAll'])->name('procus');
+    Route::post('/addktgrprocus', [KtgrProCusController::class, 'AddKtgrProcus'])->name('addKtgrProcus');
+    Route::post('/updtktgrprocus', [KtgrProCusController::class, 'UpdtKtgrProcus'])->name('updtKtgrProcus');
+    Route::get('/delktgrprocus/{id}', [KtgrProCusController::class, 'DelKtgrProcus'])->name('delKtgrProcus');
+});
+
+// route table kategori produk software
+Route::prefix('kategoriProsoft')->group(function () {
+    Route::get('/', [KtgrProSoftController::class, 'GetAll'])->name('prosoft');
+    Route::post('/addktgrprosoft', [KtgrProSoftController::class, 'AddKtgrProsoft'])->name('addKtgrProsoft');
+    Route::post('/updtktgrprosoft', [KtgrProSoftController::class, 'UpdtKtgrProsoft'])->name('updtKtgrProsoft');
+    Route::get('/delktgrprosoft/{id}', [KtgrProSoftController::class, 'DelKtgrProsoft'])->name('delKtgrProsoft');
+});
+
+// route table produk software
+Route::prefix('prosoft')->group(function () {
+    Route::get('/', [ProSoftController::class, 'GetAll'])->name('prosoft');
+    Route::post('/addprosoft', [ProSoftController::class, 'AddProsoft'])->name('addProsoft');
+    Route::post('/updtprosoft', [ProSoftController::class, 'UpdtProsoft'])->name('updtProsoft');
+    Route::get('/delprosoft/{id}', [ProSoftController::class, 'DelProsoft'])->name('delProsoft');
+});
+
+// route table produk custom
+Route::prefix('procus')->group(function () {
+    Route::get('/', [ProCusController::class, 'GetAllProduk'])->name('produk');
+    Route::post('/addproduk', [ProCusController::class, 'AddProduct'])->name('addproduk');
+    Route::post('/updtproduk', [ProCusController::class, 'UpdtProduct'])->name('updtproduk');
+    Route::get('/deleteproduk/{id}', [ProCusController::class, 'DeleteProduk'])->name('deleteproduk');
 });
 
 // route table supplier
@@ -147,6 +173,7 @@ Route::prefix('transaksi')->group(function () {
 // route table pesanan
 Route::prefix('pesanan')->group(function () {
     Route::get('/', [PesananController::class, 'GetPesanan'])->name('pesanan');
+    Route::get('/detailcustom/{id}', [RoleMemberController::class, 'DetailCustom']); //route detail procus
 });
 
 // route table member

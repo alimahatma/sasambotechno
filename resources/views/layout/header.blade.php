@@ -7,6 +7,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+
+    <!-- link for template produk -->
+    <link rel="stylesheet" href="{{asset('assetsaja')}}/css/style-prefix.css">
+    <!-- <link rel="stylesheet" href="{{asset('assetsaja')}}/css/style.css"> -->
+
+    <!--google font link-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- end link tempalte produk -->
+
     <style>
         .nolist {
             list-style-type: none;
@@ -30,14 +42,85 @@
         }
 
         .color__green {
-            color: #40883C;
+            color: #0FAA5D;
         }
     </style>
     <title>{{$title ?? ""}}</title>
 </head>
 
 <body>
-    <nav class="navbar" style="background-color: #40883C;">
+    <header style="background-color: #0FAA5D;">
+        <nav class="desktop-navigation-menu">
+            <div class="container">
+                <ul class="desktop-menu-category-list">
+                    <li class="menu-category">
+                        <a href="#" class="header-logo">
+                            <!-- <img src="./assets/images/logo/logo.svg" alt="Anon's logo" width="120" height="36"> -->
+                            @foreach($instansi as $inst)
+                            <img src="/logo/{{$inst->logo}}" alt="Logo" width="60" height="35" class="d-inline-block align-text-top">
+                            @endforeach
+                        </a>
+                    </li>
+                    <li class="menu-category">
+                        <a href="/" class="menu-title">Home</a>
+                    </li>
+                    <li class="menu-category">
+                        <a href="#" class="menu-title">Produk</a>
+
+                        <ul class="dropdown-list">
+
+                            <li class="dropdown-item">
+                                <a href="#">Software</a>
+                            </li>
+
+                            <li class="dropdown-item">
+                                <a href="produk">Pakaian custom</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="menu-category">
+                        <a href="tutorial" class="menu-title">Tutorial</a>
+                    </li>
+                    <li class="menu-category">
+                        <a href="video" class="menu-title">Video</a>
+                    </li>
+                    <li class="menu-category">
+                        <a href="contact" class="menu-title">Contact</a>
+                    </li>
+                    <li class="menu-category">
+                        <a href="#" class="menu-title">Login / Register</a>
+                        <ul class="dropdown-list">
+                            <li class="dropdown-item">
+                                <a href="login">Login</a>
+                            </li>
+                            <li class="dropdown-item">
+                                <a href="register">Register</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <div class="header-user-actions">
+
+                        <button class="action-btn">
+                            <ion-icon name="person-outline"></ion-icon>
+                        </button>
+
+                        <button class="action-btn">
+                            <ion-icon name="heart-outline"></ion-icon>
+                            <span class="count">0</span>
+                        </button>
+
+                        <button class="action-btn">
+                            <ion-icon name="bag-handle-outline"></ion-icon>
+                            <span class="count">0</span>
+                        </button>
+
+                    </div>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- <nav class="navbar" style="background-color: #40883C;">
         <div class="container-fluid">
             <div class="col-8">
             </div>
@@ -79,4 +162,4 @@
                 <a class="navbar-brand" style="color: #40883C;" href="register">REGISTER</a>
             </div>
         </div>
-    </nav>
+    </nav> -->

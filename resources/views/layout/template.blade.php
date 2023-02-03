@@ -100,6 +100,18 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
+                            <a href="kategoriProcus" class='sidebar-link'>
+                                <i class="fab fa-intercom"></i>
+                                <span>Kategori pakaian custom</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="kategoriProsoft" class='sidebar-link'>
+                                <i class="fab fa-uncharted"></i>
+                                <span>Kategori software</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
                             <a href="warna" class='sidebar-link'>
                                 <i class="fas fa-palette"></i>
                                 <span>Warna</span>
@@ -112,9 +124,15 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="produks" class='sidebar-link'>
-                                <i class="fas fa-layer-group"></i>
-                                <span>Produks</span>
+                            <a href="procus" class='sidebar-link'>
+                                <i class="fas fa-tshirt"></i>
+                                <span>Produk baju</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="prosoft" class='sidebar-link'>
+                                <i class="fas fa-laptop-code"></i>
+                                <span>Produk software</span>
                             </a>
                         </li>
                         <li class="sidebar-item">

@@ -4,7 +4,7 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>All produk</h3>
+                <h3>Produk baju custom</h3>
                 <p class="text-subtitle text-muted">Selamat datang kembali </p>
             </div>
         </div>
@@ -37,45 +37,44 @@
                                 <th class="text-center">Nama supplier</th>
                                 <th class="text-center">Warna</th>
                                 <th class="text-center">Nama produk</th>
-                                <th class="text-center">Foto depan</th>
-                                <th class="text-center">Foto belakang</th>
                                 <th class="text-center">Satuan</th>
                                 <th class="text-center">Jenis kain</th>
                                 <th class="text-center">Size</th>
                                 <th class="text-center">Harga beli</th>
                                 <th class="text-center">Harga jual</th>
                                 <th class="text-center">Tanggal masuk</th>
-                                <th class="text-center">Deskripsi</th>
                                 <th class="text-center">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php $i = 1; ?>
-                            @foreach($produks as $val)
+                            @foreach($procus as $val)
                             <tr class="text-center">
                                 <td><?= $i++ ?></td>
                                 <td>{{$val->jenis_kategori}}</td>
                                 <td>{{$val->nama_supplier}}</td>
                                 <td>{{$val->nama_warna}}</td>
                                 <td>{{$val->nama_produk}}</td>
-                                <td><img src="/foto_produk/{{$val->foto_bel}}" alt="404" width="120" height="60"></td>
-                                <td><img src="/foto_produk/{{$val->foto_dep}}" alt="404" width="120" height="60"></td>
                                 <td>{{$val->satuan}}</td>
                                 <td>{{$val->jenis_kain}}</td>
                                 <td>{{$val->size}}</td>
                                 <td>{{$val->harga_beli}}</td>
                                 <td>{{$val->harga_jual}}</td>
                                 <td>{{$val->tgl_masuk}}</td>
-                                <td>{{$val->deskripsi}}</td>
                                 <td>
                                     <div class="d-flex justify-content-center">
                                         <div class="col-md-6 col-lg-6">
-                                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalUpdate{{$val->produk_id}}">
+                                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalUpdate{{$val->procus_id}}">
                                                 <i class="fas fa-edit"></i>
                                             </button>
                                         </div>
                                         <div class="col-md-6 col-lg-6">
-                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete{{$val->produk_id}}">
+                                            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalInfo{{$val->procus_id}}">
+                                                <i class="fas fa-info"></i>
+                                            </button>
+                                        </div>
+                                        <div class="col-md-6 col-lg-6">
+                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete{{$val->procus_id}}">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </div>
@@ -92,18 +91,18 @@
 </div>
 
 <!-- Modal add-->
-<div class="modal fade" id="modalAdd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal modal-lg" id="modalAdd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah data</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="/produks/addproduk" method="post" enctype="multipart/form-data">
+            <form action="/procus/addproduk" method="post" enctype="multipart/form-data">
                 <div class="modal-body">
                     @csrf
                     <div class="row">
-                        <div class="col-6 mt-1">
+                        <div class="col-6 mt-3">
                             <h6>Jenis kategori</h6>
                             <fieldset class="form-group">
                                 <select name="ktgr_id" id="basicSelect" class="form-select">
@@ -114,7 +113,7 @@
                                 </select>
                             </fieldset>
                         </div>
-                        <div class="col-6 mt-1">
+                        <div class="col-6 mt-3">
                             <h6>Supplier</h6>
                             <fieldset class="form-group">
                                 <select name="supplier_id" id="basicSelect" class="form-select">
@@ -127,7 +126,20 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6 mt-1">
+                        <div class="col-6 mt-3">
+                            <h6>Kategori produk custom</h6>
+                            <fieldset class="form-group">
+                                <select name="ktgr_procus_id" id="basicSelect" class="form-select">
+                                    <option selected>pilih kategori produk custom</option>
+                                    @foreach($ktgrProcus as $kpc)
+                                    <option value="{{$kpc->ktgr_procus_id}}">
+                                        {{$kpc->jenis_procus}}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </fieldset>
+                        </div>
+                        <div class="col-6 mt-3">
                             <h6>Warna</h6>
                             <fieldset class="form-group">
                                 <select name="warna_id" id="basicSelect" class="form-select">
@@ -141,47 +153,49 @@
                                 </select>
                             </fieldset>
                         </div>
-                        <div class="col-6 mt-1">
+                    </div>
+                    <div class="row">
+                        <div class="col-6 mt-3">
                             <h6>Nama produk</h6>
                             <input class="form-control" type="text" name="nama_produk" placeholder="masukkan nama produk" aria-label="default input example">
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6 mt-1">
+                        <div class="col-6 mt-3">
                             <h6>Foto depan</h6>
                             <input class="form-control" type="file" name="foto_dep" aria-label="default input example">
                         </div>
-                        <div class="col-6 mt-1">
+                    </div>
+                    <div class="row">
+                        <div class="col-6 mt-3">
                             <h6>Foto belakang</h6>
                             <input class="form-control" type="file" name="foto_bel" aria-label="default input example">
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6 mt-1">
+                        <div class="col-6 mt-3">
                             <h6>Satuan produk</h6>
                             <input class="form-control" type="text" name="satuan" placeholder="masukkan satuan produk" aria-label="default input example">
                         </div>
-                        <div class="col-6 mt-1">
+                    </div>
+                    <div class="row">
+                        <div class="col-6 mt-3">
                             <h6>Jenis kain</h6>
                             <input class="form-control" type="text" name="jenis_kain" placeholder="masukkan jenis kain" aria-label="default input example">
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6 mt-1">
+                        <div class="col-6 mt-3">
                             <h6>Size</h6>
                             <input class="form-control" type="text" name="size" placeholder="masukkan ukuran produk" aria-label="default input example">
                         </div>
-                        <div class="col-6 mt-1">
+                    </div>
+                    <div class="row">
+                        <div class="col-6 mt-3">
                             <h6>Harga beli</h6>
                             <input class="form-control" type="number" name="harga_beli" placeholder="masukkan harga beli" aria-label="default input example">
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6 mt-1">
+                        <div class="col-6 mt-3">
                             <h6>Harga jual</h6>
                             <input class="form-control" type="number" name="harga_jual" placeholder="masukkan harga jual" aria-label="default input example">
                         </div>
-                        <div class="col-6 mt-1">
+                    </div>
+                    <div class="row">
+                        <div class="col-12 mt-3">
                             <h6>Tanggal masuk</h6>
                             <input class="form-control" type="date" name="tgl_masuk" placeholder="masukkan tanggal masuk" aria-label="default input example">
                         </div>
@@ -208,21 +222,21 @@
 </div>
 
 <!-- Modal update-->
-@foreach($produks as $row)
-<div class="modal fade" id="modalUpdate{{$row->produk_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+@foreach($procus as $row)
+<div class="modal fade" id="modalUpdate{{$row->procus_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah data</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="/produks/updtproduk" method="post" enctype="multipart/form-data">
+            <form action="/procus/updtproduk" method="post" enctype="multipart/form-data">
                 <div class="modal-body">
                     @csrf
                     <div class="row">
-                        <div class="col-6 mt-1">
+                        <div class="col-6 mt-3">
                             <h6>Jenis kategori</h6>
-                            <input type="hidden" class="form-control" name="produk_id" value="{{$row->produk_id}}">
+                            <input type="hidden" class="form-control" name="procus_id" value="{{$row->procus_id}}">
                             <fieldset class="form-group">
                                 <select name="ktgr_id" id="basicSelect" class="form-select">
                                     <option value="{{$row->ktgr_id}}" selected>{{$row->jenis_kategori}}</option>
@@ -232,7 +246,7 @@
                                 </select>
                             </fieldset>
                         </div>
-                        <div class="col-6 mt-1">
+                        <div class="col-6 mt-3">
                             <h6>Supplier</h6>
                             <fieldset class="form-group">
                                 <select name="supplier_id" id="basicSelect" class="form-select">
@@ -245,7 +259,16 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6 mt-1">
+                        <div class="col-6 mt-3">
+                            <h6>Kategori produk custom</h6>
+                            <fieldset class="form-group">
+                                <select name="ktgr_procus_id" id="basicSelect" class="form-select">
+                                    <option value="{{$row->ktgr_procus_id}}">{{$row->jenis_procus}}</option>
+                                    @foreach($ktgrProcus as $val)
+                                    <option value="{{$val->ktgr_procus_id}}">{{$val->jenis_procus}}</option>
+                                    @endforeach
+                                </select>
+                            </fieldset>
                             <h6>Warna</h6>
                             <fieldset class="form-group">
                                 <select name="warna_id" id="basicSelect" class="form-select">
@@ -259,47 +282,47 @@
                                 </select>
                             </fieldset>
                         </div>
-                        <div class="col-6 mt-1">
+                        <div class="col-6 mt-3">
                             <h6>Nama produk</h6>
                             <input class="form-control" type="text" name="nama_produk" value="{{$row->nama_produk}}" placeholder="masukkan nama produk" aria-label="default input example">
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6 mt-1">
+                        <div class="col-6 mt-3">
                             <h6>Foto depan</h6>
                             <input class="form-control" type="file" name="foto_dep" aria-label="default input example">
                         </div>
-                        <div class="col-6 mt-1">
+                        <div class="col-6 mt-3">
                             <h6>Foto belakang</h6>
                             <input class="form-control" type="file" name="foto_bel" aria-label="default input example">
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6 mt-1">
+                        <div class="col-6 mt-3">
                             <h6>Satuan produk</h6>
                             <input class="form-control" type="text" name="satuan" value="{{$row->satuan}}" aria-label="default input example">
                         </div>
-                        <div class="col-6 mt-1">
+                        <div class="col-6 mt-3">
                             <h6>Jenis kain</h6>
                             <input class="form-control" type="text" name="jenis_kain" value="{{$row->jenis_kain}}" aria-label="default input example">
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6 mt-1">
+                        <div class="col-6 mt-3">
                             <h6>Size</h6>
                             <input class="form-control" type="text" name="size" value="{{$row->size}}" aria-label="default input example">
                         </div>
-                        <div class="col-6 mt-1">
+                        <div class="col-6 mt-3">
                             <h6>Harga beli</h6>
                             <input class="form-control" type="number" name="harga_beli" value="{{$row->harga_beli}}" aria-label="default input example">
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6 mt-1">
+                        <div class="col-6 mt-3">
                             <h6>Harga jual</h6>
                             <input class="form-control" type="number" name="harga_jual" value="{{$row->harga_jual}}" aria-label="default input example">
                         </div>
-                        <div class="col-6 mt-1">
+                        <div class="col-6 mt-3">
                             <h6>Tanggal masuk</h6>
                             <input class="form-control" type="date" name="tgl_masuk" value="{{$row->tgl_masuk}}" aria-label="default input example">
                         </div>
@@ -326,9 +349,35 @@
 </div>
 @endforeach
 
+<!-- modal info deskripsi -->
+@foreach($procus as $prcs)
+<div class="modal modal-lg" id="modalInfo{{$prcs->procus_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Deskripsi {{$prcs->nama_produk}}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h5 class="text-center"></h5>
+                <div class="row g-0 justify-content-around">
+                    <div class="col-md-4">
+                        <img src="/foto_produk/{{$prcs->foto_dep}}" class="img-fluid rounded-start" alt="404">
+                    </div>
+                    <div class="col-md-4">
+                        <img src="/foto_produk/{{$prcs->foto_bel}}" class="img-fluid rounded-start" alt="404">
+                    </div>
+                </div>
+                <p class="mt-3">{{$prcs->deskripsi}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach
+
 <!-- modal delete -->
-@foreach($produks as $val)
-<div class="modal fade" id="modalDelete{{$val->produk_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+@foreach($procus as $val)
+<div class="modal fade" id="modalDelete{{$val->procus_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -340,7 +389,7 @@
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Close</button>
-                <a href="/produks/deleteproduk/{{$val->produk_id}}" class="btn btn-danger">Delete</a>
+                <a href="/procus/deleteproduk/{{$val->procus_id}}" class="btn btn-danger">Delete</a>
             </div>
         </div>
     </div>

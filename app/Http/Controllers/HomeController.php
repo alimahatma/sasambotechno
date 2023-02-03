@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Instansi;
 use App\Models\KategoriProduk;
 use App\Models\Produk;
+use App\Models\ProdukCustom;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -14,15 +15,14 @@ class HomeController extends Controller
     {
         $instansi = Instansi::all();
         $ktgrprdk = KategoriProduk::all();
-        // dd($ktgrprdk);
-        $produk = Produk::all();
-        $stok = DB::table('stok')->join('produk', 'produk.produk_id', '=', 'stok.produk_id')->join('ktgr_produk', 'ktgr_produk.ktgr_id', '=', 'produk.ktgr_id');
+        $ktgrProsoft = DB::table('ktgr_prdk_software')->join('ktgr_produk', 'ktgr_produk.ktgr_id', '=', 'ktgr_prdk_software.ktgr_id')->get();
+        $ktgrCustom = DB::table('ktgr_prdk_custom')->join('ktgr_produk', 'ktgr_produk.ktgr_id', '=', 'ktgr_prdk_custom.ktgr_id')->get();
         return view('home.landingpage', [
             'title' => 'index',
-            'stoks' => $stok,
             'instansi' => $instansi,
-            'ktgrproduk' => $ktgrprdk,
-            'produk' => $produk,
+            'ktgrproduk' => $ktgrprdk, //load kategori produk for slide
+            'ktgrprosoft' => $ktgrProsoft, //load kategori produk software
+            'ktgrprocus' => $ktgrCustom, //load kategori produk custom
         ]);
     }
     public function SendToAbout()
@@ -37,12 +37,12 @@ class HomeController extends Controller
     {
         $instansi = Instansi::all();
         $ktgrprdk = KategoriProduk::all();
-        $produk = Produk::all();
+        $produkCustom = ProdukCustom::all();
         return view('home.blog', [
             'title' => 'blog',
             'instansi' => $instansi,
             'ktgrproduk' => $ktgrprdk,
-            'produk' => $produk,
+            'produk' => $produkCustom,
         ]);
     }
     public function SendToTutorial()
@@ -64,20 +64,22 @@ class HomeController extends Controller
     public function SendToProduk()
     {
         $instansi = Instansi::all();
-        $produk = Produk::all();
+        $procategori = DB::table('ktgr_prdk_custom')->join('ktgr_produk', 'ktgr_produk.ktgr_id', '=', 'ktgr_prdk_custom.ktgr_procus_id')->get();
+        $procus = DB::table('produk_custom')->join('ktgr_prdk_custom', 'ktgr_prdk_custom.ktgr_procus_id', '=', 'produk_custom.ktgr_procus_id')->get();
         return view('home.produk', [
             'title' => 'produk',
-            'produk' => $produk,
+            'kategoricustom' => $procategori,
+            'procus' => $procus,
             'instansi' => $instansi,
         ]);
     }
     public function SendToContact()
     {
         $instansi = Instansi::all();
-        $produk = Produk::all();
+        $produkCustom = ProdukCustom::all();
         return view('home.contact', [
             'title' => 'kontak',
-            // 'produk' => $produk,
+            // 'produk' => $produkCustomCustom,
             'instansi' => $instansi,
         ]);
     }

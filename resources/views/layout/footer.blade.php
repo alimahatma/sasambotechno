@@ -1,5 +1,5 @@
     <!-- footer part start-->
-    <footer class="footer-area mt-5 color-teks" style="background-color: #40883C;">
+    <footer class="footer-area mt-5 color-teks" style="background-color: #0FAA5D;">
         @foreach($instansi as $row)
         <div class="container py-5">
             <div class="row justify-content-between p-3">
@@ -12,7 +12,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-md-4 col-xl-3">
+                <div class="col-sm-6 col-md-4 col-xl-2">
                     <div class="single-footer-widget footer_2">
                         <h6>RECENT POST</h6>
                         <p class="style__font">Stay updated with our latest trends Seed heaven so said place winged over given forth fruit.
@@ -33,31 +33,31 @@
                         </p>
                     </div>
                 </div>
-                <div class="col-sm-5 col-md-3 col-xl-2">
+                <div class="col-sm-5 col-md-3 col-lg-3">
                     <h6 class="card-title color-teks">FOLLOW ME</h6>
                     <ul class="list-group nolist">
                         <li class="__spaces">
                             <a href="{{$row->domain}}" class="color-teks size__font">
                                 <i class="uil uil-server"></i>
-                                Domain
+                                {{$row->domain}}
                             </a>
                         </li>
                         <li class="__spaces">
                             <a href="{{$row->email}}" class="color-teks size__font">
                                 <i class="uil uil-envelope"></i>
-                                E-mail
+                                {{$row->email}}
                             </a>
                         </li>
                         <li class="__spaces">
                             <a href="{{$row->instagram}}" class="color-teks size__font">
                                 <i class="uil uil-instagram-alt"></i>
-                                Instagram
+                                {{$row->instagram}}
                             </a>
                         </li>
                         <li class="__spaces">
                             <a href="{{$row->facebook}}" class="color-teks size__font">
                                 <i class="uil uil-facebook"></i>
-                                Facebook
+                                {{$row->facebook}}
                             </a>
                         </li>
                         <li class="__spaces">
@@ -93,6 +93,13 @@
     </footer>
     <!-- footer part end-->
 
+    <!-- link assets template produk -->
+    <script src="{{asset('assetsaja')}}/assets/js/script.js"></script>
+
+    <!-- ionicon link -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <!-- end link assets template produk -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
