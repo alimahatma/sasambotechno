@@ -59,7 +59,7 @@ class InstansiController extends Controller
             return redirect('instansi')->with('success', 'data berhasil di tambahkan');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            return redirect('instansi')->with('errors', 'register gagal');
+            return redirect('instansi')->with('errors', 'gagal');
         }
     }
     public function UpdtInstansi(Request $req)
@@ -100,7 +100,7 @@ class InstansiController extends Controller
             return redirect('instansi')->with('success', 'data berhasil di update');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            return redirect('instansi')->with('message', 'register gagal');
+            return redirect('instansi')->with('message', 'gagal');
         }
     }
     public function Delete($id)

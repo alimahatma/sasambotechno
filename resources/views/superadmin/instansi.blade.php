@@ -32,7 +32,7 @@
             <div class="card-body">
                 <!-- Button trigger modal -->
                 <div class="mb-2">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAdd">
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAdd">
                         Tambah Data
                     </button>
                 </div>
@@ -43,9 +43,6 @@
                                 <th class="text-center">No</th>
                                 <th class="text-center">Nama instansi</th>
                                 <th class="text-center">Logo</th>
-                                <th class="text-center">Visi</th>
-                                <th class="text-center">Misi</th>
-                                <th class="text-center">Tentang</th>
                                 <th class="text-center">Alamat</th>
                                 <th class="text-center">Domain</th>
                                 <th class="text-center">Email</th>
@@ -63,9 +60,6 @@
                                 <td><?= $i++ ?></td>
                                 <td>{{$val->nama_instansi}}</td>
                                 <td><img src="/logo/{{$val->logo}}" alt="404" width="120" height="60"></td>
-                                <td>{{$val->visi}}</td>
-                                <td>{{$val->misi}}</td>
-                                <td>{{$val->tentang}}</td>
                                 <td>{{$val->alamat}}</td>
                                 <td>{{$val->domain}}</td>
                                 <td>{{$val->email}}</td>
@@ -75,12 +69,17 @@
                                 <td>{{$val->billing}}</td>
                                 <td>
                                     <div class="d-flex justify-content-center">
-                                        <div class="col-md-6 col-lg-6">
-                                            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalUpdate{{$val->inst_id}}">
+                                        <div class="col-md-4 col-lg-4">
+                                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalUp{{$val->inst_id}}">
                                                 <i class="fas fa-edit"></i>
                                             </button>
                                         </div>
-                                        <div class="col-md-6 col-lg-6">
+                                        <div class="col-md-4 col-lg-4">
+                                            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalInfos{{$val->inst_id}}">
+                                                <i class="fas fa-info"></i>
+                                            </button>
+                                        </div>
+                                        <div class="col-md-4 col-lg-4">
                                             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete{{$val->inst_id}}">
                                                 <i class="fas fa-trash"></i>
                                             </button>
@@ -97,9 +96,8 @@
     </section>
 </div>
 
-
 <!-- Modal add-->
-<div class="modal fade" id="modalAdd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal modal-lg" id="modalAdd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -198,10 +196,52 @@
     </div>
 </div>
 
+<!-- Modal info-->
+@foreach($instansis as $in)
+<div class="modal modal-lg" id="modalInfos{{$val->inst_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Info</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <h5>Visi</h5>
+                            <p>{{$in->visi}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <h5>Misi</h5>
+                            <p>{{$in->misi}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <h5>Tentang</h5>
+                            <p>{{$in->tentang}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach
 
 <!-- Modal Edit-->
-@foreach($instansi as $inst)
-<div class="modal fade" id="modalUpdate{{$inst->inst_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+@foreach($instansis as $inst)
+<div class="modal modal-lg" id="modalUp{{$inst->inst_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -303,7 +343,7 @@
 @endforeach
 
 <!-- modal delete -->
-@foreach($instansi as $val)
+@foreach($instansis as $val)
 <div class="modal fade" id="modalDelete{{$val->inst_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">

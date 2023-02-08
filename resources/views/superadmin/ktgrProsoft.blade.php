@@ -52,7 +52,7 @@
                                 <td>
                                     <div class="d-flex justify-content-center">
                                         <div class="col-md-6 col-lg-6">
-                                            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalUpdt{{$val->ktgr_prosoft_id}}">
+                                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalUpdt{{$val->ktgr_prosoft_id}}">
                                                 <i class="fas fa-edit"></i>
                                             </button>
                                         </div>

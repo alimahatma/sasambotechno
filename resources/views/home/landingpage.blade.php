@@ -68,15 +68,15 @@
                 </div>
             </div>
             @foreach($ktgrprosoft as $row)
-            <div class="card-body mb-5 shadow-lg" style="max-width: 540px;">
+            <div class="card-body mb-5">
                 <div class="row g-0">
                     <div class="col-md-4 col-lg-6">
-                        <img src="/foto_ktgr/{{$row->foto_prosoft}}" class="img-fluid rounded-start" alt="404">
+                        <img src="/foto_ktgr/{{$row->foto_prosoft}}" class="img-fluid rounded-start" alt="404" style=" max-width: 440px;">
                     </div>
                     <div class="col-md-8 col-lg-6">
                         <div class="card-body">
                             <h5 class="card-title mt-3">{{$row->jenis_prosoft}}</h5>
-                            <p class="card-text">{{$row->des_ktgrprosoft}}</p>
+                            <p class="card-text style__font">{{$row->des_ktgrprosoft}}</p>
                         </div>
                     </div>
                 </div>
@@ -92,16 +92,16 @@
                 </div>
             </div>
             @foreach($ktgrprocus as $row)
-            <div class="card-body mb-5 shadow-lg" style="max-width: 540px;">
+            <div class="card-body mb-5">
                 <div class="row g-0">
-                    <div class="col-md-4 col-lg-6">
-                        <img src="/foto_ktgr/{{$row->foto_procus}}" class="img-fluid rounded-start" alt="404">
-                    </div>
                     <div class="col-md-8 col-lg-6">
                         <div class="card-body">
                             <h5 class="card-title mt-3">{{$row->jenis_procus}}</h5>
-                            <p class="card-text">{{$row->des_ktgrprocus}}</p>
+                            <p class="card-text style__font">{{$row->des_ktgrprocus}}</p>
                         </div>
+                    </div>
+                    <div class="col-md-4 col-lg-6">
+                        <img src="/foto_ktgr/{{$row->foto_procus}}" class="img-fluid rounded-start" alt="404" style="max-width: 440px;">
                     </div>
                 </div>
             </div>

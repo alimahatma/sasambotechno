@@ -10,6 +10,6 @@ class Kurir extends Model
     use HasFactory;
     protected $table = 'kurir';
     protected $primaryKey = 'kurir_id';
-    protected $fillable = ['nama_kurir',    'jenis_kurir', 'created_at', 'updated_at'];
+    protected $fillable = ['nama_jakir',    'jenis_jakir', 'created_at', 'updated_at'];
     public $timestamps = false;
 }

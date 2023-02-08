@@ -20,6 +20,8 @@ use App\Http\Controllers\StokController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\TrxSablonController;
+use App\Http\Controllers\TutorialController;
+use App\Http\Controllers\VideoController;
 use App\Http\Controllers\WarnaController;
 use App\Http\Middleware\Authenticate;
 use Illuminate\Auth\Events\Verified;
@@ -48,8 +50,8 @@ Auth::routes([
 // route halaman landing page
 Route::get('/', [HomeController::class, 'SendToIndex'])->name('landingpage');
 Route::get('/produk', [HomeController::class, 'SendToProduk'])->name('produk');
-Route::get('/tutorial', [HomeController::class, 'SendToTutorial'])->name('tutorial');
-Route::get('/video', [HomeController::class, 'SendToVideo'])->name('video');
+Route::get('/tutorials', [HomeController::class, 'SendToTutorial'])->name('tutorial');
+Route::get('/videos', [HomeController::class, 'SendToVideo'])->name('video');
 Route::get('/contact', [HomeController::class, 'SendToContact'])->name('contact');
 
 // route authentication
@@ -190,6 +192,22 @@ Route::prefix('trx_sablon')->group(function () {
     Route::post('/addtrxSablon', [TrxSablonController::class, 'AddTrxSablon'])->name('addtrxSablon');
     Route::post('/updttrxSablon', [TrxSablonController::class, 'UpdtTrxSablon'])->name('updttrxSablon');
     Route::get('/delete/{id}', [TrxSablonController::class, 'DeleteTrxSablon'])->name('deletetrxSablon');
+});
+
+// route role table tutorial
+Route::prefix('tutorial')->group(function () {
+    Route::get('/', [TutorialController::class, 'GetAllTutorial'])->name('tutorial');
+    Route::post('/addtutorial', [TutorialController::class, 'AddTutorial'])->name('addtutorial');
+    Route::post('/updttutorial', [TutorialController::class, 'UpdtTutorial'])->name('uptTutorial');
+    Route::get('/deltutorial/{id}', [TutorialController::class, 'DelTutorial'])->name('delTutorial');
+});
+
+// route role table video
+Route::prefix('video')->group(function () {
+    Route::get('/', [VideoController::class, 'GetAllVideo']);
+    Route::post('/addvideo', [VideoController::class, 'AddVideo']);
+    Route::post('/updtvideo', [VideoController::class, 'UpdtVideo']);
+    Route::get('/delvideo/{id}', [VideoController::class, 'DelVideo']);
 });
 
 // route role admin

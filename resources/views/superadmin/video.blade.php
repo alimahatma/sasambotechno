@@ -4,7 +4,7 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Kurir</h3>
+                <h3>Videos</h3>
                 <p class="text-subtitle text-muted">Selamat datang kembali </p>
             </div>
         </div>
@@ -25,8 +25,7 @@
                 <!-- Button trigger modal -->
                 <div class="mb-2">
                     <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAdd">
-                        <div class="fas fa-plus"></div>
-                        Tambah
+                        Tambah Data
                     </button>
                 </div>
                 <div class="table-responsive">
@@ -34,27 +33,27 @@
                         <thead>
                             <tr>
                                 <th class="text-center">No</th>
-                                <th class="text-center">Nama Kurir</th>
-                                <th class="text-center">Jenis</th>
+                                <th class="text-center">Link video</th>
+                                <th class="text-center">Deskripsi</th>
                                 <th class="text-center">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php $i = 1; ?>
-                            @foreach($kurir as $val)
+                            @foreach($video as $val)
                             <tr class="text-center">
                                 <td><?= $i++ ?></td>
-                                <td>{{$val->nama_jakir}}</td>
-                                <td>{{$val->jenis_jakir}}</td>
+                                <td>{{$val->video_link}}</td>
+                                <td>{{$val->deskripsi}}</td>
                                 <td>
                                     <div class="d-flex justify-content-center">
-                                        <div class="col-md-6 col-lg-6">
-                                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalUpdate{{$val->kurir_id}}">
+                                        <div class="col-md-6 col-lg-3">
+                                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalUpdate{{$val->video_id}}">
                                                 <i class="fas fa-edit"></i>
                                             </button>
                                         </div>
-                                        <div class="col-md-6 col-lg-6">
-                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete{{$val->kurir_id}}">
+                                        <div class="col-md-6 col-lg-3">
+                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete{{$val->video_id}}">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </div>
@@ -71,24 +70,31 @@
 </div>
 
 <!-- Modal add-->
-<div class="modal fade" id="modalAdd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal modal-lg" id="modalAdd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah data</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="/kurir/addkurir" method="post">
+            <form action="/video/addvideo" method="post" enctype="multipart/form-data">
                 <div class="modal-body">
                     @csrf
                     <div class="row">
-                        <div class="col-12 mt-1">
-                            <h6>Nama kurir</h6>
-                            <input class="form-control" type="text" name="nama_jakir" placeholder="nama jasa kirim" aria-label="default input example">
+                        <div class="col-12 mt-3">
+                            <h6>Link video</h6>
+                            <input class="form-control" type="text" name="video_link" placeholder="masukkan link video" aria-label="default input example">
                         </div>
-                        <div class="col-12 mt-1">
-                            <h6>Jenis kurir</h6>
-                            <input class="form-control" type="text" name="jenis_jakir" placeholder="input jenis jasa kirim" aria-label="default input example">
+                    </div>
+                    <div class="row">
+                        <div class="col-12 mt-2">
+                            <h6>Materi</h6>
+                            <div class="card-body">
+                                <div class="form-group with-title mb-3">
+                                    <textarea class="form-control" name="deskripsi" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                    <label>masukkan deskripsi video</label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -101,27 +107,34 @@
     </div>
 </div>
 
-<!-- Modal update-->
-@foreach($kurir as $row)
-<div class="modal fade" id="modalUpdate{{$row->kurir_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Modal update belum bisa-->
+@foreach($video as $row)
+<div class="modal modal-lg" id="modalUpdate{{$row->video_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah data</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="/kurir/updtkurir" method="post">
+            <form action="/video/updtvideo" method="post" enctype="multipart/form-data">
                 <div class="modal-body">
                     @csrf
                     <div class="row">
-                        <div class="col-12 mt-1">
-                            <input type="hidden" name="kurir_id" value="{{$row->kurir_id}}" class="form-control">
-                            <h6>Nama kurir</h6>
-                            <input class="form-control" type="text" value="{{$row->nama_jakir}}" name="nama_jakir" placeholder="nama jasa kirim" aria-label="default input example">
+                        <div class="col-12 mt-3">
+                            <input type="text" name="video_id" value="{{$row->video_id}}" class="form-control">
+                            <h6>Link video</h6>
+                            <input class="form-control" type="text" name="video_link" value="{{$row->video_link}}" aria-label="default input example">
                         </div>
-                        <div class="col-12 mt-1">
-                            <h6>Jenis kurir</h6>
-                            <input class="form-control" type="text" value="{{$row->jenis_jakir}}" name="jenis_jakir" placeholder="input jenis jasa kirim" aria-label="default input example">
+                    </div>
+                    <div class="row">
+                        <div class="col-12 mt-2">
+                            <h6>Materi</h6>
+                            <div class="card-body">
+                                <div class="form-group with-title mb-3">
+                                    <textarea class="form-control" name="deskripsi" id="exampleFormControlTextarea1" rows="3">{{$row->deskripsi}}</textarea>
+                                    <label>masukkan deskripsi video</label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -134,10 +147,11 @@
     </div>
 </div>
 @endforeach
+<!-- end modal update data -->
 
-<!-- modal delete -->
-@foreach($kurir as $val)
-<div class="modal fade" id="modalDelete{{$val->kurir_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- modal delete data -->
+@foreach($video as $vid)
+<div class="modal fade" id="modalDelete{{$vid->video_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -149,10 +163,12 @@
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Close</button>
-                <a href="/kurir/delete/{{$val->kurir_id}}" class="btn btn-danger">Delete</a>
+                <a href="/video/delvideo/{{$vid->video_id}}" class="btn btn-danger">Delete</a>
             </div>
         </div>
     </div>
 </div>
 @endforeach
+<!-- end modal delete data -->
+
 @endsection

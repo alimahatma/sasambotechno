@@ -166,6 +166,18 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
+                            <a href="video" class='sidebar-link'>
+                                <i class="fas fa-video"></i>
+                                <span>Video</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="tutorial" class='sidebar-link'>
+                                <i class="fas fa-blog"></i>
+                                <span>Tutorial</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
                             <a href="logout" class='sidebar-link'>
                                 <i class="fas fa-sign-out-alt"></i>
                                 <span>Logout</span>

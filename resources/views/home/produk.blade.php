@@ -1,60 +1,41 @@
 @include('layout.header')
-<div class="product-container">
-    <div class="container">
-        <div class="product-box">
+<div class="container">
 
-            <!-- produk grid -->
-            <div class="product-main">
-                <h2 class="title" style="text-align: center; margin-top: 2rem; color:#0FAA5D;">Kategori produk custom</h2>
-                <div class="product-grid">
-                    @foreach($kategoricustom as $ktgr)
-                    <div class="showcase">
-                        <div class="showcase-banner">
-                            <a href="pesanan/detailcustom/{{$ktgr->ktgr_procus_id}}">
-                                <img src="/foto_ktgr/{{$ktgr->foto_procus}}" alt="404" class="product-img default">
-                                <img src="/foto_ktgr/{{$ktgr->foto_procus}}" alt="404" class="product-img hover">
-                            </a>
-                        </div>
-                        <div class="showcase-content">
-                            <a href="pesanan/detailcustom/{{$ktgr->ktgr_procus_id}}" class="showcase-category" style="color:#0FAA5D;">{{$ktgr->jenis_procus}}</a>
-                            <div class="showcase-rating">
-                            </div>
-                        </div>
+    <div class="row row-cols-1 row-cols-md-6 g-4 mt-2">
+        @foreach($kategoricustom as $ktgr)
+        <div class="col">
+            <div class="card h-100">
+                <a href="pesanan/detailcustom/{{$ktgr->ktgr_procus_id}}">
+                    <img src="/foto_ktgr/{{$ktgr->foto_procus}}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <a href="pesanan/detailcustom/{{$ktgr->ktgr_procus_id}}" class="text__nodecoration color__green">{{$ktgr->jenis_procus}}</a>
+                        <!-- <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p> -->
                     </div>
-                    @endforeach
-                </div>
+                </a>
             </div>
-            <!-- end produk grid -->
-
-            <!-- produk grid -->
-            <div class="product-main">
-                @foreach($kategoricustom as $ktgr)
-                <div class="title" style="text-align: center; margin-top: 2rem; color: #0FAA5D">{{$ktgr->jenis_procus}}</div>
-                <div class="product-grid">
-                    @foreach($procus as $pro)
-                    @if($ktgr->ktgr_procus_id == $pro->ktgr_procus_id)
-                    <div class="showcase">
-                        <div class="showcase-banner">
-                            <a href="pesanan/detailcustom/{{$ktgr->ktgr_procus_id}}">
-                                <img src="/foto_produk/{{$pro->foto_dep}}" alt="404" class="product-img default">
-                                <img src="/foto_produk/{{$pro->foto_bel}}" alt="404" class="product-img hover">
-                            </a>
-                        </div>
-                        <div class="showcase-content">
-                            <p class="showcase-title" style="color: #0FAA5D;">{{$pro->nama_produk}}</p>
-                            <del class="showcase-title">Rp. {{$pro->harga_jual}}</del>
-                            <p class="price" style="color: #0FAA5D;">Rp. {{$pro->harga_jual}}</p>
-                            <div class="showcase-rating">
-                            </div>
-                        </div>
-                    </div>
-                    @endif
-                    @endforeach
-                </div>
-                @endforeach
-            </div>
-            <!-- end produk grid -->
         </div>
+        @endforeach
+    </div>
+    <div class="row row-cols-1 row-cols-md-6 g-4 mt-2">
+        @foreach($kategoricustom as $ktgr)
+        @foreach($procus as $pro)
+        @if($ktgr->ktgr_procus_id == $pro->ktgr_procus_id)
+        <div class="col">
+            <div class="card h-100">
+                <a href="pesanan/detailcustom/{{$ktgr->ktgr_procus_id}}">
+                    <img src="/foto_produk/{{$pro->foto_dep}}" class="card-img-top" alt="404">
+                    <div class="card-body">
+                        <a href="pesanan/detailcustom/{{$pro->ktgr_procus_id}}" class="text__nodecoration color__green">{{$pro->nama_produk}}</a>
+                        <br>
+                        <del style="font-size: 12px;">Rp. {{$pro->harga_jual}}</del>
+                        <h6 style="color: #0FAA5D;">Rp. {{$pro->harga_jual}}</h6>
+                    </div>
+                </a>
+            </div>
+        </div>
+        @endif
+        @endforeach
+        @endforeach
     </div>
 </div>
 @include('layout.footer')

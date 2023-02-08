@@ -22,13 +22,13 @@ class KurrirController extends Controller
     public function AddKurir(Request $req)
     {
         $req->validate([
-            'nama_kurir' => 'required',
-            'jenis_kurir' => 'required',
+            'nama_jakir' => 'required',
+            'jenis_jakir' => 'required',
         ]);
         try {
             $data = new Kurir([
-                'nama_kurir' => $req->nama_kurir,
-                'jenis_kurir' => $req->jenis_kurir,
+                'nama_jakir' => $req->nama_jakir,
+                'jenis_jakir' => $req->jenis_jakir,
             ]);
             $data->save();
             return redirect('kurir')->with('success', 'berhasil di tambah');
@@ -40,13 +40,13 @@ class KurrirController extends Controller
     public function UpdtKurir(Request $req)
     {
         $req->validate([
-            'nama_kurir' => 'required',
-            'jenis_kurir' => 'required',
+            'nama_jakir' => 'required',
+            'jenis_jakir' => 'required',
         ]);
         try {
             $data = array(
-                'nama_kurir' => $req->post('nama_kurir'),
-                'jenis_kurir' => $req->post('jenis_kurir')
+                'nama_jakir' => $req->post('nama_jakir'),
+                'jenis_jakir' => $req->post('jenis_jakir')
             );
             Kurir::where('kurir_id', '=', $req->post('kurir_id'))->update($data);
             return redirect('kurir')->with('success', 'berhasil di update');

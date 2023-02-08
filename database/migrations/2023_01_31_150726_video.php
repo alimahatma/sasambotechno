@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('video', function (Blueprint $table) {
             $table->id('video_id');
             $table->string('video_link');
+            $table->longText('deskripsi');
             $table->timestamps();
         });
     }

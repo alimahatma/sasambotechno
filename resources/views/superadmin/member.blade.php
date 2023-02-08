@@ -253,7 +253,4 @@
     </div>
 </div>
 @endforeach
-
-<!-- member -->
-
 @endsection

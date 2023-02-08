@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id('tutorial_id');
             $table->string('judul', 50);
             $table->string('gambar', 30);
-            $table->longText('meteri');
+            $table->longText('materi');
+            $table->string('penulis',100);
             $table->timestamps();
         });
     }

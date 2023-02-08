@@ -51,12 +51,12 @@
                                 <td>{{$val->des_ktgrprocus}}</td>
                                 <td>
                                     <div class="d-flex justify-content-center">
-                                        <div class="col-md-6 col-lg-3">
-                                            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalUpdt{{$val->ktgr_procus_id}}">
+                                        <div class="col-md-6 col-lg-6">
+                                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalUpdt{{$val->ktgr_procus_id}}">
                                                 <i class="fas fa-edit"></i>
                                             </button>
                                         </div>
-                                        <div class="col-md-6 col-lg-3">
+                                        <div class="col-md-6 col-lg-6">
                                             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete{{$val->ktgr_procus_id}}">
                                                 <i class="fas fa-trash"></i>
                                             </button>
