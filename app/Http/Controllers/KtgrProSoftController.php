@@ -6,7 +6,6 @@ use App\Models\Instansi;
 use App\Models\KategoriProduk;
 use App\Models\KtgrProsoft;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class KtgrProSoftController extends Controller
@@ -14,14 +13,13 @@ class KtgrProSoftController extends Controller
     public function GetAll()
     {
         $ktgr = KategoriProduk::all();
-        // $ktgrSoftware = DB::table('ktgr_prdk_software')->join('ktgr_produk', 'ktgr_produk.ktgr_id', '=', 'ktgr_prdk_software.ktgr_id')->get();
-        $ktgrSoftware = DB::table('ktgr_prdk_software')->join('ktgr_produk', 'ktgr_produk.ktgr_id', '=', 'ktgr_prdk_software.ktgr_id')->get();
         $inst = Instansi::select('logo')->get();
+        $kategoriProdukSoftware = KtgrProsoft::joinToKategoriProduk()->get();
         return view('superadmin.ktgrProsoft', [
             'title' => 'kategori produk custom',
             'instansi' => $inst,
             'ktgr' => $ktgr,
-            'ktgrprosoft' => $ktgrSoftware,
+            'ktgrprosoft' => $kategoriProdukSoftware,
         ]);
     }
     //ktgr_id	jenis_prosoft	foto_prosoft	des_ktgrprosoft	

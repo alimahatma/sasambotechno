@@ -25,6 +25,7 @@
                 <!-- Button trigger modal -->
                 <div class="mb-2">
                     <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAdd">
+                        <i class="fas fa-plus"></i>
                         Tambah Data
                     </button>
                 </div>
@@ -34,7 +35,6 @@
                             <tr>
                                 <th class="text-center">No</th>
                                 <th class="text-center">Link video</th>
-                                <th class="text-center">Deskripsi</th>
                                 <th class="text-center">Aksi</th>
                             </tr>
                         </thead>
@@ -44,15 +44,19 @@
                             <tr class="text-center">
                                 <td><?= $i++ ?></td>
                                 <td>{{$val->video_link}}</td>
-                                <td>{{$val->deskripsi}}</td>
                                 <td>
                                     <div class="d-flex justify-content-center">
-                                        <div class="col-md-6 col-lg-3">
+                                        <div class="col-md-6 col-lg-2 col-sm-6">
                                             <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalUpdate{{$val->video_id}}">
                                                 <i class="fas fa-edit"></i>
                                             </button>
                                         </div>
-                                        <div class="col-md-6 col-lg-3">
+                                        <div class="col-md-6 col-lg-2 col-sm-6">
+                                            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalInfo{{$val->video_id}}">
+                                                <i class="fas fa-info"></i>
+                                            </button>
+                                        </div>
+                                        <div class="col-md-6 col-lg-2 col-sm-6">
                                             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete{{$val->video_id}}">
                                                 <i class="fas fa-trash"></i>
                                             </button>
@@ -88,7 +92,7 @@
                     </div>
                     <div class="row">
                         <div class="col-12 mt-2">
-                            <h6>Materi</h6>
+                            <h6>Deskripsi video</h6>
                             <div class="card-body">
                                 <div class="form-group with-title mb-3">
                                     <textarea class="form-control" name="deskripsi" id="exampleFormControlTextarea1" rows="3"></textarea>
@@ -107,13 +111,38 @@
     </div>
 </div>
 
+<!-- Modal info-->
+@foreach($video as $row)
+<div class="modal modal-lg" id="modalInfo{{$row->video_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Deskripsi</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12 mt-2">
+                        <p class="style__font">{{$row->deskripsi}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach
+<!-- end modal info -->
+
 <!-- Modal update belum bisa-->
 @foreach($video as $row)
 <div class="modal modal-lg" id="modalUpdate{{$row->video_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah data</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Update data</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="/video/updtvideo" method="post" enctype="multipart/form-data">
@@ -121,14 +150,14 @@
                     @csrf
                     <div class="row">
                         <div class="col-12 mt-3">
-                            <input type="text" name="video_id" value="{{$row->video_id}}" class="form-control">
+                            <input type="hidden" name="video_id" value="{{$row->video_id}}" class="form-control">
                             <h6>Link video</h6>
                             <input class="form-control" type="text" name="video_link" value="{{$row->video_link}}" aria-label="default input example">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12 mt-2">
-                            <h6>Materi</h6>
+                            <h6>Deskripsi video</h6>
                             <div class="card-body">
                                 <div class="form-group with-title mb-3">
                                     <textarea class="form-control" name="deskripsi" id="exampleFormControlTextarea1" rows="3">{{$row->deskripsi}}</textarea>

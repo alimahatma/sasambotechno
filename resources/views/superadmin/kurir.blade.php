@@ -26,7 +26,7 @@
                 <div class="mb-2">
                     <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAdd">
                         <div class="fas fa-plus"></div>
-                        Tambah
+                        Tambah data
                     </button>
                 </div>
                 <div class="table-responsive">
@@ -48,12 +48,12 @@
                                 <td>{{$val->jenis_jakir}}</td>
                                 <td>
                                     <div class="d-flex justify-content-center">
-                                        <div class="col-md-6 col-lg-6">
+                                        <div class="col-md-6 col-lg-2 col-sm-6">
                                             <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalUpdate{{$val->kurir_id}}">
                                                 <i class="fas fa-edit"></i>
                                             </button>
                                         </div>
-                                        <div class="col-md-6 col-lg-6">
+                                        <div class="col-md-6 col-lg-2 col-sm-6">
                                             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete{{$val->kurir_id}}">
                                                 <i class="fas fa-trash"></i>
                                             </button>

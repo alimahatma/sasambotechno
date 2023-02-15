@@ -26,7 +26,7 @@
                 <div class="mb-2">
                     <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAdd">
                         <div class="fas fa-plus"></div>
-                        Tambah
+                        Tambah data
                     </button>
                 </div>
                 <div class="table-responsive">

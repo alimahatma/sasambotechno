@@ -7,14 +7,6 @@
                 <h3>Instansi</h3>
                 <p class="text-subtitle text-muted">Selamat datang kembali </p>
             </div>
-            <!-- <div class="col-12 col-md-6 order-md-2 order-first">
-                <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">DataTable</li>
-                    </ol>
-                </nav>
-            </div> -->
         </div>
     </div>
     <section class="section">
@@ -33,6 +25,7 @@
                 <!-- Button trigger modal -->
                 <div class="mb-2">
                     <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAdd">
+                        <i class="fas fa-plus"></i>
                         Tambah Data
                     </button>
                 </div>
@@ -42,8 +35,6 @@
                             <tr>
                                 <th class="text-center">No</th>
                                 <th class="text-center">Nama instansi</th>
-                                <th class="text-center">Logo</th>
-                                <th class="text-center">Alamat</th>
                                 <th class="text-center">Domain</th>
                                 <th class="text-center">Email</th>
                                 <th class="text-center">WhatsApp</th>
@@ -59,8 +50,6 @@
                             <tr class="text-center">
                                 <td><?= $i++ ?></td>
                                 <td>{{$val->nama_instansi}}</td>
-                                <td><img src="/logo/{{$val->logo}}" alt="404" width="120" height="60"></td>
-                                <td>{{$val->alamat}}</td>
                                 <td>{{$val->domain}}</td>
                                 <td>{{$val->email}}</td>
                                 <td>{{$val->whatsapp}}</td>
@@ -69,17 +58,17 @@
                                 <td>{{$val->billing}}</td>
                                 <td>
                                     <div class="d-flex justify-content-center">
-                                        <div class="col-md-4 col-lg-4">
+                                        <div class="col-md-6 col-lg-6 col-sm-6">
                                             <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalUp{{$val->inst_id}}">
                                                 <i class="fas fa-edit"></i>
                                             </button>
                                         </div>
-                                        <div class="col-md-4 col-lg-4">
+                                        <div class="col-md-6 col-lg-6 col-sm-6">
                                             <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalInfos{{$val->inst_id}}">
                                                 <i class="fas fa-info"></i>
                                             </button>
                                         </div>
-                                        <div class="col-md-4 col-lg-4">
+                                        <div class="col-md-6 col-lg-6 col-sm-6">
                                             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete{{$val->inst_id}}">
                                                 <i class="fas fa-trash"></i>
                                             </button>
@@ -198,19 +187,33 @@
 
 <!-- Modal info-->
 @foreach($instansis as $in)
-<div class="modal modal-lg" id="modalInfos{{$val->inst_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal modal-lg" id="modalInfos{{$in->inst_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Info</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Info {{$in->nama_instansi}}</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="row">
+                    <div class="col-6 mx-auto">
+                        <div class="form-group">
+                            <img src="/logo/{{$in->logo}}" alt="404" width="100%">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <p class="style__font">{{$in->alamat}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col">
                         <div class="form-group">
                             <h5>Visi</h5>
-                            <p>{{$in->visi}}</p>
+                            <p class="style__font">{{$in->visi}}</p>
                         </div>
                     </div>
                 </div>
@@ -218,7 +221,7 @@
                     <div class="col">
                         <div class="form-group">
                             <h5>Misi</h5>
-                            <p>{{$in->misi}}</p>
+                            <p class="style__font">{{$in->misi}}</p>
                         </div>
                     </div>
                 </div>
@@ -226,7 +229,7 @@
                     <div class="col">
                         <div class="form-group">
                             <h5>Tentang</h5>
-                            <p>{{$in->tentang}}</p>
+                            <p class="style__font">{{$in->tentang}}</p>
                         </div>
                     </div>
                 </div>

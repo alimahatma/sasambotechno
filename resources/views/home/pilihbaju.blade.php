@@ -1,11 +1,11 @@
 @include('layout.header')
-<div class="content">
+<div class="content" id="datamains" data-loading="true">
     <div class="mt-5 col-lg-10 col-md-11 col-sm-12 mx-auto">
         <div class="card-body">
             <div class="row">
                 <div class="col-md-12 mx-auto">
                     <!-- <div class="form"> -->
-                    <form action="pesanan/detailcustom/{$id}" method="post" enctype="multipart/form-data">
+                    <form action="/pesanan/addpesanan" method="post" enctype="multipart/form-data">
                         <div class="modal-body">
                             <!-- alert error or success-->
                             <div>
@@ -56,25 +56,28 @@
                                                 @foreach($produkcustoms as $prdklimit)
                                                 @if(($row->ktgr_procus_id == $id) && ($prdklimit->ktgr_procus_id == $row->ktgr_procus_id))
                                                 <h5 class="card-title color__green">{{$prdklimit->nama_produk}}</h5>
-                                                <h6 class="card-title color__green">Rp. {{$prdklimit->harga_jual}}/{{$prdklimit->satuan}}</h6>
+                                                <h6 class="card-title color__green">Rp. {{$prdklimit->harga_jual}}</h6>
+                                                <input type="hidden" name="procus_id" value="{{$prdklimit->procus_id}}">
+                                                <input type="hidden" value="{{$prdklimit->harga_jual}}" id="harga_jual"> <!--mengambil harga barang menngunakan input-->
                                                 @endif
                                                 @endforeach
                                                 @endforeach
+                                                <p class="text text-success">silahkan login terlebih dahulu untuk melakukan transaksi</p>
                                             </div>
                                             <div class="input-group mt-2">
-                                                <div class="col-2">
+                                                <div class="col-lg-2 col-sm-5 col-md-4">
                                                     <h6>Jenis kain</h6>
                                                 </div>
-                                                <div class="col">
+                                                <div class="col-lg-3 col-sm-7 col-md-8">
                                                     <p class="card-text">: {{$prd->jenis_kain}}</p>
                                                 </div>
                                             </div>
                                             <div class="input-group mt-2">
-                                                <div class="col-2">
+                                                <div class="col-lg-2 col-sm-5 col-md-4">
                                                     <h6>Pilih warna</h6>
                                                 </div>
-                                                <div class="col-3">
-                                                    <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                                                <div class="col-lg-3 col-sm-7 col-md-8">
+                                                    <select class="form-select" aria-label="Default select example">
                                                         <option selected>pilih warna</option>
                                                         @foreach($colors as $col)
                                                         @foreach($procolor as $prclr)
@@ -89,10 +92,10 @@
                                                 </div>
                                             </div>
                                             <div class="input-group mt-2">
-                                                <div class="col-2">
+                                                <div class="col-lg-2 col-sm-5 col-md-4">
                                                     <h6>Size</h6>
                                                 </div>
-                                                <div class="col-3 d-flex justify-content-between">
+                                                <div class="col-lg-3 col-sm-7 col-md-8 d-flex justify-content-between">
                                                     @foreach($procus as $prd)
                                                     @foreach($prdkgroup as $prg)
                                                     @if($prd->ktgr_procus_id == $id)
@@ -110,50 +113,42 @@
                                                 </div>
                                             </div>
                                             <div class="input-group mt-2">
-                                                <div class="col-2">
+                                                <div class="col-lg-2 col-sm-5 col-md-4">
                                                     <h6>Jumlah order</h6>
                                                 </div>
-                                                <div class="col-3">
-                                                    <input type="number" class="form-control form-control-sm" name="jml">
+                                                <div class="col-lg-3 col-sm-7 col-md-8">
+                                                    <input type="number" id="jml" name="jml" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="input-group mt-2">
-                                                <div class="col-2">
+                                                <div class="col-lg-2 col-sm-5 col-md-4">
                                                     <h6>Pilih sablon</h6>
                                                 </div>
-                                                <div class="col-3">
-                                                    <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                                                <div class="col-lg-3 col-sm-7 col-md-8">
+                                                    <select id="test hargasablon" onchange="showDiv('hidden_div',this)" class="form-select" aria-label=".form-select-sm example">
                                                         <option selected>pilih ukuran sablon</option>
                                                         @foreach($sablon as $sab)
-                                                        <option value="{{$sab->sablon_id}}">{{$sab->ukuran_sablon}}, Rp.{{$sab->harga}}</option>
+                                                        <option value="{{$sab->sablon_id}}" data-harga_sablon="{{$sab->harga}}">{{$sab->ukuran_sablon}}, Rp.{{$sab->harga}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="input-group mt-2">
-                                                <div class="col-2">
-                                                    <h6>Upload desain</h6>
-                                                </div>
-                                                <div class="col-3">
-                                                    <input type="file" class="form-control form-control-sm" name="jml">
-                                                </div>
-                                            </div>
-                                            <div class="input-group mt-2">
-                                                <div class="col-2">
-                                                    <h6>Tanggal order</h6>
-                                                </div>
-                                                <div class="col-2">
-                                                    <script>
-                                                        document.write(new Date().toJSON().slice(0, 10));
-                                                    </script>
+                                            <div id="hidden_div">
+                                                <div class="input-group mt-2">
+                                                    <div class="col-lg-2 col-sm-5 col-md-4">
+                                                        <h6>Upload desain</h6>
+                                                    </div>
+                                                    <div class="col-lg-3 col-sm-7 col-md-8">
+                                                        <input type="file" class="form-control" name="desain">
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="input-group mt-2">
-                                                <div class="col-2">
+                                                <div class="col-lg-2 col-sm-5 col-md-4">
                                                     <h6>Jasa kirim</h6>
                                                 </div>
-                                                <div class="col-3">
-                                                    <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                                                <div class="col-lg-3 col-sm-7 col-md-8">
+                                                    <select class="form-select" aria-label="Default select example">
                                                         <option selected>pilih jasa kirim</option>
                                                         @foreach($jakir as $vals)
                                                         <option value="{{$vals->kurir_id}}">{{$vals->nama_jakir}},{{$vals->jenis_jakir}}</option>
@@ -162,17 +157,19 @@
                                                 </div>
                                             </div>
                                             <div class="input-group mt-2">
-                                                <div class="col-2">
-                                                    <h6>Ongkir</h6>
+                                                <div class="col-lg-2 col-sm-5 col-md-4">
+                                                    <h6>Total produk</h6>
                                                 </div>
-                                                <div class="col-1">
-                                                    pending
+                                                <div class="col-lg-3 col-sm-7 col-md-8">
+                                                    <div class="form-group mb-0">
+                                                        <input type="text" id="total" class="form-control" placeholder="Total" readonly />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
                                     <div class="mt-3">
                                         <h6>Deskripsi : </h6>
                                         <p class="card-text style__font">{{$prd->deskripsi}}</p>
@@ -182,7 +179,7 @@
                         </div>
                         <!-- Button update modal -->
                         <div class="mb-2 mt-4 col-3 mx-auto d-flex justify-content-between">
-                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalUpdate">
+                            <button type="submit" class="btn btn-success">
                                 Checkout
                             </button>
                             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalUpdate">
@@ -190,10 +187,6 @@
                                 Add to cart
                             </button>
                         </div>
-                        @foreach($kategoriCus as $ktgr)
-                        @if($prd->ktgr_procus_id == $id && $prd->nama_produk == $ktgr->nama_produk)
-                        @endif
-                        @endforeach
                     </form>
                 </div>
                 <!-- </form> -->
@@ -201,5 +194,23 @@
         </div>
     </div>
 </div>
-</div>
+<script type="text/javascript">
+    // function count total harga
+    $(document).ready(function() {
+        $("#jml, #harga_jual").keyup(function() {
+            var harga_juals = $("#harga_jual").val(); //get value from input id harga jual
+            var jmls = $("#jml").val(); //get jumlah order from input order
+
+            var total = harga_juals * jmls; //count harga jual and jumlah harga
+            // console.log(total, harga_juals)
+            $("#total").val(total); //return value total to input total
+
+        });
+    });
+
+    // function show and hidden element after select sablon
+    function showDiv(divId, element) {
+        document.getElementById(divId).style.display = element.value >= 2 ? 'block' : 'none'; //condition ternary for show and hidden element
+    }
+</script>
 @include('layout.footer')

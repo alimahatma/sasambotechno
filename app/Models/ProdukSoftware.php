@@ -12,4 +12,14 @@ class ProdukSoftware extends Model
     protected $primaryKey = 'prosoft_id';
     protected $fillable = ['ktgr_id',    'ktgr_prosoft_id',    'jenis_software',    'foto_software',    'deskripsi_prosoft'];
     public $timestamps = false;
+
+    public function scopeJoinToKategoriProdukSoftware($query)
+    {
+        return $query->join('ktgr_prdk_software', 'ktgr_prdk_software.ktgr_prosoft_id', '=', 'prdk_software.ktgr_prosoft_id');
+    }
+
+    public function scopeJoinToKategoriProduk($query)
+    {
+        return $query->join('ktgr_produk', 'ktgr_produk.ktgr_id', '=', 'ktgr_prdk_software.ktgr_id');
+    }
 }

@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Instansi;
 use App\Models\Member;
+use App\Models\Pesanan;
 use App\Models\Sablon;
 use App\Models\Trx_sablon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class TrxSablonController extends Controller
@@ -17,10 +17,7 @@ class TrxSablonController extends Controller
     {
         if (Auth::user()->role == 'superadmin' && 'kasir' && 'produksi') {
             $member = Member::all();
-            $data = DB::table('trx_sablon')
-                ->join('member', 'member.member_id', '=', 'trx_sablon.member_id')
-                ->join('sablon', 'sablon.sablon_id', '=', 'trx_sablon.sablon_id')
-                ->get();
+            $data = Trx_sablon::joinToMember()->joinToSablon()->get(); //join to table member and table sablon
             $instansi = Instansi::select('logo')->get();
             return view('superadmin.trx_sablon', [
                 'title' => 'transaksi sablon',
@@ -32,12 +29,9 @@ class TrxSablonController extends Controller
             $sablon = Sablon::all();
             $member = Member::all();
             $instansi = Instansi::select('logo', 'whatsapp')->get();
-            $data = DB::table('trx_sablon')
-                ->join('member', 'member.member_id', '=', 'trx_sablon.member_id')
-                ->join('sablon', 'sablon.sablon_id', '=', 'trx_sablon.sablon_id')
-                ->get();
+            $data = Trx_sablon::joinToMember()->joinToSablon()->get(); //join to table member and table sablon
             return view('members.trackingSablon', [
-                'title' => 'transaksi sablon',
+                'title' => 'tracking sablon',
                 'sablon' => $sablon,
                 'instansi' => $instansi,
                 'member' => $member,
@@ -89,16 +83,17 @@ class TrxSablonController extends Controller
         if (Auth::user()->role == 'pelanggan') {
             $member = Member::all();
             $instansi = Instansi::select('logo', 'whatsapp')->get();
-            $data = DB::table('trx_sablon')
-                ->join('member', 'member.member_id', '=', 'trx_sablon.member_id')
-                ->join('sablon', 'sablon.sablon_id', '=', 'trx_sablon.sablon_id')
-                ->get();
+            $dataPesanan = Pesanan::joinToProdukCustom()->joinToKategoriProdukCustom()->joinToWarna()
+                ->joinToMember()->joinToSablon()->joinToKurir()->joinToPayment()->orderBy('pesanan_id', 'desc')->get();
+            $pesananSablon = Trx_sablon::joinToMember()->joinToSablon()->get(); //join to table member and table sablon
+            // dd($dataPesanan);
             return view('members.pesananAnda', [
-                'title' => 'transaksi sablon',
+                'title' => 'history transaksi',
                 // 'sablon' => $sablon,
                 'instansi' => $instansi,
                 'member' => $member,
-                'pesanan' => $data,
+                'pesanansablon' => $pesananSablon,
+                'pesananpakaiancustom' => $dataPesanan,
             ]);
         }
     }

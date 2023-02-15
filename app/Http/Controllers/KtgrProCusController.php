@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Instansi;
 use App\Models\KategoriProduk;
 use App\Models\KtgrProcus;
-use App\Models\ProdukCustom;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class KtgrProCusController extends Controller
@@ -15,13 +13,13 @@ class KtgrProCusController extends Controller
     public function GetAll()
     {
         $ktgr = KategoriProduk::all();
-        $ktgrCustom = DB::table('ktgr_prdk_custom')->join('ktgr_produk', 'ktgr_produk.ktgr_id', '=', 'ktgr_prdk_custom.ktgr_id')->get();
+        $kategoriProdukCustom = KtgrProcus::joinToKategori()->get();
         $inst = Instansi::select('logo')->get();
         return view('superadmin.ktgrProcus', [
             'title' => 'kategori produk custom',
             'instansi' => $inst,
             'ktgr' => $ktgr,
-            'ktgrProcus' => $ktgrCustom,
+            'ktgrProcus' => $kategoriProdukCustom,
         ]);
     }
     public function AddKtgrProcus(Request $req)

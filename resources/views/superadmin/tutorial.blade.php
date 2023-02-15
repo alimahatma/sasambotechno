@@ -25,6 +25,7 @@
                 <!-- Button trigger modal -->
                 <div class="mb-2">
                     <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAdd">
+                        <i class="fas fa-plus"></i>
                         Tambah Data
                     </button>
                 </div>
@@ -34,8 +35,6 @@
                             <tr>
                                 <th class="text-center">No</th>
                                 <th class="text-center">Judul</th>
-                                <th class="text-center">Gambar</th>
-                                <th class="text-center">Materi</th>
                                 <th class="text-center">Penulis</th>
                                 <th class="text-center">Aksi</th>
                             </tr>
@@ -46,17 +45,20 @@
                             <tr class="text-center">
                                 <td><?= $i++ ?></td>
                                 <td>{{$val->judul}}</td>
-                                <td><img src="/gambars/{{$val->gambar}}" alt="404" width="50px" height="40px"></td>
-                                <td>{{$val->materi}}</td>
                                 <td>{{$val->penulis}}</td>
                                 <td>
                                     <div class="d-flex justify-content-center">
-                                        <div class="col-md-6 col-lg-3">
+                                        <div class="col-md-6 col-lg-2 col-sm-6">
                                             <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalUpdate{{$val->tutorial_id}}">
                                                 <i class="fas fa-edit"></i>
                                             </button>
                                         </div>
-                                        <div class="col-md-6 col-lg-3">
+                                        <div class="col-md-6 col-lg-2 col-sm-6">
+                                            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalInfo{{$val->tutorial_id}}">
+                                                <i class="fas fa-info"></i>
+                                            </button>
+                                        </div>
+                                        <div class="col-md-6 col-lg-2 col-sm-6">
                                             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete{{$val->tutorial_id}}">
                                                 <i class="fas fa-trash"></i>
                                             </button>
@@ -87,7 +89,7 @@
                     <div class="row">
                         <div class="col-12 mt-3">
                             <h6>Judul</h6>
-                            <input class="form-control" type="text" name="judul" placeholder="masukkan nama produk" aria-label="default input example">
+                            <input class="form-control" type="text" name="judul" placeholder="masukkan judul artikel" aria-label="default input example">
                         </div>
                     </div>
                     <div class="row">
@@ -110,7 +112,7 @@
                     <div class="row">
                         <div class="col-12 mt-3">
                             <h6>Penulis</h6>
-                            <input class="form-control" type="text" name="penulis" placeholder="masukkan nama produk" aria-label="default input example">
+                            <input class="form-control" type="text" name="penulis" placeholder="masukkan nama penulis" aria-label="default input example">
                         </div>
                     </div>
                 </div>
@@ -122,6 +124,40 @@
         </div>
     </div>
 </div>
+
+<!-- Modal info-->
+@foreach($tutorial as $row)
+<div class="modal modal-lg" id="modalInfo{{$row->tutorial_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">{{$row->judul}}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12 mt-3">
+                        <h6>{{$row->judul}}</h6>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 mt-3 mx-auto">
+                        <img src="/gambars/{{$row->gambar}}" alt="404" width="100%">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 mt-2">
+                        <p class="style__font">{{$row->materi}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach
 
 <!-- Modal update belum bisa-->
 @foreach($tutorial as $row)
@@ -139,7 +175,7 @@
                         <input type="hidden" class="form-control" name="tutorial_id" value="{{$row->tutorial_id}}">
                         <div class="col-12 mt-3">
                             <h6>Judul</h6>
-                            <input class="form-control" type="text" name="judul" value="{{$row->judul}}" placeholder="masukkan nama produk" aria-label="default input example">
+                            <input class="form-control" type="text" name="judul" value="{{$row->judul}}" aria-label="default input example">
                         </div>
                     </div>
                     <div class="row">
@@ -162,7 +198,7 @@
                     <div class="row">
                         <div class="col-12 mt-3">
                             <h6>Penulis</h6>
-                            <input class="form-control" type="text" name="penulis" value="{{$row->penulis}}" placeholder="masukkan nama produk" aria-label="default input example">
+                            <input class="form-control" type="text" name="penulis" value="{{$row->penulis}}" aria-label="default input example">
                         </div>
                     </div>
                 </div>

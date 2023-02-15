@@ -1,11 +1,12 @@
 @extends('layout.template')
 @section('content')
+<!-- view read data pesanan -->
 <div class="page-heading">
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
                 <h3>Pesanan</h3>
-                <p class="text-subtitle text-muted">Selamat datang kembali </p>
+                <p class="text-subtitle text-muted">Selamat datang kembali {{Auth::user()->name}}</p>
             </div>
         </div>
     </div>
@@ -22,27 +23,20 @@
         </div>
         <div class="card">
             <div class="card-body">
-                <!-- Button trigger modal -->
-                <div class="mb-2">
-                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAdd">
-                        Tambah Data
-                    </button>
-                </div>
                 <div class="table-responsive">
                     <table class="table table-striped" id="table1">
                         <thead>
                             <tr>
                                 <th class="text-center">No</th>
-                                <th class="text-center">Jenis kategori</th>
-                                <th class="text-center">Jumlah stok</th>
-                                <th class="text-center">warna</th>
-                                <th class="text-center">Harga satuan</th>
-                                <th class="text-center">Nama Produk</th>
-                                <th class="text-center">Foto depan</th>
-                                <th class="text-center">Foto belakang</th>
-                                <th class="text-center">Deskripsi</th>
-                                <th class="text-center">Satuan</th>
-                                <th class="text-center">Size</th>
+                                <th class="text-center">Nama pembeli</th>
+                                <th class="text-center">Nama produk</th>
+                                <th class="text-center">Size order</th>
+                                <th class="text-center">Jumlah order</th>
+                                <th class="text-center">Ukuran sablon</th>
+                                <th class="text-center">Staus pembayaran</th>
+                                <th class="text-center">Status produksi</th>
+                                <th class="text-center">Status pesanan</th>
+                                <th class="text-center">Tanggal order</th>
                                 <th class="text-center">Aksi</th>
                             </tr>
                         </thead>
@@ -51,25 +45,35 @@
                             @foreach($pesanan as $val)
                             <tr class="text-center">
                                 <td><?= $i++ ?></td>
-                                <td>{{$val->jenis_kategori}}</td>
-                                <td>{{$val->jumlah}}</td>
-                                <td>{{$val->nama_warna}}</td>
-                                <td>{{$val->harga_jual}}</td>
+                                <!-- procus_id color	member_id	sablon_id	kurir_id	payment_id	jml_order	desain1	desain2 desain3	b_dp	b_lunas	t_pesan	pay_status	tgl_order	stts_produksi	status_pesanan -->
+                                <td>{{$val->nama_lengkap}}</td>
                                 <td>{{$val->nama_produk}}</td>
-                                <td><img src="/foto_produk/{{$val->foto_dep}}" alt="404" width="120" height="60"></td>
-                                <td><img src="/foto_produk/{{$val->foto_bel}}" alt="404" width="120" height="60"></td>
-                                <td>{{$val->deskripsi}}</td>
-                                <td>{{$val->satuan}}</td>
-                                <td>{{$val->size}}</td>
+                                <td>{{$val->size_order}}</td>
+                                <td>{{$val->jml_order}}</td>
+                                <td>{{$val->ukuran_sablon}}</td>
+                                <td>{{$val->pay_status}}</td>
+                                <td>{{$val->stts_produksi}}</td>
+                                <td>{{$val->status_pesanan}}</td>
+                                <td>{{$val->tgl_order}}</td>
                                 <td>
                                     <div class="d-flex justify-content-center">
-                                        <div class="col-md-6 col-lg-6">
-                                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalUpdate{{$val->produk_id}}">
-                                                <i class="fas fa-edit"></i>
+                                        <div class="col-md-6 col-lg-4 col-sm-6">
+                                            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalInfo{{$val->pesanan_id}}">
+                                                <i class="fas fa-info"></i>
                                             </button>
                                         </div>
-                                        <div class="col-md-6 col-lg-6">
-                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete{{$val->produk_id}}">
+                                        <div class="col-md-6 col-lg-4 col-sm-6">
+                                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalValidasi{{$val->pesanan_id}}">
+                                                <i class="fas fa-check-square"></i>
+                                            </button>
+                                        </div>
+                                        <div class="col-md-6 col-lg-4 col-sm-6">
+                                            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalDiskon{{$val->pesanan_id}}">
+                                                <i class="fas fa-percent"></i>
+                                            </button>
+                                        </div>
+                                        <div class="col-md-6 col-lg-4 col-sm-6">
+                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete{{$val->pesanan_id}}">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </div>
@@ -84,4 +88,219 @@
         </div>
     </section>
 </div>
+
+@foreach($pesanan as $row)
+<!-- Modal validasi pesanan -->
+<div class="modal fade" id="modalValidasi{{$row->pesanan_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Validasi pembayaran</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/pesanan/validasipesanan" method="post">
+                @csrf
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <input type="hidden" value="{{$row->pesanan_id}}" name="pesanan_id" class="form-control">
+                                <h6>Validasi pembayaran</h6>
+                                <select name="pay_status" class="form-select" aria-label="Default select example">
+                                    <option value="{{$row->pay_status}}" selected>{{$row->pay_status}}</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="bayar">Bayar</option>
+                                    <option value="belum lunas">Belum lunas</option>
+                                    <option value="lunas">Lunas</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <h6>Validasi pesanan</h6>
+                                <select name="status_pesanan" class="form-select" aria-label="Default select example">
+                                    <option value="{{$row->status_pesanan}}" selected>{{$row->status_pesanan}}</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="diterima">Diterima dan produksi</option>
+                                    <option value="kirim">Kirim</option>
+                                    <option value="selesai">Selesai</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success">Validasi</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal info pesanan -->
+<div class="modal modal-lg" id="modalInfo{{$row->pesanan_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal info pesanan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            @csrf
+            <div class="modal-body">
+                @if($row->b_dp != NULL)
+                <div class="row mb-2">
+                    <p class="text-center">Bukti DP</p>
+                    <div class="col-5 mx-auto">
+                        <img src="/pembayaran/bukti_dp/{{$row->b_dp}}" alt="404">
+                    </div>
+                </div>
+                @elseif($row->b_dp != NULL && $row->b_lunas != NULL)
+                <div class="row mb-2 d-flex jutify-content-between">
+                    <div class="col-5">
+                        <p class="text-center">Bukti DP</p>
+                        <img src="/pembayaran/bukti_dp/{{$row->b_dp}}" alt="404">
+                    </div>
+                    <div class="col-5">
+                        <p class="text-center">Bukti Lunas</p>
+                        <img src="/pembayaran/bukti_lunas/{{$row->b_lunas}}" alt="404">
+                    </div>
+                </div>
+                @elseif($row->b_lunas != NULL)
+                <div class="row mb-2">
+                    <p class="text-center">Bukti cash</p>
+                    <div class="col-5 mx-auto">
+                        <img src="pembayaran/bukti_lunas/{{$row->b_lunas}}" alt="404">
+                    </div>
+                </div>
+                @endif
+                <div class="row">
+                    <div class="col-md-4 col-lg-4 col-sm-6 mb-1">
+                        <h6>Nama pembeli</h6>
+                    </div>
+                    <div class="col-md-3 col-lg-8 col-sm-6 mb-1">
+                        <p>: {{$row->nama_lengkap}}</p>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-6 mb-1">
+                        <h6>Nama pembeli</h6>
+                    </div>
+                    <div class="col-md-3 col-lg-8 col-sm-6 mb-1">
+                        <p>: {{$row->nama_lengkap}}</p>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-6 mb-1">
+                        <h6>Jasa kirim</h6>
+                    </div>
+                    <div class="col-md-3 col-lg-8 col-sm-6 mb-1">
+                        <p>: {{$row->nama_jakir}}</p>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-6 mb-1">
+                        <h6>Metode pembayaran</h6>
+                    </div>
+                    <div class="col-md-3 col-lg-8 col-sm-6 mb-1">
+                        <p>: {{$row->pay_method}}</p>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-6 mb-1">
+                        <h6>Ukuran sablon</h6>
+                    </div>
+                    <div class="col-md-3 col-lg-8 col-sm-6 mb-1">
+                        <p>: {{$row->ukuran_sablon}}</p>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-6 mb-1">
+                        <h6>Harga satuan</h6>
+                    </div>
+                    <div class="col-md-3 col-lg-8 col-sm-6 mb-1">
+                        <p>: {{$row->harga_jual}}</p>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-6 mb-1">
+                        <h6>Jumlah order</h6>
+                    </div>
+                    <div class="col-md-3 col-lg-8 col-sm-6 mb-1">
+                        <p>: {{$row->jml_order}}/{{$row->satuan}}</p>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-6 mb-1">
+                        <h6>Tanggal order</h6>
+                    </div>
+                    <div class="col-md-3 col-lg-8 col-sm-6 mb-1">
+                        <p>: {{$row->tgl_order}}</p>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-6 mb-1">
+                        <h6>Harga total</h6>
+                    </div>
+                    <div class="col-md-3 col-lg-8 col-sm-6 mb-1">
+                        <p>: Rp. <?= $total_harga = ($row->jml_order * $row->harga_jual) ?></p>
+                    </div>
+                    @if($row->b_dp != NULL)
+                    <div class="col-md-4 col-lg-4 col-sm-6 mb-1">
+                        <h6>Jumlah DP</h6>
+                    </div>
+                    <div class="col-md-3 col-lg-8 col-sm-6 mb-1">
+                        <p class="text text-success">: Rp. <?= $row->jml_dp ?></p>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-6 mb-1">
+                        <h6 class="text text-warning">Sisa bayar</h6>
+                    </div>
+                    <div class="col-md-3 col-lg-8 col-sm-6 mb-1">
+                        <p class="text text-warning">: Rp. <?= $sisa = ($row->jml_order * $row->harga_jual) - $row->jml_dp ?></p>
+                    </div>
+                    @endif
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal input diskon -->
+<div class="modal fade" id="modalDiskon{{$row->pesanan_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Diskon</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/pesanan/diskons" method="post">
+                @csrf
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group">
+                            <h6></h6>
+                            <input type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- modal hapus -->
+<div class="modal fade" id="modalDelete{{$row->pesanan_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Hapus pesanan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/pesanan/validasipesanan" method="post">
+                @csrf
+                <div class="modal-body">
+                    <div class="row">
+                        <p>Yakin ingin menghapus data ini..?</p>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>
+                    <a href="/pesanan/delpesanan/{{$row->pesanan_id}}" class="btn btn-danger">Delete</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endforeach
 @endsection

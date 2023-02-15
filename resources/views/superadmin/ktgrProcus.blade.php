@@ -25,7 +25,8 @@
                 <!-- Button trigger modal -->
                 <div class="mb-2">
                     <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAdd">
-                        Tambah Data
+                        <i class="fas fa-plus"></i>
+                        Tambah data
                     </button>
                 </div>
                 <div class="table-responsive">
@@ -35,8 +36,6 @@
                                 <th class="text-center">No</th>
                                 <th class="text-center">Jenis kategori</th>
                                 <th class="text-center">Jenis produk custom</th>
-                                <th class="text-center">Foto kategori</th>
-                                <th class="text-center">Deskripsi</th>
                                 <th class="text-center">Aksi</th>
                             </tr>
                         </thead>
@@ -47,16 +46,19 @@
                                 <td><?= $i++ ?></td>
                                 <td>{{$val->jenis_kategori}}</td>
                                 <td>{{$val->jenis_procus}}</td>
-                                <td><img src="/foto_ktgr/{{$val->foto_procus}}" alt="404" width="120" height="60"></td>
-                                <td>{{$val->des_ktgrprocus}}</td>
                                 <td>
                                     <div class="d-flex justify-content-center">
-                                        <div class="col-md-6 col-lg-6">
+                                        <div class="col-md-6 col-lg-2 col-sm-6">
                                             <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalUpdt{{$val->ktgr_procus_id}}">
                                                 <i class="fas fa-edit"></i>
                                             </button>
                                         </div>
-                                        <div class="col-md-6 col-lg-6">
+                                        <div class="col-md-6 col-lg-2 col-sm-6">
+                                            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalInfo{{$val->ktgr_procus_id}}">
+                                                <i class="fas fa-info"></i>
+                                            </button>
+                                        </div>
+                                        <div class="col-md-6 col-lg-2 col-sm-6">
                                             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete{{$val->ktgr_procus_id}}">
                                                 <i class="fas fa-trash"></i>
                                             </button>
@@ -123,6 +125,33 @@
         </div>
     </div>
 </div>
+
+<!-- Modal info-->
+@foreach($ktgrProcus as $row)
+<div class="modal modal-lg" id="modalInfo{{$row->ktgr_procus_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">{{$row->jenis_procus}}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6 mt-1 mx-auto">
+                        <img src="/foto_ktgr/{{$row->foto_procus}}" alt="404" width="100%">
+                    </div>
+                    <div class="col-12 mt-1">
+                        <p class="style__font">{{$row->des_ktgrprocus}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach
 
 <!-- Modal update-->
 @foreach($ktgrProcus as $row)

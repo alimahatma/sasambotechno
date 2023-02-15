@@ -7,38 +7,40 @@ use App\Models\Member;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class MemberController extends Controller
 {
+    // get all data member
     public function GetMember()
     {
         if (Auth::user()->role == 'superadmin') {
             $user = User::all();
             $instansi = Instansi::select('logo')->get();
-            $data = DB::table('member')->join('users', 'users.user_id', '=', 'member.user_id')->get();
+            $dataMember = Member::joinMemberToUser()->get();
             return view('superadmin.member', [
                 'title' => 'Data member',
                 'instansi' => $instansi,
-                'member' => $data,
+                'member' => $dataMember,
                 'user' => $user,
             ]);
         } elseif (Auth::user()->role == 'pelanggan') {
             $user = User::all();
             $instansi = Instansi::select('logo')->get();
-            $data = DB::table('member')->join('users', 'users.user_id', '=', 'member.user_id')->get();
+            $dataMember = Member::joinMemberToUser()->get();
             return view('members.addProfile', [
                 'title' => 'profile',
                 'instansi' => $instansi,
-                'member' => $data,
+                'member' => $dataMember,
                 'users' => $user,
             ]);
         }
     }
+
+    // add member
     public function AddMember(Request $req)
     {
-        $val = $req->validate([
+        $req->validate([
             'user_id' => 'required',
             'nama_lengkap' => 'required',
             'telepon' => 'required',
@@ -71,6 +73,8 @@ class MemberController extends Controller
             return redirect('member')->with('message', 'gagal');
         }
     }
+
+    // update data member
     public function UpdtMember(Request $req)
     {
         $req->validate([
@@ -101,6 +105,8 @@ class MemberController extends Controller
             return redirect('member')->with('message', 'gagal');
         }
     }
+
+    //delete data member 
     public function DeleteMember($id)
     {
         try {

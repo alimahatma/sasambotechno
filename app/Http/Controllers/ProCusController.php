@@ -21,22 +21,21 @@ class ProCusController extends Controller
     {
         // join for load data stok on form input produk
         $warna = Warna::all();
-        // $stok = DB::table('stok')->join('warna', 'warna.warna_id', '=', 'stok.warna_id')->get();
-        // dd($stok);
         $data = Instansi::select('logo')->get();
         $kategori = KategoriProduk::all();
         $ktgr_procus = KtgrProcus::all();
         $supplier = Supplier::all();
-        $prdk = DB::table('produk_custom')
-            ->join('ktgr_produk', 'ktgr_produk.ktgr_id', '=', 'produk_custom.ktgr_id')
-            ->join('warna', 'warna.warna_id', '=', 'produk_custom.warna_id')
-            ->join('ktgr_prdk_custom', 'ktgr_prdk_custom.ktgr_procus_id', '=', 'produk_custom.ktgr_procus_id')
-            ->join('supplier', 'supplier.supplier_id', '=', 'produk_custom.supplier_id')
-            ->get();
-        // dd($prdk);
+        $produkCustom = ProdukCustom::joinProdukCostum()->joinKategoriProduk()->joinWarna()->joinToSupplier()->get();
+        // $prdk = DB::table('produk_custom')
+        //     ->join()
+        //     // ->join('warna', 'warna.warna_id', '=', 'produk_custom.warna_id')
+        //     // ->join('ktgr_prdk_custom', 'ktgr_prdk_custom.ktgr_procus_id', '=', 'produk_custom.ktgr_procus_id')
+        //     // ->join('supplier', 'supplier.supplier_id', '=', 'produk_custom.supplier_id')
+        //     ->get();
+        // dd($produkCustom);
         return view('superadmin.procus', [
             'title' => 'all product',
-            'procus' => $prdk,
+            'procus' => $produkCustom,
             'instansi' => $data,
             'kategori' => $kategori,
             'ktgrProcus' => $ktgr_procus,
@@ -46,7 +45,6 @@ class ProCusController extends Controller
     }
     public function AddProduct(Request $request)
     {
-        // procus_id	ktgr_id	supplier_id	ktgr_procus_id	warna_id	nama_produk	foto_dep	foto_bel	satuan	jenis_kain	size	harga_beli	harga_jual	tgl_masuk	deskripsi
         $request->validate([
             'ktgr_id' => 'required',
             'supplier_id' => 'required',

@@ -19,6 +19,8 @@ return new class extends Migration
             $table->foreignId('sablon_id');
             $table->foreignId('kurir_id');
             $table->foreignId('payment_id');
+            $table->string('bdp', 30)->nullable();
+            $table->string('bl', 30)->nullable();
             $table->integer('jml')->length(10)->unsigned();
             $table->enum('pay_status', ['belum lunas', 'lunas'])->default('belum lunas');
             $table->enum('stts_produksi', ['diterima', 'produksi', 'packing', 'kasir'])->default('diterima');

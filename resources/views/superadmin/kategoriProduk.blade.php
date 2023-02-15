@@ -25,7 +25,8 @@
                 <!-- Button trigger modal -->
                 <div class="mb-2">
                     <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAdd">
-                        Tambah Data
+                        <i class="fas fa-plus"></i>
+                        Tambah data
                     </button>
                 </div>
                 <div class="table-responsive">
@@ -34,7 +35,6 @@
                             <tr>
                                 <th class="text-center">No</th>
                                 <th class="text-center">Jenis kategori</th>
-                                <th class="text-center">foto_ktgr</th>
                                 <th class="text-center">Aksi</th>
                             </tr>
                         </thead>
@@ -44,15 +44,19 @@
                             <tr class="text-center">
                                 <td><?= $i++ ?></td>
                                 <td>{{$val->jenis_kategori}}</td>
-                                <td><img src="/foto_ktgr/{{$val->foto_ktgr}}" alt="404" width="120" height="60"></td>
                                 <td>
                                     <div class="d-flex justify-content-center">
-                                        <div class="col-md-6 col-lg-3">
+                                        <div class="col-md-6 col-lg-2 col-sm-6">
                                             <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalUpdate{{$val->ktgr_id}}">
                                                 <i class="fas fa-edit"></i>
                                             </button>
                                         </div>
-                                        <div class="col-md-6 col-lg-3">
+                                        <div class="col-md-6 col-lg-2 col-sm-6">
+                                            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalInfo{{$val->ktgr_id}}">
+                                                <i class="fas fa-info"></i>
+                                            </button>
+                                        </div>
+                                        <div class="col-md-6 col-lg-2 col-sm-6">
                                             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete{{$val->ktgr_id}}">
                                                 <i class="fas fa-trash"></i>
                                             </button>
@@ -99,6 +103,31 @@
         </div>
     </div>
 </div>
+
+<!-- Modal info-->
+@foreach($kategori as $ktgrinfo)
+<div class="modal modal-lg" id="modalInfo{{$ktgrinfo->ktgr_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">{{$ktgrinfo->jenis_kategori}}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                @csrf
+                <div class="row">
+                    <div class="col-10 mt-1 mx-auto">
+                        <img src="/foto_ktgr/{{$ktgrinfo->foto_ktgr}}" alt="404" width="100%">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach
 
 <!-- Modal update-->
 @foreach($kategori as $row)

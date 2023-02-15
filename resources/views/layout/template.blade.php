@@ -13,18 +13,40 @@
     <link rel="shortcut icon" href="{{asset('assets')}}/images/logo/favicon.svg" type="image/x-icon">
     <link rel="shortcut icon" href="{{asset('assets')}}/images/logo/favicon.png" type="image/png">
     <link rel="stylesheet" href="{{asset('assets')}}/css/shared/iconly.css">
-    <!-- 
-    <link rel="stylesheet" href="{{asset('assets')}}/extensions/simple-datatables/style.css">
-    <link rel="stylesheet" href="{{asset('assets')}}/css/pages/simple-datatables.css"> -->
 
     <!-- load datatable jquery -->
     <link rel="stylesheet" href="{{asset('assets')}}/css/pages/fontawesome.css">
     <link rel="stylesheet" href="{{asset('assets')}}/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="{{asset('assets')}}/css/pages/datatables.css">
     <script type="text/javascript" src="{{asset('assets')}}/extensions/jquery/jquery.min.js"></script>
-    <!-- <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script> -->
     <script type="text/javascript" src="https://unpkg.com/default-passive-events"></script>
+    <style>
+        #hidden_div {
+            display: none;
+        }
 
+        div.scrollmenu {
+            background-color: #fff;
+            overflow: auto;
+            white-space: nowrap;
+        }
+
+        div.scrollmenu img {
+            display: inline-block;
+            color: white;
+            text-align: center;
+            padding: 2px;
+            text-decoration: none;
+        }
+
+        div.scrollmenu img:hover {
+            background-color: #0FAA5D;
+        }
+
+        .style__font {
+            text-align: justify;
+        }
+    </style>
 </head>
 
 <body>
@@ -34,9 +56,8 @@
                 <div class="sidebar-header position-relative">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="logo">
-                            <!-- <a href="index.html"><img src="{{asset('assets')}}/images/logo/logo.svg" alt="Logo" srcset=""></a> -->
                             @foreach($instansi as $inst)
-                            <img src="/logo/{{$inst->logo}}" width="60px" alt="404">
+                            <img src="/logo/{{$inst->logo}}" width="50px" alt="404">
                             @endforeach
                         </div>
                         <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
@@ -79,6 +100,12 @@
                             <a href="instansi" class='sidebar-link'>
                                 <i class="fas fa-hotel"></i>
                                 <span>Instansi</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="partner" class='sidebar-link'>
+                                <i class="fas fa-home"></i>
+                                <span>Perusahaan partner</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
@@ -142,9 +169,9 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="transaksi" class='sidebar-link'>
+                            <a href="payment" class='sidebar-link'>
                                 <i class="fas fa-money-check-alt"></i>
-                                <span>Transaksi</span>
+                                <span>Payment</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
@@ -228,6 +255,12 @@
                         </li>
                         @elseif(Auth::user()->role == 'pelanggan')
                         <li class="sidebar-item">
+                            <a href="home" class='sidebar-link'>
+                                <i class="fas fa-home"></i>
+                                <span>Home</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
                             <a href="getprofile" class='sidebar-link'>
                                 <i class="fas fa-user-edit"></i>
                                 <span>Lengkapi data</span>
@@ -237,12 +270,6 @@
                             <a href="profile" class='sidebar-link'>
                                 <i class="fas fa-user"></i>
                                 <span>Profile</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="pilihbaju" class='sidebar-link'>
-                                <i class="fas fa-tshirt"></i>
-                                <span>Baju</span>
                             </a>
                         </li>
                         <li class="sidebar-item">

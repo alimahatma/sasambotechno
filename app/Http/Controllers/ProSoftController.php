@@ -7,7 +7,6 @@ use App\Models\KategoriProduk;
 use App\Models\KtgrProsoft;
 use App\Models\ProdukSoftware;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class ProSoftController extends Controller
@@ -17,11 +16,7 @@ class ProSoftController extends Controller
         $ktgr = KategoriProduk::all();
         $ktgrPsof = KtgrProsoft::all();
         $inst = Instansi::select('logo')->get();
-        $software = DB::table('prdk_software')
-            ->join('ktgr_prdk_software', 'ktgr_prdk_software.ktgr_prosoft_id', '=', 'prdk_software.ktgr_prosoft_id')
-            ->join('ktgr_produk', 'ktgr_produk.ktgr_id', '=', 'ktgr_prdk_software.ktgr_id')
-            ->get();
-        // dd($software);
+        $software = ProdukSoftware::joinToKategoriProdukSoftware()->joinToKategoriProduk()->get();
         return view('superadmin.prosoft', [
             'title' => 'produk software',
             'instansi' => $inst,

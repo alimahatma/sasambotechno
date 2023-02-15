@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Instansi;
 use App\Models\KategoriProduk;
-use App\Models\Produk;
+use App\Models\KtgrProcus;
+use App\Models\KtgrProsoft;
 use App\Models\ProdukCustom;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -15,8 +15,8 @@ class HomeController extends Controller
     {
         $instansi = Instansi::all();
         $ktgrprdk = KategoriProduk::all();
-        $ktgrProsoft = DB::table('ktgr_prdk_software')->join('ktgr_produk', 'ktgr_produk.ktgr_id', '=', 'ktgr_prdk_software.ktgr_id')->get();
-        $ktgrCustom = DB::table('ktgr_prdk_custom')->join('ktgr_produk', 'ktgr_produk.ktgr_id', '=', 'ktgr_prdk_custom.ktgr_id')->get();
+        $ktgrProsoft = KtgrProsoft::joinToKategoriProduk()->get();
+        $ktgrCustom = KtgrProcus::joinToKategori()->get();
         return view('home.landingpage', [
             'title' => 'index',
             'instansi' => $instansi,
@@ -64,8 +64,8 @@ class HomeController extends Controller
     public function SendToProduk()
     {
         $instansi = Instansi::all();
-        $procategori = DB::table('ktgr_prdk_custom')->join('ktgr_produk', 'ktgr_produk.ktgr_id', '=', 'ktgr_prdk_custom.ktgr_procus_id')->get();
-        $procus = DB::table('produk_custom')->join('ktgr_prdk_custom', 'ktgr_prdk_custom.ktgr_procus_id', '=', 'produk_custom.ktgr_procus_id')->get();
+        $procategori = KtgrProcus::joinToKategori()->get();
+        $procus = ProdukCustom::joinProdukCostum()->get();;
         return view('home.produk', [
             'title' => 'produk',
             'kategoricustom' => $procategori,

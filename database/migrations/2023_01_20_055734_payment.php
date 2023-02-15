@@ -15,9 +15,7 @@ return new class extends Migration
     {
         Schema::create('payment', function (Blueprint $table) {
             $table->id('payment_id');
-            $table->enum('pay_method', ['transfer', 'dp', 'tunai']);
-            $table->string('b_dp', 30)->nullable();
-            $table->string('bl', 30)->nullable();
+            $table->string('pay_method', 20);
             $table->timestamps();
         });
     }

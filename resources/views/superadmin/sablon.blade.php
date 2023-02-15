@@ -48,12 +48,12 @@
                                 <td>{{$val->harga}}</td>
                                 <td>
                                     <div class="d-flex justify-content-center">
-                                        <div class="col-md-6 col-lg-3">
+                                        <div class="col-md-6 col-lg-3 col-sm-6">
                                             <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalUpdate{{$val->sablon_id}}">
                                                 <i class="fas fa-edit"></i>
                                             </button>
                                         </div>
-                                        <div class="col-md-6 col-lg-3">
+                                        <div class="col-md-6 col-lg-3 col-sm-6">
                                             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete{{$val->sablon_id}}">
                                                 <i class="fas fa-trash"></i>
                                             </button>

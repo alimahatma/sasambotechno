@@ -28,6 +28,13 @@ class UserController extends Controller
             print('akses di tolak');
         }
     }
+    public function GetAll()
+    {
+        $user = User::all();
+        return response()->json([
+            'users' => $user
+        ]);
+    }
 
     // get view register
     public function GetRegister()
@@ -51,7 +58,8 @@ class UserController extends Controller
             $data = new User([
                 'name' => $req->name,
                 'email' => $req->email,
-                'password' => Hash::make($req->password),
+                'password' => Hash::make('password')
+                // 'password' => $req->password
             ]);
             // dd($data);
             $data->save();

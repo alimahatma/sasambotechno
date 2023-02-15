@@ -60,12 +60,12 @@
                                 <td>{{$val->provinsi}}</td>
                                 <td>
                                     <div class="d-flex justify-content-center">
-                                        <div class="col-md-6 col-lg-6">
+                                        <div class="col-md-6 col-lg-6 col-sm-6">
                                             <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalUpdate{{$val->member_id}}">
                                                 <i class="fas fa-edit"></i>
                                             </button>
                                         </div>
-                                        <div class="col-md-6 col-lg-6">
+                                        <div class="col-md-6 col-lg-6 col-sm-6">
                                             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete{{$val->member_id}}">
                                                 <i class="fas fa-trash"></i>
                                             </button>

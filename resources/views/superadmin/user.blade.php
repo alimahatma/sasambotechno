@@ -39,8 +39,7 @@
                                 <th class="text-center">Aksi</th>
                             </tr>
                         </thead>
-                        <tbody id="live_user">
-
+                        <tbody>
                         </tbody>
                     </table>
                 </div>
@@ -136,17 +135,6 @@
     </div>
 </div>
 @endforeach
-
-<?php $i = 1; ?>
-@foreach($users as $row)
-<tr>
-    <td>{{$i++}}</td>
-    <td>{{$row->name}}</td>
-    <td>{{$row->email}}</td>
-    <td>{{$row->role}}</td>
-</tr>
-@endforeach
-
 <script>
     $('document').ready(function() {
         // setInterval(function() {
@@ -155,21 +143,22 @@
     })
 
     function GetUser() {
-        const users = `{{$users}}`
-        let el, index
         $.ajax({
-            success: function() {
-                users.forEach(el, index => {
-                    users += `
-                    <tr>
-                        <td>el.index</td>
-                        <td>el.name</td>
-                        <td>el.email</td>
-                        <td>el.role</td>
-                    </tr>`
+            type: 'GET',
+            url: '/user/data',
+            dataType: 'json',
+            success: function(datas) {
+                $.each(datas.users, function(key, row) {
+                    $('#table1 > tbody').append('<tr>\
+                                <td>' + row.user_id + '</td>\
+                                <td>' + row.name + '</td>\
+                                <td>' + row.email + '</td>\
+                                <td>' + row.role + '</td>\
+                                <td>\
+                            <button type="button" class="btn btn-success" value="' + row.user_id + '">edit</button>\
+                            <button type="button" class="btn btn-danger" value="' + row.user_id + '">hapus</button></td>\
+                            </tr>');
                 })
-                $('#live_user').html(users)
-                console.log(users)
             }
         })
     }

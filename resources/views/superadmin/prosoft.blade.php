@@ -25,6 +25,7 @@
                 <!-- Button trigger modal -->
                 <div class="mb-2">
                     <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAdd">
+                        <div class="fas fa-plus"></div>
                         Tambah Data
                     </button>
                 </div>
@@ -215,7 +216,7 @@
 </div>
 @endforeach
 
-<!-- modal info deskripsi -->
+<!-- modal info -->
 @foreach($prosoft as $prcs)
 <div class="modal modal-lg" id="modalInfo{{$prcs->prosoft_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -231,7 +232,10 @@
                         <img src="/foto_produk/{{$prcs->foto_software}}" class="img-fluid rounded-start" alt="404">
                     </div>
                 </div>
-                <p class="mt-3">{{$prcs->deskripsi_prosoft}}</p>
+                <p class="mt-3 style__font">{{$prcs->deskripsi_prosoft}}</p>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>

@@ -12,6 +12,8 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KurrirController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\PartnerController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PesananController;
 use App\Http\Controllers\ProSoftController;
 use App\Http\Controllers\ResetPasswordController;
@@ -75,6 +77,7 @@ Route::name('auth')->group(function () {
 // route for table user
 Route::prefix('user')->group(function () {
     Route::get('/', [UserController::class, 'GetAllUser'])->name('akun');
+    Route::get('/data', [UserController::class, 'GetAll'])->name('data');
     Route::post('/change', [UserController::class, 'ChangeRole'])->name('change');
     Route::get('/delete/{id}', [UserController::class, 'Delete'])->name('delete');
 });
@@ -176,6 +179,12 @@ Route::prefix('transaksi')->group(function () {
 Route::prefix('pesanan')->group(function () {
     Route::get('/', [PesananController::class, 'GetPesanan'])->name('pesanan');
     Route::get('/detailcustom/{id}', [RoleMemberController::class, 'DetailCustom']); //route detail procus
+    Route::post('validasipesanan', [PesananController::class, 'ValidasiPesanan'])->name('validasipesanan'); //for superadmin
+    Route::post('/addpesanan', [PesananController::class, 'AddPesanan'])->name('addPesanan'); //checkout pesanan produk custom
+    Route::post('/bayar', [PesananController::class, 'BayarProdukCustom'])->name('bayar');
+    Route::post('/bayarlunas', [PesananController::class, 'BayarLunas'])->name('bayarlunas');
+    Route::post('/diskons', [PesananController::class, 'Discount'])->name('diskons');
+    Route::get('/delpesanan/{id}', [PesananController::class, 'DeletePesanan'])->name('delpesanan');
 });
 
 // route table member
@@ -210,6 +219,22 @@ Route::prefix('video')->group(function () {
     Route::get('/delvideo/{id}', [VideoController::class, 'DelVideo']);
 });
 
+// route role table payment
+Route::prefix('payment')->group(function () {
+    Route::get('/', [PaymentController::class, 'GetPayment'])->middleware('verified');
+    Route::post('/addpayment', [PaymentController::class, 'AddPayment'])->middleware('verified');
+    Route::post('/updtpayment', [PaymentController::class, 'UpdtPayment'])->middleware('verified');
+    Route::get('/delpayment/{id}', [PaymentController::class, 'DelPayment'])->middleware('verified');
+});
+
+// route role table partner perusahaan
+Route::prefix('partner')->group(function () {
+    Route::get('/', [PartnerController::class, 'GetPartner'])->middleware('verified');
+    Route::post('/addpartner', [PartnerController::class, 'AddPartner'])->middleware('verified');
+    Route::post('/updtpartner', [PartnerController::class, 'UpdtPartner'])->middleware('verified');
+    Route::get('/delpartner/{id}', [PartnerController::class, 'DelPartner'])->middleware('verified');
+});
+
 // route role admin
 Route::name('admin')->group(function () {
     Route::get('/index', [RoleAdminController::class, 'GetIndex'])->name('akun')->middleware('verified');
@@ -218,7 +243,8 @@ Route::name('admin')->group(function () {
 // route for role access member or client
 Route::name('members')->group(function () {
     Route::get('/home', [RoleMemberController::class, 'GetHome'])->name('home')->middleware('verified');
-    Route::get('/pilihbaju', [RoleMemberController::class, 'GetCloth'])->name('pilihbaju')->middleware('verified');
+    Route::get('/selectcloth/{id}', [RoleMemberController::class, 'DetailCloth'])->name('pilihbaju')->middleware('verified');
+
     Route::get('/trackingsablon', [TrxSablonController::class, 'GetTrxSablon'])->name('trackingSablon')->middleware('verified');
     Route::get('/trackingkurir', [RoleMemberController::class, 'GetKurirs'])->name('trackingKurir')->middleware('verified');
     Route::get('/getprofile', [MemberController::class, 'GetMember'])->name('getProfile')->middleware('verified');
@@ -226,4 +252,7 @@ Route::name('members')->group(function () {
     Route::get('/profile', [RoleMemberController::class, 'GetProfile'])->name('Profile')->middleware('verified');
     Route::get('/pesanananda', [TrxSablonController::class, 'GetPesananAnda'])->name('pesananAnda')->middleware('verified');
     Route::get('/invoice', [RoleMemberController::class, 'GetInvoice'])->name('invoice')->middleware('verified');
+});
+Route::prefix('pilihbaju')->group(function () {
+    Route::get('/{id}', [RoleMemberController::class, 'DataProcus'])->middleware('verified');
 });

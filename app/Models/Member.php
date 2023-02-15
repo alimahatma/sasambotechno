@@ -21,4 +21,11 @@ class Member extends Model
         'provinsi'
     ];
     public $timestamps = false;
+
+
+    // query vaeibale scope for join table member to user
+    public function scopeJoinMemberToUser($query)
+    {
+        return $query->join('users', 'users.user_id', '=', 'member.user_id');
+    }
 }

@@ -12,4 +12,9 @@ class KtgrProsoft extends Model
     protected $table = 'ktgr_prdk_software';
     protected $fillable = ['ktgr_id',    'jenis_prosoft',    'foto_prosoft',    'des_ktgrprosoft'];
     public $timestamps = false;
+
+    public function scopeJoinToKategoriProduk($query)
+    {
+        return $query->join('ktgr_produk', 'ktgr_produk.ktgr_id', '=', 'ktgr_prdk_software.ktgr_id');
+    }
 }
