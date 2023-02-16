@@ -7,6 +7,7 @@ use App\Models\KategoriProduk;
 use App\Models\KtgrProcus;
 use App\Models\KtgrProsoft;
 use App\Models\ProdukCustom;
+use App\Models\Video;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -25,6 +26,7 @@ class HomeController extends Controller
             'ktgrprocus' => $ktgrCustom, //load kategori produk custom
         ]);
     }
+
     public function SendToAbout()
     {
         $instansi = Instansi::all();
@@ -33,6 +35,7 @@ class HomeController extends Controller
             'instansi' => $instansi,
         ]);
     }
+
     public function SendToBlog()
     {
         $instansi = Instansi::all();
@@ -45,6 +48,7 @@ class HomeController extends Controller
             'produk' => $produkCustom,
         ]);
     }
+
     public function SendToTutorial()
     {
         $instansi = Instansi::all();
@@ -53,14 +57,18 @@ class HomeController extends Controller
             'instansi' => $instansi,
         ]);
     }
+
     public function SendToVideo()
     {
         $instansi = Instansi::all();
+        $video = Video::limit(8)->orderBy('video_id', 'desc')->get();
         return view('home.video', [
             'title' => 'video',
             'instansi' => $instansi,
+            'videos' => $video,
         ]);
     }
+
     public function SendToProduk()
     {
         $instansi = Instansi::all();
@@ -73,6 +81,7 @@ class HomeController extends Controller
             'instansi' => $instansi,
         ]);
     }
+
     public function SendToContact()
     {
         $instansi = Instansi::all();

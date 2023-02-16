@@ -122,6 +122,9 @@
             </div>
             <div class="modal-body">
                 <div class="row">
+                    <div class="col-9 mx-auto">
+                        <iframe height="310px" width="560px" src="{{$row->video_link}}" allowfullscreen></iframe>
+                    </div>
                     <div class="col-12 mt-2">
                         <p class="style__font">{{$row->deskripsi}}</p>
                     </div>
@@ -136,7 +139,7 @@
 @endforeach
 <!-- end modal info -->
 
-<!-- Modal update belum bisa-->
+<!-- Modal update bisa-->
 @foreach($video as $row)
 <div class="modal modal-lg" id="modalUpdate{{$row->video_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">

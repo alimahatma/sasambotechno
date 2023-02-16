@@ -180,6 +180,7 @@ Route::prefix('pesanan')->group(function () {
     Route::get('/', [PesananController::class, 'GetPesanan'])->name('pesanan');
     Route::get('/detailcustom/{id}', [RoleMemberController::class, 'DetailCustom']); //route detail procus
     Route::post('validasipesanan', [PesananController::class, 'ValidasiPesanan'])->name('validasipesanan'); //for superadmin
+    Route::post('validasiproduksi', [PesananController::class, 'ValidasiProduction'])->name('validasiproduksi'); //for role production
     Route::post('/addpesanan', [PesananController::class, 'AddPesanan'])->name('addPesanan'); //checkout pesanan produk custom
     Route::post('/bayar', [PesananController::class, 'BayarProdukCustom'])->name('bayar');
     Route::post('/bayarlunas', [PesananController::class, 'BayarLunas'])->name('bayarlunas');

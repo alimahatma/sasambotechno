@@ -5,10 +5,10 @@
             <div class="row justify-content-between p-3">
                 <div class="col-sm-6 col-md-4 col-xl-3">
                     <div class="col">
-                        <img src="/logo/{{$row->logo}}" style="height:100px; width:160px" class="card-img-top" alt="404">
+                        <img src="/logo/{{$row->logo}}" style="height:80px; width:140px" class="card-img-top" alt="404">
                         <div class="card-body">
-                            <h4 class="card-title">Alamat</h4>
-                            <p class="card-text style__font">{{$row->alamat}}</p>
+                            <h6 class="card-title">Alamat</h6>
+                            <iframe src="{{$row->alamat}}" width="260" height="150" style="border:10;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                         </div>
                     </div>
                 </div>

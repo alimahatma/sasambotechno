@@ -5,21 +5,43 @@ namespace App\Http\Controllers;
 use App\Models\Instansi;
 use App\Models\Pesanan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class PesananController extends Controller
 {
     public function GetPesanan()
     {
-        $data = Pesanan::joinToProdukCustom()->joinToKategoriProdukCustom()->joinToWarna()
-            ->joinToMember()->joinToSablon()->joinToKurir()->joinToPayment()->get();
-        $instansi = Instansi::select('logo')->get();
-        // dd($data);
-        return view('superadmin.pesanan', [
-            'title' => 'Data pesanan',
-            'instansi' => $instansi,
-            'pesanan' => $data,
-        ]);
+        if (Auth::user()->role == 'superadmin') {
+            $data = Pesanan::joinToProdukCustom()->joinToKategoriProdukCustom()->joinToWarna()
+                ->joinToMember()->joinToSablon()->joinToKurir()->joinToPayment()->get();
+            $instansi = Instansi::select('logo')->get();
+            return view('superadmin.pesanan', [
+                'title' => 'Data pesanan',
+                'instansi' => $instansi,
+                'pesanan' => $data,
+            ]);
+        } elseif (Auth::user()->role == 'kasir') {
+            $data = Pesanan::joinToProdukCustom()->joinToKategoriProdukCustom()->joinToWarna()
+                ->joinToMember()->joinToSablon()->joinToKurir()->joinToPayment()->get();
+            $instansi = Instansi::select('logo')->get();
+            return view('superadmin.pesanan', [
+                'title' => 'Data pesanan',
+                'instansi' => $instansi,
+                'pesanan' => $data,
+            ]);
+        } elseif (Auth::user()->role == 'produksi') {
+            $data = Pesanan::joinToProdukCustom()->joinToKategoriProdukCustom()->joinToWarna()
+                ->joinToMember()->joinToSablon()->joinToKurir()->joinToPayment()->get();
+            $instansi = Instansi::select('logo')->get();
+            return view('superadmin.pesanan', [
+                'title' => 'Data pesanan',
+                'instansi' => $instansi,
+                'pesanan' => $data,
+            ]);
+        } else {
+            echo '419 page expired';
+        }
     }
 
     public function AddPesanan(Request $req)
@@ -175,6 +197,23 @@ class PesananController extends Controller
         } catch (\Exception $e) {
             Log::error($e->getMessage());
             return redirect('pesanan')->with('errors', 'validasi pembayaran');
+        }
+    }
+
+    public function ValidasiProduction(Request $req)
+    {
+        $req->validate([
+            'stts_produksi' => 'required'
+        ]);
+        try {
+            $validasiProduksi = array(
+                'stts_produksi' => $req->post('stts_produksi'),
+            );
+            Pesanan::where('pesanan_id', '=', $req->post('pesanan_id'))->update($validasiProduksi);
+            return redirect('pesanan')->with('success', 'rubah status produksi berhasil');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return redirect('pesanan')->with('errors', 'rubah status produksi gagal');
         }
     }
 

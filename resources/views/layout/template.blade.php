@@ -212,7 +212,13 @@
                         </li>
                         @elseif(Auth::user()->role == 'kasir')
                         <li class="sidebar-item">
-                            <a href="#" class='sidebar-link'>
+                            <a href="index" class='sidebar-link'>
+                                <i class="fas fa-home"></i>
+                                <span>Home</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="pesanan" class='sidebar-link'>
                                 <i class="fas fa-shopping-bag"></i>
                                 <span>Pesanan</span>
                             </a>
@@ -243,8 +249,14 @@
                         @elseif(Auth::user()->role == 'produksi')
                         <li class="sidebar-item">
                             <a href="pesanan" class='sidebar-link'>
-                                <i class="fas fa-pen-fancy"></i>
+                                <i class="fas fa-shopping-bag"></i>
                                 <span>Pesanan</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="#" class='sidebar-link'>
+                                <i class="fas fa-pen-fancy"></i>
+                                <span>Pesanan sablon</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
