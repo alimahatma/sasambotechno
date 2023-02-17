@@ -7,6 +7,7 @@ use App\Models\KategoriProduk;
 use App\Models\KtgrProcus;
 use App\Models\KtgrProsoft;
 use App\Models\ProdukCustom;
+use App\Models\Tutorial;
 use App\Models\Video;
 use Illuminate\Http\Request;
 
@@ -52,9 +53,11 @@ class HomeController extends Controller
     public function SendToTutorial()
     {
         $instansi = Instansi::all();
+        $tutorial = Tutorial::all();
         return view('home.tutorial', [
             'title' => 'tutorial',
             'instansi' => $instansi,
+            'tutorials' => $tutorial,
         ]);
     }
 

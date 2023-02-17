@@ -23,6 +23,10 @@
             display: none;
         }
 
+        #more {
+            display: none;
+        }
+
         .nolist {
             list-style-type: none;
         }
