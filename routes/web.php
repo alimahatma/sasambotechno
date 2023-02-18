@@ -11,14 +11,12 @@ use App\Http\Controllers\RoleMemberController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KurrirController;
-use App\Http\Controllers\MemberController;
 use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PesananController;
 use App\Http\Controllers\ProSoftController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\SablonController;
-use App\Http\Controllers\StokController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\TrxSablonController;
@@ -162,14 +160,6 @@ Route::prefix('warna')->group(function () {
     Route::get('/delete/{id}', [WarnaController::class, 'DeleteWarna'])->name('deletewarna');
 });
 
-// route table stok
-Route::prefix('stok')->group(function () {
-    Route::get('/', [StokController::class, 'GetStok'])->name('stok');
-    Route::post('/addstok', [StokController::class, 'AddStok'])->name('addstok');
-    Route::post('/updtstok', [StokController::class, 'UpdtStok'])->name('updtstok');
-    Route::get('/delete/{id}', [StokController::class, 'DeleteStok'])->name('deletestok');
-});
-
 // route table transaksi
 Route::prefix('transaksi')->group(function () {
     Route::get('/', [TransaksiController::class, 'GetTransaksi'])->name('transaksi');
@@ -186,14 +176,6 @@ Route::prefix('pesanan')->group(function () {
     Route::post('/bayarlunas', [PesananController::class, 'BayarLunas'])->name('bayarlunas');
     Route::post('/diskons', [PesananController::class, 'Discount'])->name('diskons');
     Route::get('/delpesanan/{id}', [PesananController::class, 'DeletePesanan'])->name('delpesanan');
-});
-
-// route table member
-Route::prefix('member')->group(function () {
-    Route::get('/', [MemberController::class, 'GetMember'])->name('member');
-    Route::post('/addmember', [MemberController::class, 'AddMember'])->name('addmember');
-    Route::post('/updtmember', [MemberController::class, 'UpdtMember'])->name('updtmember');
-    Route::get('/delete/{id}', [MemberController::class, 'DeleteMember'])->name('deletemember');
 });
 
 // route transaksi sablon
@@ -246,11 +228,11 @@ Route::name('members')->group(function () {
     Route::get('/home', [RoleMemberController::class, 'GetHome'])->name('home')->middleware('verified');
     Route::get('/selectcloth/{id}', [RoleMemberController::class, 'DetailCloth'])->name('pilihbaju')->middleware('verified');
 
-    Route::get('/trackingsablon', [TrxSablonController::class, 'GetTrxSablon'])->name('trackingSablon')->middleware('verified');
-    Route::get('/trackingkurir', [RoleMemberController::class, 'GetKurirs'])->name('trackingKurir')->middleware('verified');
-    Route::get('/getprofile', [MemberController::class, 'GetMember'])->name('getProfile')->middleware('verified');
-    Route::post('/saveprofile', [MemberController::class, 'AddMember'])->name('addProfile')->middleware('verified');
-    Route::get('/profile', [RoleMemberController::class, 'GetProfile'])->name('Profile')->middleware('verified');
+    //route lengkapi profile oleh pelanggan
+    Route::get('/form', [UserController::class, 'GetForm'])->name('form'); //get form lengkapi akun
+    Route::post('/updtakun', [UserController::class, 'UpdtUser'])->name('updtakun'); //kirim nilai yang di input dari form
+
+    Route::get('/profile', [UserController::class, 'GetAllUser'])->name('Profile')->middleware('verified');
     Route::get('/pesanananda', [TrxSablonController::class, 'GetPesananAnda'])->name('pesananAnda')->middleware('verified');
     Route::get('/invoice', [RoleMemberController::class, 'GetInvoice'])->name('invoice')->middleware('verified');
 });

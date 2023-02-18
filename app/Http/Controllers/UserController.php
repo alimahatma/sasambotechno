@@ -24,17 +24,27 @@ class UserController extends Controller
                 'users' => $user,
                 'instansi' => $in
             ]);
+        } elseif (Auth::user()->role == 'pelanggan') {
+            $instansi = Instansi::select('logo')->get();
+            $user = User::all();
+            return view('members.profile', [
+                'title' => 'akun user',
+                'users' => $user,
+                'instansi' => $instansi
+            ]);
         } else {
             print('akses di tolak');
         }
     }
-    public function GetAll()
-    {
-        $user = User::all();
-        return response()->json([
-            'users' => $user
-        ]);
-    }
+
+    // get data user with json
+    // public function GetAll()
+    // {
+    //     $user = User::all();
+    //     return response()->json([
+    //         'users' => $user
+    //     ]);
+    // }
 
     // get view register
     public function GetRegister()
@@ -129,6 +139,38 @@ class UserController extends Controller
             return redirect('user')->with('message', 'register gagal');
         }
     }
+
+
+    // update data user oleh pelanggan
+    public function UpdtUser(Request $req)
+    {
+        $req->validate([
+            'nama_lengkap' => 'required',
+            'telepon' => 'required',
+            'gender' => 'required',
+            'desa' => 'required',
+            'kecamatan' => 'required',
+            'kabupaten' => 'required',
+            'provinsi' => 'required',
+        ]);
+        try {
+            $data = array(
+                'nama_lengkap' => $req->post('nama_lengkap'),
+                'telepon' => $req->post('telepon'),
+                'gender' => $req->post('gender'),
+                'desa' => $req->post('desa'),
+                'kecamatan' => $req->post('kecamatan'),
+                'kabupaten' => $req->post('kabupaten'),
+                'provinsi' => $req->post('provinsi'),
+            );
+            User::where('user_id', '=', $req->post('user_id'))->update($data);
+            return redirect('profile')->with('success', 'data berhasil di edit');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return redirect('profile')->with('message', 'gagal');
+        }
+    }
+
     public function Delete($id)
     {
         try {
@@ -138,5 +180,15 @@ class UserController extends Controller
             Log::error($e->getMessage());
             return redirect('user')->with('message', 'register gagal');
         }
+    }
+
+    // form lengkapi akun pelanggan
+    public function GetForm()
+    {
+        $instansi = Instansi::select('logo')->get();
+        return view('members.getFormProfile', [
+            'title' => 'lengkapi akun',
+            'instansi' => $instansi
+        ]);
     }
 }

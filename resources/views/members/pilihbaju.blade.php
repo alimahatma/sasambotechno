@@ -4,24 +4,25 @@
     <div class="mt-5 col-lg-10 col-md-11 col-sm-12 mx-auto">
         <div class="card-body">
             <div class="row">
+                <!-- alert error or success-->
+                <div>
+                    @if(session('success'))
+                    <p class="alert alert-success">{{ session('success') }}</p>
+                    @endif
+                    @if($errors->any())
+                    @foreach($errors->all() as $err)
+                    <p class="alert alert-danger">{{ $err }}</p>
+                    @endforeach
+                    @endif
+                </div>
+                <!-- end-alert -->
                 <div class="col-md-12 mx-auto">
                     <!-- <div class="form"> -->
                     <form action="/pesanan/addpesanan" method="post" enctype="multipart/form-data">
                         <div class="modal-body">
                             @csrf
-                            <!-- alert error or success-->
-                            <div>
-                                @if(session('success'))
-                                <p class="alert alert-success">{{ session('success') }}</p>
-                                @endif
-                                @if($errors->any())
-                                @foreach($errors->all() as $err)
-                                <p class="alert alert-danger">{{ $err }}</p>
-                                @endforeach
-                                @endif
-                            </div>
-                            <!-- end-alert -->
                             <div class="row row-cols-1 row-cols-md-2 g-4">
+                                <!-- code read image -->
                                 <div class="col-lg-3 col-md-4 col-sm-4">
                                     <?php $i = 1; ?>
                                     @foreach($kategori_produk_custom as $row)
@@ -48,6 +49,7 @@
                                         @endforeach
                                     </div>
                                 </div>
+
                                 <div class="col-lg-9 col-md-8 col-sm-8">
                                     <div class="shadow-none">
                                         <div class="card-body">
@@ -91,13 +93,9 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <!-- input member id -->
+                                            <!-- input user id -->
                                             <div>
-                                                @foreach($member as $mbr)
-                                                @if(Auth::user()->user_id == $mbr->user_id)
-                                                <input type="hidden" name="member_id" value="{{$mbr->member_id}}">
-                                                @endif
-                                                @endforeach
+                                                <input type="hidden" name="user_id" value="{{Auth::user()->user_id}}">
                                             </div>
                                             <!-- input size -->
                                             <div class="input-group mt-2">
@@ -159,6 +157,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <!-- input kurir id -->
                                             <div class="input-group mt-2">
                                                 <div class="col-lg-2 col-sm-5 col-md-4">
@@ -211,7 +210,7 @@
                                                     <h6>Tanggal order</h6>
                                                 </div>
                                                 <div class="col-lg-3 col-sm-7 col-md-8">
-                                                    <input type="date" name="tgl_order" class="form-control">
+                                                    <input type="hidden" name="tgl_order" value="{{date('Y/m/d')}}" class="form-control">
                                                 </div>
                                             </div>
                                             <!-- total produk -->

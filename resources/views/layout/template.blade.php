@@ -51,6 +51,7 @@
 
 <body>
     <div id="app">
+        <!-- sidebar content -->
         <div id="sidebar" class="active">
             <div class="sidebar-wrapper active">
                 <div class="sidebar-header position-relative">
@@ -110,14 +111,8 @@
                         </li>
                         <li class="sidebar-item">
                             <a href="user" class='sidebar-link'>
-                                <i class="fas fa-user"></i>
-                                <span>Akun</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="member" class='sidebar-link'>
                                 <i class="fas fa-users"></i>
-                                <span>Member</span>
+                                <span>Akun</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
@@ -273,7 +268,7 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="getprofile" class='sidebar-link'>
+                            <a href="form" class='sidebar-link'>
                                 <i class="fas fa-user-edit"></i>
                                 <span>Lengkapi data</span>
                             </a>
@@ -282,18 +277,6 @@
                             <a href="profile" class='sidebar-link'>
                                 <i class="fas fa-user"></i>
                                 <span>Profile</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="trackingsablon" class='sidebar-link'>
-                                <i class="fas fa-pen-fancy"></i>
-                                <span>Sablon</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="trackingkurir" class='sidebar-link'>
-                                <i class="fas fa-truck"></i>
-                                <span>Kurir tersedia</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
@@ -319,14 +302,21 @@
                 </div>
             </div>
         </div>
+
+        <!-- main content -->
         <div id="main">
-            <!-- tombol menu -->
+
+            <!-- tombol menu on sidebar -->
             <header class="mb-3">
                 <a href="#" class="burger-btn d-block d-xl-none">
                     <i class="bi bi-justify fs-3"></i>
                 </a>
             </header>
+
+            <!-- content load content -->
             @yield('content')
+
+            <!-- footer -->
             <footer class="mt-5">
                 <div class="container-fluid">
                     <div class="row">

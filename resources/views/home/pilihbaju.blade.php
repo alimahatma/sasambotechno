@@ -122,29 +122,6 @@
                                             </div>
                                             <div class="input-group mt-2">
                                                 <div class="col-lg-2 col-sm-5 col-md-4">
-                                                    <h6>Pilih sablon</h6>
-                                                </div>
-                                                <div class="col-lg-3 col-sm-7 col-md-8">
-                                                    <select id="test hargasablon" onchange="showDiv('hidden_div',this)" class="form-select" aria-label=".form-select-sm example">
-                                                        <option selected>pilih ukuran sablon</option>
-                                                        @foreach($sablon as $sab)
-                                                        <option value="{{$sab->sablon_id}}" data-harga_sablon="{{$sab->harga}}">{{$sab->ukuran_sablon}}, Rp.{{$sab->harga}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div id="hidden_div">
-                                                <div class="input-group mt-2">
-                                                    <div class="col-lg-2 col-sm-5 col-md-4">
-                                                        <h6>Upload desain</h6>
-                                                    </div>
-                                                    <div class="col-lg-3 col-sm-7 col-md-8">
-                                                        <input type="file" class="form-control" name="desain">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="input-group mt-2">
-                                                <div class="col-lg-2 col-sm-5 col-md-4">
                                                     <h6>Jasa kirim</h6>
                                                 </div>
                                                 <div class="col-lg-3 col-sm-7 col-md-8">
@@ -179,13 +156,14 @@
                         </div>
                         <!-- Button update modal -->
                         <div class="mb-2 mt-4 col-3 mx-auto d-flex justify-content-between">
-                            <button type="submit" class="btn btn-success">
+                            <a href="/" class="btn btn-danger">Kembali</a>
+                            <!-- <button type="submit" class="btn btn-success">
                                 Checkout
                             </button>
-                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalUpdate">
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal">
                                 <span><ion-icon name="cart-outline"></ion-icon></span>
                                 Add to cart
-                            </button>
+                            </button> -->
                         </div>
                     </form>
                 </div>

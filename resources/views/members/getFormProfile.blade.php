@@ -6,16 +6,12 @@
             <div class="card-header">
                 <h4 class="card-title text-center">Lengkapi profile</h4>
             </div>
-            <form action="saveprofile" method="post">
+            <form action="updtakun" method="post">
                 <div class="modal-body">
                     @csrf
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            @foreach($users as $us)
-                            @if(Auth::user()->user_id == $us->user_id)
-                            <input type="hidden" class="form-control" name="user_id" value="{{$us->user_id}}">
-                            @endif
-                            @endforeach
+                            <input type="hidden" class="form-control" name="user_id" value="{{Auth::user()->user_id}}">
                             <h6>Nama lengkap</h6>
                             <input class="form-control" type="text" name="nama_lengkap" placeholder="masukkan nama lengkap" aria-label="default input example">
                         </div>
@@ -24,16 +20,6 @@
                             <input class="form-control" type="text" name="telepon" placeholder="masukkan nomor telepon" aria-label="default input example">
                         </div>
                     </div>
-                    <!-- <div class="row"> 
-                        <div class="col-md-6 mb-3">
-                            <h6>Tgl lahir</h6>
-                            <input class="form-control" type="date" name="tgl_lhr" placeholder="tanggal lahir" aria-label="default input example">
-                        </div>
-                    <div class="col-md-6 mb-3">
-                            <h6>Foto</h6>
-                            <input class="form-control" type="file" name="foto" aria-label="default input example">
-                        </div> 
-                    </div> -->
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <h6>Gender</h6>
@@ -45,7 +31,7 @@
                                     </label>
                                 </div>
                                 <div class="form-check form-check-success">
-                                    <input class="form-check-input" type="radio" name="gender" value="L" id="Success">
+                                    <input class="form-check-input" type="radio" name="gender" value="P" id="Success">
                                     <label class="form-check-label" for="Success">
                                         Perempuan
                                     </label>

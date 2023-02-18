@@ -16,16 +16,15 @@ return new class extends Migration
         Schema::create('pesanan', function (Blueprint $table) {
             $table->id('pesanan_id');
             $table->foreignId('procus_id');
-            $table->foreignId('member_id');
-            $table->foreignId('sablon_id');
+            $table->string('color', 20);
+            $table->foreignId('user_id');
+            $table->string('size_order', 10);
             $table->foreignId('kurir_id');
             $table->foreignId('payment_id');
             $table->integer('jml_order')->length(10)->unsigned();
             $table->double('jml_dp')->nullable();
             $table->double('jml_lunas')->nullable();
             $table->double('all_total')->nullable();
-            $table->string('desain1', 30)->nullable();
-            $table->string('desain2', 30)->nullable();
             $table->string('b_dp', 30)->nullable();
             $table->string('b_lunas', 30)->nullable();
             $table->string('t_pesan', 150);
@@ -35,8 +34,7 @@ return new class extends Migration
             $table->enum('status_pesanan', ['pending', 'diterima', 'kirim', 'selesai'])->default('pending');
             $table->timestamps();
             $table->foreign('procus_id')->references('procus_id')->on('produk_custom')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreign('member_id')->references('member_id')->on('member')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreign('sablon_id')->references('sablon_id')->on('sablon')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreign('user_id')->references('user_id')->on('users')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreign('kurir_id')->references('kurir_id')->on('kurir')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreign('payment_id')->references('payment_id')->on('payment')->cascadeOnUpdate()->cascadeOnDelete();
         });

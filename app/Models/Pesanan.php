@@ -13,18 +13,14 @@ class Pesanan extends Model
     protected $fillable = [
         'procus_id',
         'color',
-        'member_id',
+        'user_id',
         'size_order',
-        'sablon_id',
         'kurir_id',
         'payment_id',
         'jml_order',
         'jml_dp',
         'jml_lunas',
         'all_total',
-        'desain1',
-        'desain2',
-        'desain3',
         'b_dp',
         'b_lunas',
         't_pesan',
@@ -50,15 +46,11 @@ class Pesanan extends Model
         return $query->join('warna', 'warna.warna_id', 'produk_custom.warna_id');
     }
 
-    public function scopeJoinToMember($query)
+    public function scopeJoinToUser($query)
     {
-        return $query->join('member', 'member.member_id', '=', 'pesanan.member_id');
+        return $query->join('users', 'users.user_id', '=', 'pesanan.user_id');
     }
 
-    public function scopeJoinToSablon($query)
-    {
-        return $query->join('sablon', 'sablon.sablon_id', '=', 'pesanan.sablon_id');
-    }
     public function scopeJoinToKurir($query)
     {
         return $query->join('kurir', 'kurir.kurir_id', '=', 'pesanan.kurir_id');

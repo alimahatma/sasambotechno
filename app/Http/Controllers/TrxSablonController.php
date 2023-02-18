@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Instansi;
-use App\Models\Member;
 use App\Models\Pesanan;
 use App\Models\Sablon;
 use App\Models\Trx_sablon;
@@ -15,48 +14,44 @@ class TrxSablonController extends Controller
 {
     public function GetTrxSablon()
     {
-        if (Auth::user()->role == 'superadmin' && 'kasir' && 'produksi') {
-            $member = Member::all();
-            $data = Trx_sablon::joinToMember()->joinToSablon()->get(); //join to table member and table sablon
+        if (Auth::user()->role == 'superadmin' || Auth::user()->role == 'kasir' || Auth::user()->role == 'produksi') {
+            $data = Trx_sablon::joinToUser()->joinToSablon()->joinToKurir()->joinToPayment()->get(); //join to table user and table sablon
             $instansi = Instansi::select('logo')->get();
             return view('superadmin.trx_sablon', [
                 'title' => 'transaksi sablon',
                 'instansi' => $instansi,
                 'transaksiSablon' => $data,
-                'member' => $member,
             ]);
-        } elseif (Auth::user()->role == 'pelanggan') {
-            $sablon = Sablon::all();
-            $member = Member::all();
-            $instansi = Instansi::select('logo', 'whatsapp')->get();
-            $data = Trx_sablon::joinToMember()->joinToSablon()->get(); //join to table member and table sablon
-            return view('members.trackingSablon', [
-                'title' => 'tracking sablon',
-                'sablon' => $sablon,
-                'instansi' => $instansi,
-                'member' => $member,
-                'transaksiSablon' => $data,
-            ]);
+        } else {
+            print("419 page expired");
         }
     }
     public function AddTrxSablon(Request $req)
     {
+        // <!-- user_id	sablon_id	kurir_id	payment_id	bdp	bl	jml	pay_status	stts_produksi	trx_status -->
         $req->validate([
-            'member_id' => 'required',
+            'user_id' => 'required',
             'sablon_id' => 'required',
+            'kurir_id' => 'required',
+            'payment_id' => 'required',
             'jml' => 'required',
+            'tgl_trx' => 'required',
         ]);
         try {
             $datas = new Trx_sablon([
-                'member_id' => $req->member_id,
+                'user_id' => $req->user_id,
                 'sablon_id' => $req->sablon_id,
+                'kurir_id' => $req->kurir_id,
+                'payment_id' => $req->payment_id,
                 'jml' => $req->jml,
+                'tgl_trx' => $req->tgl_trx,
             ]);
+            // dd($datas);
             $datas->save();
-            return redirect('trackingsablon')->with('success', 'transaksi berhasil');
+            return redirect('pesanananda')->with('success', 'transaksi berhasil');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            return redirect('trackingsablon')->with('message', 'transaksi gagal');
+            return redirect('home')->with('message', 'transaksi gagal');
         }
     }
     public function UpdtTrxSablon(Request $req)
@@ -81,17 +76,13 @@ class TrxSablonController extends Controller
     public function GetPesananAnda()
     {
         if (Auth::user()->role == 'pelanggan') {
-            $member = Member::all();
             $instansi = Instansi::select('logo', 'whatsapp')->get();
-            $dataPesanan = Pesanan::joinToProdukCustom()->joinToKategoriProdukCustom()->joinToWarna()
-                ->joinToMember()->joinToSablon()->joinToKurir()->joinToPayment()->orderBy('pesanan_id', 'desc')->get();
-            $pesananSablon = Trx_sablon::joinToMember()->joinToSablon()->get(); //join to table member and table sablon
+            $dataPesanan = Pesanan::joinToProdukCustom()->joinToKategoriProdukCustom()->joinToWarna()->joinToUser()->joinToKurir()->joinToPayment()->orderBy('pesanan_id', 'desc')->get();
+            $pesananSablon = Trx_sablon::joinToUser()->joinToSablon()->joinToKurir()->joinToPayment()->orderBy('trx_sablon_id', 'desc')->get();
             // dd($dataPesanan);
             return view('members.pesananAnda', [
                 'title' => 'history transaksi',
-                // 'sablon' => $sablon,
                 'instansi' => $instansi,
-                'member' => $member,
                 'pesanansablon' => $pesananSablon,
                 'pesananpakaiancustom' => $dataPesanan,
             ]);

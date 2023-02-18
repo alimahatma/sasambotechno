@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Instansi;
 use App\Models\KtgrProcus;
 use App\Models\Kurir;
-use App\Models\Member;
 use App\Models\Payment;
 use App\Models\ProdukCustom;
 use App\Models\Sablon;
@@ -18,24 +17,21 @@ class RoleMemberController extends Controller
     {
         $procategori = KtgrProcus::joinToKategori()->get();
         $procus = ProdukCustom::joinProdukCostum()->get();
-        $data = Instansi::all();
+        $instansi = Instansi::all();
+        $sablon = Sablon::all();
+        $payment = Payment::all();
+        $kurir = Kurir::all();
         return view('members.home', [
             'title' => 'home',
-            'instansi' => $data,
+            'instansi' => $instansi,
             'kategoricustom' => $procategori,
             'procus' => $procus,
-        ]);
-    }
-    public function GetKurirs()
-    {
-        $kurir = Kurir::all();
-        $data = Instansi::all();
-        return view('members.trackingKurir', [
-            'title' => 'kurir tersedia',
-            'instansi' => $data,
+            'sablon' => $sablon,
+            'payment' => $payment,
             'kurir' => $kurir,
         ]);
     }
+
     public function GetInvoice()
     {
         $data = Instansi::all();
@@ -49,11 +45,11 @@ class RoleMemberController extends Controller
 
         User::all();
         $data = Instansi::select('logo')->get();
-        $member = Member::joinMemberToUser()->get();
+        $users = User::all();
         return view('members.profile', [
             'title' => 'profile anda',
             'instansi' => $data,
-            'member' => $member,
+            'users' => $users,
         ]);
     }
     public function DetailCustom($id)
@@ -81,8 +77,8 @@ class RoleMemberController extends Controller
 
         // load data kategori
         $k = KtgrProcus::all();
-        $member = Member::select('user_id', 'member_id')->get();
-        // dd($member);
+        $user = User::select('user_id', 'user_id')->get();
+        // dd($user);
         return view('home.pilihbaju', [
             'title' => 'stok baju', //judul to header
             'instansi' => $data, //load data instansi
@@ -96,7 +92,7 @@ class RoleMemberController extends Controller
             'sablon' => $sablon,
             'kategori_produk_custom' => $k,
             'produkcustoms' => $kustom,
-            'member' => $member,
+            'user' => $user,
         ]);
     }
 
@@ -127,8 +123,8 @@ class RoleMemberController extends Controller
         // load data kategori
         $k = KtgrProcus::all();
         $pay = Payment::select('payment_id', 'pay_method')->get();
-        $member = Member::select('user_id', 'member_id')->get();
-        // dd($member);
+        $user = User::select('user_id', 'user_id')->get();
+        // dd($user);
         return view('members.pilihbaju', [
             'title' => 'stok baju', //judul to header
             'instansi' => $data, //load data instansi
@@ -142,7 +138,7 @@ class RoleMemberController extends Controller
             'sablon' => $sablon,
             'kategori_produk_custom' => $k,
             'produkcustoms' => $kustom,
-            'member' => $member,
+            'user' => $user,
             'payment' => $pay,
         ]);
     }

@@ -14,7 +14,7 @@ class PesananController extends Controller
     {
         if (Auth::user()->role == 'superadmin') {
             $data = Pesanan::joinToProdukCustom()->joinToKategoriProdukCustom()->joinToWarna()
-                ->joinToMember()->joinToSablon()->joinToKurir()->joinToPayment()->get();
+                ->joinToUser()->joinToKurir()->joinToPayment()->get();
             $instansi = Instansi::select('logo')->get();
             return view('superadmin.pesanan', [
                 'title' => 'Data pesanan',
@@ -23,7 +23,7 @@ class PesananController extends Controller
             ]);
         } elseif (Auth::user()->role == 'kasir') {
             $data = Pesanan::joinToProdukCustom()->joinToKategoriProdukCustom()->joinToWarna()
-                ->joinToMember()->joinToSablon()->joinToKurir()->joinToPayment()->get();
+                ->joinToUser()->joinToKurir()->joinToPayment()->get();
             $instansi = Instansi::select('logo')->get();
             return view('superadmin.pesanan', [
                 'title' => 'Data pesanan',
@@ -32,7 +32,7 @@ class PesananController extends Controller
             ]);
         } elseif (Auth::user()->role == 'produksi') {
             $data = Pesanan::joinToProdukCustom()->joinToKategoriProdukCustom()->joinToWarna()
-                ->joinToMember()->joinToSablon()->joinToKurir()->joinToPayment()->get();
+                ->joinToUser()->joinToKurir()->joinToPayment()->get();
             $instansi = Instansi::select('logo')->get();
             return view('superadmin.pesanan', [
                 'title' => 'Data pesanan',
@@ -47,48 +47,46 @@ class PesananController extends Controller
     public function AddPesanan(Request $req)
     {
         if ($req->desain1 == true) {
-            //procus_id color	member_id	sablon_id	kurir_id	payment_id	jml_order	desain1	desain2 desain3	b_dp	b_lunas	t_pesan	pay_status	tgl_order	stts_produksi	status_pesanan
             $req->validate([
                 'procus_id' => 'required',
                 'color' => 'required',
-                'member_id' => 'required',
+                'user_id' => 'required',
                 'size_order' => 'required',
-                'sablon_id' => 'required',
                 'kurir_id' => 'required',
                 'payment_id' => 'required',
                 'jml_order' => 'required',
-                'desain1' => 'required|image|mimes:png,jpg,jpeg|max:2048',
-                'desain2' => 'required|image|mimes:png,jpg,jpeg|max:2048',
-                'desain3' => 'required|image|mimes:png,jpg,jpeg|max:2048',
                 't_pesan' => 'required',
                 'tgl_order' => 'required',
+                // 'desain1' => 'required|image|mimes:png,jpg,jpeg|max:2048',
+                // 'desain2' => 'required|image|mimes:png,jpg,jpeg|max:2048',
+                // 'desain3' => 'required|image|mimes:png,jpg,jpeg|max:2048',
             ]);
             try {
-                // convert desain sablon to folder desain
-                $design1 = time() . '.' . $req->desain1->extension();
-                $req->desain1->move(public_path('desain1'), $design1);
+                // // convert desain sablon to folder desain
+                // $design1 = time() . '.' . $req->desain1->extension();
+                // $req->desain1->move(public_path('desain1'), $design1);
 
-                // convert desain sablon to folder desain
-                $design2 = time() . '.' . $req->desain2->extension();
-                $req->desain2->move(public_path('desain2'), $design2);
+                // // convert desain sablon to folder desain
+                // $design2 = time() . '.' . $req->desain2->extension();
+                // $req->desain2->move(public_path('desain2'), $design2);
 
-                // convert desain sablon to folder desain
-                $design3 = time() . '.' . $req->desain3->extension();
-                $req->desain3->move(public_path('desain3'), $design3);
+                // // convert desain sablon to folder desain
+                // $design3 = time() . '.' . $req->desain3->extension();
+                // $req->desain3->move(public_path('desain3'), $design3);
 
                 $data = new Pesanan([
                     'procus_id' => $req->procus_id,
                     'color' => $req->color,
-                    'member_id' => $req->member_id,
+                    'user_id' => $req->user_id,
                     'size_order' => $req->size_order,
-                    'sablon_id' => $req->sablon_id,
                     'kurir_id' => $req->kurir_id,
                     'payment_id' => $req->payment_id,
                     'jml_order' => $req->jml_order,
+                    't_pesan' => $req->t_pesan,
                     'tgl_order' => $req->tgl_order,
-                    'desain1' => $design1,
-                    'desain2' => $design2,
-                    'desain3' => $design3,
+                    // 'desain1' => $design1,
+                    // 'desain2' => $design2,
+                    // 'desain3' => $design3,
                 ]);
                 dd($data);
                 $data->save();
@@ -101,9 +99,8 @@ class PesananController extends Controller
             $req->validate([
                 'procus_id' => 'required',
                 'color' => 'required',
-                'member_id' => 'required',
+                'user_id' => 'required',
                 'size_order' => 'required',
-                'sablon_id' => 'required',
                 'kurir_id' => 'required',
                 'payment_id' => 'required',
                 'jml_order' => 'required',
@@ -114,9 +111,8 @@ class PesananController extends Controller
                 $data = new Pesanan([
                     'procus_id' => $req->procus_id,
                     'color' => $req->color,
-                    'member_id' => $req->member_id,
+                    'user_id' => $req->user_id,
                     'size_order' => $req->size_order,
-                    'sablon_id' => $req->sablon_id,
                     'kurir_id' => $req->kurir_id,
                     'payment_id' => $req->payment_id,
                     'jml_order' => $req->jml_order,
