@@ -3,6 +3,7 @@
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InstansiController;
 use App\Http\Controllers\KategoriProdukController;
+use App\Http\Controllers\KeranjangController;
 use App\Http\Controllers\KtgrProCusController;
 use App\Http\Controllers\KtgrProSoftController;
 use App\Http\Controllers\ProCusController;
@@ -227,6 +228,7 @@ Route::name('admin')->group(function () {
 Route::name('members')->group(function () {
     Route::get('/home', [RoleMemberController::class, 'GetHome'])->name('home')->middleware('verified');
     Route::get('/selectcloth/{id}', [RoleMemberController::class, 'DetailCloth'])->name('pilihbaju')->middleware('verified');
+    Route::get('/details/{id}', [RoleMemberController::class, 'SendToDetailAfterCheckout'])->name('details')->middleware('verified'); // detail sebelum menambahkan ke barang barang
 
     //route lengkapi profile oleh pelanggan
     Route::get('/form', [UserController::class, 'GetForm'])->name('form'); //get form lengkapi akun
@@ -235,6 +237,8 @@ Route::name('members')->group(function () {
     Route::get('/profile', [UserController::class, 'GetAllUser'])->name('Profile')->middleware('verified');
     Route::get('/pesanananda', [TrxSablonController::class, 'GetPesananAnda'])->name('pesananAnda')->middleware('verified');
     Route::get('/invoice', [RoleMemberController::class, 'GetInvoice'])->name('invoice')->middleware('verified');
+
+    Route::get('/cart', [KeranjangController::class, 'GetDataCart'])->name('cart');
 });
 Route::prefix('pilihbaju')->group(function () {
     Route::get('/{id}', [RoleMemberController::class, 'DataProcus'])->middleware('verified');

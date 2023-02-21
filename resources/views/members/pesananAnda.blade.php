@@ -136,7 +136,7 @@
             <div class="card-body shadow-sm">
                 <div class="row">
                     <div class="col">
-                        <img src="/foto_produk/{{$vals->foto_dep}}" width="80px" height="100px" alt="404">
+                        <img src="/foto_produk/depan/{{$vals->foto_dep}}" width="80px" height="100px" alt="404">
                     </div>
                     <div class="col">
                         <p>{{$vals->nama_lengkap}}</p>
@@ -202,179 +202,179 @@
                     </div>
                 </div>
             </div>
-            <!-- end view read transaction pesanan pakaian custom -->
+        </div>
+        <!-- end view read transaction pesanan pakaian custom -->
 
-            <!-- modal info transaction pesanan pakaian custom -->
-            <div class="modal fade" id="modalInfoProduks{{$vals->pesanan_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Detail {{$vals->nama_produk}}</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <!-- modal info transaction pesanan pakaian custom -->
+        <div class="modal fade" id="modalInfoProduks{{$vals->pesanan_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Detail {{$vals->nama_produk}}</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-4 col-lg-6 col-sm-6 mb-3">
+                                <h6>Nama pembeli</h6>
+                            </div>
+                            <div class="col-md-3 col-lg-5 col-sm-6 mb-3">
+                                <p>: {{$vals->nama_lengkap}}</p>
+                            </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-4 col-lg-6 col-sm-6 mb-3">
+                                <h6>Jasa kirim</h6>
+                            </div>
+                            <div class="col-md-3 col-lg-5 col-sm-6 mb-3">
+                                <p>: {{$vals->nama_jakir}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 col-lg-6 col-sm-6 mb-3">
+                                <h6>Metode pembayaran</h6>
+                            </div>
+                            <div class="col-md-3 col-lg-5 col-sm-6 mb-3">
+                                <p>: {{$vals->pay_method}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 col-lg-6 col-sm-6 mb-3">
+                                <h6>Harga satuan</h6>
+                            </div>
+                            <div class="col-md-3 col-lg-5 col-sm-6 mb-3">
+                                <p>: {{$vals->harga_jual}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 col-lg-6 col-sm-6 mb-3">
+                                <h6>Jumlah order</h6>
+                            </div>
+                            <div class="col-md-3 col-lg-5 col-sm-6 mb-3">
+                                <p>: {{$vals->jml_order}}/{{$vals->satuan}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 col-lg-6 col-sm-6 mb-3">
+                                <h6>Tanggal order</h6>
+                            </div>
+                            <div class="col-md-3 col-lg-5 col-sm-6 mb-3">
+                                <p>: {{$vals->tgl_order}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 col-lg-6 col-sm-6 mb-3">
+                                <h6>Harga total</h6>
+                            </div>
+                            <div class="col-md-3 col-lg-5 col-sm-6 mb-3">
+                                <p>: Rp. <?= $total_harga = ($vals->jml_order * $vals->harga_jual) ?></p>
+                            </div>
+                        </div>
+                        @if($vals->b_dp != NULL)
+                        <div class="row">
+                            <div class="col-md-4 col-lg-6 col-sm-6 mb-3">
+                                <h6>Jumlah DP</h6>
+                            </div>
+                            <div class="col-md-3 col-lg-5 col-sm-6 mb-3">
+                                <p class="text text-success">: Rp. <?= $vals->jml_dp ?></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 col-lg-6 col-sm-6 mb-3">
+                                <h6 class="text text-warning">Sisa bayar</h6>
+                            </div>
+                            <div class="col-md-3 col-lg-5 col-sm-6 mb-3">
+                                <p class="text text-warning">: Rp. <?= $sisa = ($vals->jml_order * $vals->harga_jual) - $vals->jml_dp ?></p>
+                            </div>
+                        </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end modal info transaction pesanan pakaian custom -->
+
+        <!-- Modal bayar dp-->
+        <div class="modal fade" id="modalBayar{{$vals->pesanan_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Pembayaran {{$vals->pay_method}}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="/pesanan/bayar" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <div class="modal-body">
+                            <div class="col mb-3">
+                                <p class="card-text">Total produk = Rp. {{$vals->jml_order * $vals->harga_jual}}</p>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <input type="text" name="pesanan_id" value="{{$vals->pesanan_id}}" class="form-control">
+                                    <p>Jumlah DP</p>
+                                    <div class="col">
+                                        <input type="number" class="form-control" name="jml_dp" placeholder="masukkan jumlah DP">
+                                        <input type="text" class="form-control" name="pay_status" value="bayar">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <p>Upload bukti DP</p>
+                                    <div class="col">
+                                        <input type="file" class="form-control" name="b_dp">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Bayar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- end modal bayar dp -->
+
+        <!-- Modal bayar Lunas-->
+        <div class="modal fade" id="modalBayarLunas{{$vals->pesanan_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Pembayaran {{$vals->pay_method}}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="/pesanan/bayarlunas" method="post" enctype="multipart/form-data">
+                        @csrf
                         <div class="modal-body">
                             <div class="row">
-                                <div class="col-md-4 col-lg-6 col-sm-6 mb-3">
-                                    <h6>Nama pembeli</h6>
+                                <div class="form-group">
+                                    <input type="text" name="pesanan_id" value="{{$vals->pesanan_id}}" class="form-control">
+                                    <p>Total bayar</p>
+                                    <div class="col">
+                                        <input type="number" class="form-control" name="jml_lunas" value="{{$vals->jml_order * $vals->harga_jual}}">
+                                    </div>
                                 </div>
-                                <div class="col-md-3 col-lg-5 col-sm-6 mb-3">
-                                    <p>: {{$vals->nama_lengkap}}</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4 col-lg-6 col-sm-6 mb-3">
-                                    <h6>Jasa kirim</h6>
-                                </div>
-                                <div class="col-md-3 col-lg-5 col-sm-6 mb-3">
-                                    <p>: {{$vals->nama_jakir}}</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4 col-lg-6 col-sm-6 mb-3">
-                                    <h6>Metode pembayaran</h6>
-                                </div>
-                                <div class="col-md-3 col-lg-5 col-sm-6 mb-3">
-                                    <p>: {{$vals->pay_method}}</p>
+                                <div class="form-group">
+                                    <p>Upload bukti lunas</p>
+                                    <div class="col">
+                                        <input type="file" class="form-control" name="b_lunas">
+                                        <!-- <input type="hidden" name="pay_status" value="bayar" class="form control"> -->
+                                        <input type="hidden" class="form-control" name="pay_status" value="bayar">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-4 col-lg-6 col-sm-6 mb-3">
-                                    <h6>Harga satuan</h6>
-                                </div>
-                                <div class="col-md-3 col-lg-5 col-sm-6 mb-3">
-                                    <p>: {{$vals->harga_jual}}</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4 col-lg-6 col-sm-6 mb-3">
-                                    <h6>Jumlah order</h6>
-                                </div>
-                                <div class="col-md-3 col-lg-5 col-sm-6 mb-3">
-                                    <p>: {{$vals->jml_order}}/{{$vals->satuan}}</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4 col-lg-6 col-sm-6 mb-3">
-                                    <h6>Tanggal order</h6>
-                                </div>
-                                <div class="col-md-3 col-lg-5 col-sm-6 mb-3">
-                                    <p>: {{$vals->tgl_order}}</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4 col-lg-6 col-sm-6 mb-3">
-                                    <h6>Harga total</h6>
-                                </div>
-                                <div class="col-md-3 col-lg-5 col-sm-6 mb-3">
-                                    <p>: Rp. <?= $total_harga = ($vals->jml_order * $vals->harga_jual) ?></p>
-                                </div>
-                            </div>
-                            @if($vals->b_dp != NULL)
-                            <div class="row">
-                                <div class="col-md-4 col-lg-6 col-sm-6 mb-3">
-                                    <h6>Jumlah DP</h6>
-                                </div>
-                                <div class="col-md-3 col-lg-5 col-sm-6 mb-3">
-                                    <p class="text text-success">: Rp. <?= $vals->jml_dp ?></p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4 col-lg-6 col-sm-6 mb-3">
-                                    <h6 class="text text-warning">Sisa bayar</h6>
-                                </div>
-                                <div class="col-md-3 col-lg-5 col-sm-6 mb-3">
-                                    <p class="text text-warning">: Rp. <?= $sisa = ($vals->jml_order * $vals->harga_jual) - $vals->jml_dp ?></p>
-                                </div>
-                            </div>
-                            @endif
                         </div>
-                    </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Bayar</button>
+                        </div>
+                    </form>
                 </div>
             </div>
-            <!-- end modal info transaction pesanan pakaian custom -->
-
-            <!-- Modal bayar dp-->
-            <div class="modal fade" id="modalBayar{{$vals->pesanan_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Pembayaran {{$vals->pay_method}}</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <form action="/pesanan/bayar" method="post" enctype="multipart/form-data">
-                            @csrf
-                            <div class="modal-body">
-                                <div class="col mb-3">
-                                    <p class="card-text">Total produk = Rp. {{$vals->jml_order * $vals->harga_jual}}</p>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group">
-                                        <input type="text" name="pesanan_id" value="{{$vals->pesanan_id}}" class="form-control">
-                                        <p>Jumlah DP</p>
-                                        <div class="col">
-                                            <input type="number" class="form-control" name="jml_dp" placeholder="masukkan jumlah DP">
-                                            <input type="text" class="form-control" name="pay_status" value="bayar">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <p>Upload bukti DP</p>
-                                        <div class="col">
-                                            <input type="file" class="form-control" name="b_dp">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-success">Bayar</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <!-- end modal bayar dp -->
-
-            <!-- Modal bayar Lunas-->
-            <div class="modal fade" id="modalBayarLunas{{$vals->pesanan_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Pembayaran {{$vals->pay_method}}</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <form action="/pesanan/bayarlunas" method="post" enctype="multipart/form-data">
-                            @csrf
-                            <div class="modal-body">
-                                <div class="row">
-                                    <div class="form-group">
-                                        <input type="text" name="pesanan_id" value="{{$vals->pesanan_id}}" class="form-control">
-                                        <p>Total bayar</p>
-                                        <div class="col">
-                                            <input type="number" class="form-control" name="jml_lunas" value="{{$vals->jml_order * $vals->harga_jual}}">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <p>Upload bukti lunas</p>
-                                        <div class="col">
-                                            <input type="file" class="form-control" name="b_lunas">
-                                            <!-- <input type="hidden" name="pay_status" value="bayar" class="form control"> -->
-                                            <input type="hidden" class="form-control" name="pay_status" value="bayar">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-success">Bayar</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <!-- end modal bayar lunas -->
-            @endif
-            @endforeach
         </div>
+        <!-- end modal bayar lunas -->
+        @endif
+        @endforeach
     </div>
 </div>
 @endsection

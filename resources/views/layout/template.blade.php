@@ -148,7 +148,7 @@
                         <li class="sidebar-item">
                             <a href="procus" class='sidebar-link'>
                                 <i class="fas fa-tshirt"></i>
-                                <span>Produk baju</span>
+                                <span>Produk custom</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
@@ -262,37 +262,43 @@
                         </li>
                         @elseif(Auth::user()->role == 'pelanggan')
                         <li class="sidebar-item">
-                            <a href="home" class='sidebar-link'>
+                            <a href="/cart" class='sidebar-link'>
+                                <i class="fas fa-shopping-cart"></i>
+                                <p class="bg bg-danger rounded-circle text-center" style="font-size: small ; color:#fff; margin-left:-3x; padding-left: 5px; padding-right:5px;">4</p>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="/home" class='sidebar-link'>
                                 <i class="fas fa-home"></i>
                                 <span>Home</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="form" class='sidebar-link'>
+                            <a href="/form" class='sidebar-link'>
                                 <i class="fas fa-user-edit"></i>
                                 <span>Lengkapi data</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="profile" class='sidebar-link'>
+                            <a href="/profile" class='sidebar-link'>
                                 <i class="fas fa-user"></i>
                                 <span>Profile</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="pesanananda" class='sidebar-link'>
+                            <a href="/pesanananda" class='sidebar-link'>
                                 <i class="fas fa-box"></i>
-                                <span>Pesanan anda</span>
+                                <span>Pesanan saya</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="invoice" class='sidebar-link'>
+                            <a href="/invoice" class='sidebar-link'>
                                 <i class="fas fa-receipt"></i>
                                 <span>Lihat invoice</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="logout" class='sidebar-link'>
+                            <a href="/logout" class='sidebar-link'>
                                 <i class="fas fa-sign-out-alt"></i>
                                 <span>Logout</span>
                             </a>

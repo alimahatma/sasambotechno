@@ -64,11 +64,11 @@ class ProCusController extends Controller
         try {
             // convert foto depan produk
             $fotoDepan = time() . '.' . $request->foto_dep->extension();
-            $request->foto_dep->move(public_path('foto_produk'), $fotoDepan);
+            $request->foto_dep->move(public_path('foto_produk/depan'), $fotoDepan);
 
             // convert foto belakang produk
             $fotoBelakang = time() . '.' . $request->foto_bel->extension();
-            $request->foto_bel->move(public_path('foto_produk'), $fotoBelakang);
+            $request->foto_bel->move(public_path('foto_produk/belakang'), $fotoBelakang);
             $data = new ProdukCustom([
                 'ktgr_id' => $request->ktgr_id,
                 'supplier_id' => $request->supplier_id,
@@ -114,11 +114,11 @@ class ProCusController extends Controller
         try {
             // convert foto depan produk
             $fotoDepan = time() . '.' . $request->foto_dep->extension();
-            $request->foto_dep->move(public_path('foto_produk'), $fotoDepan);
+            $request->foto_dep->move(public_path('foto_produk/depan'), $fotoDepan);
 
             // convert foto belakang produk
             $fotoBelakang = time() . '.' . $request->foto_bel->extension();
-            $request->foto_bel->move(public_path('foto_produk'), $fotoBelakang);
+            $request->foto_bel->move(public_path('foto_produk/belakang'), $fotoBelakang);
             $data = array(
                 'ktgr_id' => $request->post('ktgr_id'),
                 'supplier_id' => $request->post('supplier_id'),
@@ -135,7 +135,7 @@ class ProCusController extends Controller
                 'tgl_masuk' => $request->post('tgl_masuk'),
                 'deskripsi' => $request->post('deskripsi'),
             );
-            ProdukCustom::where('produk_id', '=', $request->post('produk_id'))->update($data);
+            ProdukCustom::where('procus_id', '=', $request->post('procus_id'))->update($data);
             return redirect('procus')->with('success', 'data berhasil di update..!');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
@@ -145,7 +145,7 @@ class ProCusController extends Controller
     public function DeleteProduk($id)
     {
         try {
-            ProdukCustom::where('produk_id', '=', $id)->delete();
+            ProdukCustom::where('procus_id', '=', $id)->delete();
             return redirect('procus')->with('success', 'data berhasil di hapus');
         } catch (\Exception $e) {
             Log::error($e->getMessage());

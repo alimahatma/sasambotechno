@@ -52,6 +52,8 @@ class RoleMemberController extends Controller
             'users' => $users,
         ]);
     }
+
+    // detail custom sebelum login
     public function DetailCustom($id)
     {
         $data = Instansi::all();
@@ -96,6 +98,7 @@ class RoleMemberController extends Controller
         ]);
     }
 
+    // not fungsionality
     public function DetailCloth($id)
     {
         $data = Instansi::all();
@@ -104,6 +107,7 @@ class RoleMemberController extends Controller
         $procategori = KtgrProcus::joinProdukCostum()->joinToKategori()->get();
         // dd($procategori);
         $procus = ProdukCustom::joinProdukCostum()->get();
+
         $prdkGroup = ProdukCustom::select('produk_custom.nama_produk')
             ->joinKategoriProduk()
             ->groupBy('produk_custom.nama_produk')
@@ -112,19 +116,21 @@ class RoleMemberController extends Controller
         // query menampilkan warna berdasarkan produk
         $color = Warna::all();
         $proColor = ProdukCustom::joinProdukCostum()->joinWarna()->get(); //panggil scope function on model
-        $kustom = ProdukCustom::limit(2)->get();
-        // dd($kustom);
+        $limitCustom2 = ProdukCustom::limit(2)->get();
+        $kategori_produk_custom = KtgrProcus::all();
+
         // query load data jasa kiri / kurir
         $jakir = Kurir::all();
 
-        // load data sablon
-        $sablon = Sablon::all();
-
         // load data kategori
-        $k = KtgrProcus::all();
+        $show = ProdukCustom::find($id);
+        $gm = $show->ktgr_procus_id;
+        $gmKate = ProdukCustom::where('ktgr_procus_id', $gm)->get();
+
         $pay = Payment::select('payment_id', 'pay_method')->get();
         $user = User::select('user_id', 'user_id')->get();
         // dd($user);
+        // dd($show);
         return view('members.pilihbaju', [
             'title' => 'stok baju', //judul to header
             'instansi' => $data, //load data instansi
@@ -135,21 +141,44 @@ class RoleMemberController extends Controller
             'colors' => $color,
             'procolor' => $proColor,
             'jakir' => $jakir,
-            'sablon' => $sablon,
-            'kategori_produk_custom' => $k,
-            'produkcustoms' => $kustom,
+            'kategori_produk_custom' => $kategori_produk_custom,
+            'produkcustoms2' => $limitCustom2,
             'user' => $user,
             'payment' => $pay,
+            'show' => $show,
+            'gmKate' => $gmKate,
         ]);
     }
 
-    // get data with jsons
-    public function DataProcus($id)
+    public function SendToDetailAfterCheckout($id)
     {
-        $produk = ProdukCustom::select('foto_dep', 'foto_bel')->get();
-        return response()->json([
-            'produks' => $produk,
-            'id' => $id,
+        $data = Instansi::all();
+        $procus = ProdukCustom::joinProdukCostum()->get();
+        $prdkGroup = ProdukCustom::select('produk_custom.nama_produk')->joinKategoriProduk()->groupBy('produk_custom.nama_produk')->get();
+        // query menampilkan warna berdasarkan produk
+        $color = Warna::all();
+        $proColor = ProdukCustom::joinProdukCostum()->joinWarna()->get(); //panggil scope function on model
+        $limitCustom2 = ProdukCustom::limit(2)->get();
+        // load data kategori
+        $show = ProdukCustom::find($id);
+        $gm = $show->ktgr_procus_id;
+        $gmKate = ProdukCustom::where('ktgr_procus_id', $gm)->get();
+
+        $kategori_produk_custom = KtgrProcus::all();
+        $user = User::select('user_id', 'user_id')->get();
+        return view('members.detailprodukcustom', [
+            'title' => 'stok baju', //judul to header
+            'instansi' => $data, //load data instansi
+            'procus' => $procus,
+            'id' => $id, //ambil id dari url dan kirim ke view
+            'prdkgroup' => $prdkGroup,
+            'colors' => $color,
+            'procolor' => $proColor,
+            'kategori_produk_custom' => $kategori_produk_custom,
+            'produkcustoms2' => $limitCustom2,
+            'user' => $user,
+            'show' => $show,
+            'gmKate' => $gmKate,
         ]);
     }
 }

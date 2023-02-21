@@ -24,39 +24,25 @@
                             <div class="row row-cols-1 row-cols-md-2 g-4">
                                 <!-- code read image -->
                                 <div class="col-lg-3 col-md-4 col-sm-4">
-                                    <?php $i = 1; ?>
-                                    @foreach($kategori_produk_custom as $row)
-                                    @foreach($produkcustoms as $prdklimit)
-                                    @if(($row->ktgr_procus_id == $id) && ($prdklimit->ktgr_procus_id == $row->ktgr_procus_id))
-                                    <img src="/foto_produk/{{$prdklimit->foto_dep}}" alt="404" class="main-image d-block w-100" height="400px" alt="404">
-                                    @endif
-                                    @endforeach
-                                    @endforeach
+
+                                    <img id="main-image" class="d-block w-100" src="/foto_produk/depan/{{$show->foto_dep}}" alt="404" height="400px" alt="404">
+
+
                                     <div class="scrollmenu d-flex">
-                                        <?php $i = 0; ?>
-                                        <?php $j = 0; ?>
-                                        @foreach($procus as $prd)
-                                        @foreach($prdkgroup as $prg)
-                                        @if($prd->ktgr_procus_id == $id)
-                                        @if($prd->nama_produk == $prg->nama_produk)
-                                        {{$i++}}
-                                        {{$j++}}
-                                        <img src="/foto_produk/{{$prd->foto_dep}}" id="featured-dep<?= $i++ ?>" class="d-block w-100" height="100px" alt="404">
-                                        <img src="/foto_produk/{{$prd->foto_bel}}" id="featured-bel<?= $j++ ?>" class="d-block w-100" height="100px" alt="404">
-                                        @endif
-                                        @endif
+                                        @foreach($gmKate as $gm)
+                                        <img id="d{{$gm->foto_dep}}" src="/foto_produk/depan/{{$gm->foto_dep}}" class="d-block w-100" height="100px" alt="404" onclick="return tampil('/foto_produk/depan/<?= $gm->foto_dep; ?>')">
+                                        <img id="b{{$gm->foto_bel}}" src="/foto_produk/belakang/{{$gm->foto_bel}}" class="d-block w-100" height="100px" alt="404" onclick="return tampil('/foto_produk/belakang/<?= $gm->foto_bel; ?>')">
                                         @endforeach
-                                        @endforeach
+
                                     </div>
                                 </div>
-
                                 <div class="col-lg-9 col-md-8 col-sm-8">
                                     <div class="shadow-none">
                                         <div class="card-body">
                                             <!-- input data id prdk custom dan get harga produk-->
                                             <div class="col">
                                                 @foreach($kategori_produk_custom as $row)
-                                                @foreach($produkcustoms as $prdklimit)
+                                                @foreach($produkcustoms2 as $prdklimit)
                                                 @if(($row->ktgr_procus_id == $id) && ($prdklimit->ktgr_procus_id == $row->ktgr_procus_id))
                                                 <h5 class="card-title color__green">{{$prdklimit->nama_produk}}</h5>
                                                 <h6 class="card-title color__green">Rp. {{$prdklimit->harga_jual}}</h6>
@@ -72,7 +58,7 @@
                                                     <h6>Jenis kain</h6>
                                                 </div>
                                                 <div class="col-lg-3 col-sm-7 col-md-8">
-                                                    <p class="card-text">: {{$prd->jenis_kain}}</p>
+                                                    <p class="card-text">: </p>
                                                 </div>
                                             </div>
                                             <!-- input warna -->
@@ -115,20 +101,6 @@
                                                     @endif
                                                     @endforeach
                                                     @endforeach
-                                                </div>
-                                            </div>
-                                            <!-- pilih ukuran dan jenis sablon -->
-                                            <div class="input-group mt-2">
-                                                <div class="col-lg-2 col-sm-5 col-md-4">
-                                                    <h6>Pilih sablon</h6>
-                                                </div>
-                                                <div class="col-lg-3 col-sm-7 col-md-8">
-                                                    <select name="sablon_id" id="test hargasablon" onchange="showDiv('hidden_div',this)" class="form-select" aria-label=".form-select-sm example">
-                                                        <option selected>pilih ukuran sablon</option>
-                                                        @foreach($sablon as $sab)
-                                                        <option value="{{$sab->sablon_id}}" data-harga_sablon="{{$sab->harga}}">{{$sab->ukuran_sablon}}, Rp.{{$sab->harga}}</option>
-                                                        @endforeach
-                                                    </select>
                                                 </div>
                                             </div>
                                             <div id="hidden_div">
@@ -255,7 +227,6 @@
             var jmls = $("#jml").val(); //get jumlah order from input order
 
             var total = harga_juals * jmls; //count harga jual and jumlah harga
-            // console.log(total, harga_juals)
             $("#total").val(total); //return value total to input total
         });
         DataCustom()
@@ -266,27 +237,29 @@
         document.getElementById(divId).style.display = element.value >= 2 ? 'block' : 'none'; //condition ternary for show and hidden element
     }
 
-    function DataCustom() {
-        $.ajax({
-            method: "GET",
-            url: '/pilihbaju/{{$id}}',
-            dataType: "json",
-            success: function(datas) {
-                $.each(datas.produks, function(key, row) {
-                    $('#featured-dep' + (key + 1)).click(function() {
-                        $('.main-image').attr('src', '/foto_produk/' + row.foto_dep);
-                    })
-                    // $('#featured-bel' + (key + 1)).click(function() {
-                    //     $('.main-image').attr('src', '/foto_produk/' + row.foto_bel);
-                    // })
-                })
-                $.each(datas.produks, function(number, row) {
-                    $('#featured-bel' + (number + 1)).click(function() {
-                        $('.main-image').attr('src', '/foto_produk/' + row.foto_bel);
-                    })
-                })
-            }
-        });
+    // function DataCustom() {
+    //     $.ajax({
+    //         method: "GET",
+    //         url: '/pilihbaju/{{$id}}',
+    //         dataType: "json",
+    //         success: function(datas) {
+    //             $.each(datas.produks, function(key, row) {
+    //                 $('#featured-dep' + (key + 1)).click(function() {
+    //                     $('#main-image').attr('src', '/foto_produk/depan/' + row.foto_dep);
+    //                 })
+    //             })
+    //             $.each(datas.produks, function(number, row) {
+    //                 $('#featured-bel' + (number + 1)).click(function() {
+    //                     $('#main-image').attr('src', '/foto_produk/belakang/' + row.foto_bel);
+    //                 })
+    //             })
+    //         }
+    //     });
+
+    // }
+    function tampil(a) {
+        document.getElementById('main-image').removeAttribute('src');
+        document.getElementById('main-image').setAttribute('src', a);
 
     }
 </script>

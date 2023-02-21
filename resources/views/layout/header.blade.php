@@ -81,20 +81,20 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" style="color:#0FAA5D " href="#">Software</a></li>
-                            <li><a class="dropdown-item" style="color:#0FAA5D" href="produk">Produk custom</a></li>
+                            <li><a class="dropdown-item" style="color:#0FAA5D" href="/produk">Produk custom</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" style="color:#FFFFFF" aria-current="page" href="tutorials">BLOG</a>
+                        <a class="nav-link active" style="color:#FFFFFF" aria-current="page" href="/tutorials">BLOG</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" style="color:#FFFFFF" aria-current="page" href="videos">VIDEO</a>
+                        <a class="nav-link active" style="color:#FFFFFF" aria-current="page" href="/videos">VIDEO</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" style="color:#FFFFFF" aria-current="page" href="contact">ABOUT ME</a>
+                        <a class="nav-link active" style="color:#FFFFFF" aria-current="page" href="/contact">ABOUT ME</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" style="color:#FFFFFF" aria-current="page" href="login">LOGIN</a>
+                        <a class="nav-link active" style="color:#FFFFFF" aria-current="page" href="/login">LOGIN</a>
                     </li>
                 </ul>
             </div>

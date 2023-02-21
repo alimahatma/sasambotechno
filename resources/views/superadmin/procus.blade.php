@@ -233,10 +233,10 @@
                 <h5 class="text-center"></h5>
                 <div class="row g-0 justify-content-around">
                     <div class="col-md-4">
-                        <img src="/foto_produk/{{$prcs->foto_dep}}" class="img-fluid rounded-start" alt="404">
+                        <img src="/foto_produk/depan/{{$prcs->foto_dep}}" class="img-fluid rounded-start" alt="404">
                     </div>
                     <div class="col-md-4">
-                        <img src="/foto_produk/{{$prcs->foto_bel}}" class="img-fluid rounded-start" alt="404">
+                        <img src="/foto_produk/belakang/{{$prcs->foto_bel}}" class="img-fluid rounded-start" alt="404">
                     </div>
                 </div>
                 <p class="mt-3 style__font">{{$prcs->deskripsi}}</p>
@@ -251,7 +251,7 @@
 
 <!-- Modal update-->
 @foreach($procus as $row)
-<div class="modal fade" id="modalUpdate{{$row->procus_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal modal-lg" id="modalUpdate{{$row->procus_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -297,6 +297,8 @@
                                     @endforeach
                                 </select>
                             </fieldset>
+                        </div>
+                        <div class="col-6 mt-3">
                             <h6>Warna</h6>
                             <fieldset class="form-group">
                                 <select name="warna_id" id="basicSelect" class="form-select">
@@ -310,52 +312,52 @@
                                 </select>
                             </fieldset>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-6 mt-3">
                             <h6>Nama produk</h6>
                             <input class="form-control" type="text" name="nama_produk" value="{{$row->nama_produk}}" placeholder="masukkan nama produk" aria-label="default input example">
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-6 mt-3">
                             <h6>Foto depan</h6>
                             <input class="form-control" type="file" name="foto_dep" aria-label="default input example">
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-6 mt-3">
                             <h6>Foto belakang</h6>
                             <input class="form-control" type="file" name="foto_bel" aria-label="default input example">
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-6 mt-3">
                             <h6>Satuan produk</h6>
                             <input class="form-control" type="text" name="satuan" value="{{$row->satuan}}" aria-label="default input example">
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-6 mt-3">
                             <h6>Jenis kain</h6>
                             <input class="form-control" type="text" name="jenis_kain" value="{{$row->jenis_kain}}" aria-label="default input example">
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-6 mt-3">
                             <h6>Size</h6>
                             <input class="form-control" type="text" name="size" value="{{$row->size}}" aria-label="default input example">
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-6 mt-3">
                             <h6>Harga beli</h6>
                             <input class="form-control" type="number" name="harga_beli" value="{{$row->harga_beli}}" aria-label="default input example">
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-6 mt-3">
                             <h6>Harga jual</h6>
                             <input class="form-control" type="number" name="harga_jual" value="{{$row->harga_jual}}" aria-label="default input example">
                         </div>
-                        <div class="col-6 mt-3">
+                    </div>
+                    <div class="row">
+                        <div class="col-12 mt-3">
                             <h6>Tanggal masuk</h6>
                             <input class="form-control" type="date" name="tgl_masuk" value="{{$row->tgl_masuk}}" aria-label="default input example">
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-12 mt-2">
                             <h6>Deskripsi produk</h6>
                             <div class="card-body">

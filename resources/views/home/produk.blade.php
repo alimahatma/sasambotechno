@@ -23,7 +23,7 @@
         <div class="col">
             <div class="card h-100">
                 <a href="pesanan/detailcustom/{{$ktgr->ktgr_procus_id}}">
-                    <img src="/foto_produk/{{$pro->foto_dep}}" class="card-img-top" alt="404">
+                    <img src="/foto_produk/depan/{{$pro->foto_dep}}" class="card-img-top" alt="404">
                     <div class="card-body">
                         <a href="pesanan/detailcustom/{{$pro->ktgr_procus_id}}" class="text__nodecoration color__green">{{$pro->nama_produk}}</a>
                         <br>
