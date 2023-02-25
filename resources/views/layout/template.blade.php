@@ -19,7 +19,6 @@
     <link rel="stylesheet" href="{{asset('assets')}}/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="{{asset('assets')}}/css/pages/datatables.css">
     <script type="text/javascript" src="{{asset('assets')}}/extensions/jquery/jquery.min.js"></script>
-    <script type="text/javascript" src="https://unpkg.com/default-passive-events"></script>
     <style>
         #hidden_div {
             display: none;
@@ -88,7 +87,6 @@
                 <div class="sidebar-menu">
                     <ul class="menu">
                         <li class="sidebar-title">Menu</li>
-
                         <!-- <li class="sidebar-item active "> -->
                         <!-- <li class="sidebar-item">
                             <a href="dashboard" class='sidebar-link'>
@@ -229,6 +227,7 @@
                                 <i class="fas fa-cube"></i>
                                 <span>Pesanan di proses</span>
                             </a>
+                        </li>
                         <li class="sidebar-item">
                             <a href="#" class='sidebar-link'>
                                 <i class="fas fa-cubes"></i>
@@ -264,7 +263,7 @@
                         <li class="sidebar-item">
                             <a href="/cart" class='sidebar-link'>
                                 <i class="fas fa-shopping-cart"></i>
-                                <p class="bg bg-danger rounded-circle text-center" style="font-size: small ; color:#fff; margin-left:-3x; padding-left: 5px; padding-right:5px;">4</p>
+                                <p class="bg bg-danger rounded-circle text-center" style="font-size: small ; color:#fff; margin-left:-3x; padding-left: 5px; padding-right:5px;">{{$isiKeranjang}}</p>
                             </a>
                         </li>
                         <li class="sidebar-item">
@@ -347,19 +346,12 @@
     </div>
     <script src="{{asset('assets')}}/js/bootstrap.js"></script>
     <script src="{{asset('assets')}}/js/app.js"></script>
-    <script src="{{asset('assets')}}/assetsDom/Js/dom.js"></script>
 
     <!-- uncomment for load dashboard and chartJS -->
     <!-- <script src="{{asset('assets')}}/extensions/apexcharts/apexcharts.min.js"></script> -->
     <!-- <script src="{{asset('assets')}}/js/pages/dashboard.js"></script> -->
 
-    <!-- load datatable -->
-    <!-- <script src="{{asset('assets')}}/extensions/simple-datatables/umd/simple-datatables.js"></script>
-    <script src="{{asset('assets')}}/js/pages/simple-datatables.js"></script> -->
-
     <!-- load datatable jquery -->
-    <!-- <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script> -->
-    <!-- <script type="text/javascript" src="{{asset('assets')}}/extensions/jquery/jquery.min.js"></script> -->
     <script src="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.js"></script>
     <script src="{{asset('assets')}}/js/pages/datatables.js"></script>
 

@@ -76,7 +76,7 @@ class HomeController extends Controller
     {
         $instansi = Instansi::all();
         $procategori = KtgrProcus::joinToKategori()->get();
-        $procus = ProdukCustom::joinProdukCostum()->get();;
+        $procus = ProdukCustom::joinKategoriProdukCostum()->get();;
         return view('home.produk', [
             'title' => 'produk',
             'kategoricustom' => $procategori,

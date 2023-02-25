@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('produk_custom', function (Blueprint $table) {
             $table->id('procus_id');
-            $table->foreignId('ktgr_id');
             $table->foreignId('supplier_id');
             $table->foreignId('ktgr_procus_id');
             $table->foreignId('warna_id');
@@ -31,7 +30,6 @@ return new class extends Migration
             $table->longText('deskripsi');
             $table->timestamps();
             $table->foreign('supplier_id')->references('supplier_id')->on('supplier')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreign('ktgr_id')->references('ktgr_id')->on('ktgr_produk')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreign('ktgr_procus_id')->references('ktgr_procus_id')->on('ktgr_prdk_custom')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreign('warna_id')->references('warna_id')->on('warna')->cascadeOnUpdate()->cascadeOnDelete();
         });

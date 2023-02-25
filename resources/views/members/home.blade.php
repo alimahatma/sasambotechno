@@ -13,10 +13,11 @@
             @foreach($kategoricustom as $ktgr)
             <div class="col">
                 <div class="card h-100 shadow-sm">
-                    <img src="/foto_ktgr/{{$ktgr->foto_procus}}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h6>{{$ktgr->jenis_procus}}</h6>
-                    </div>
+                    <a href="#{{$ktgr->ktgr_procus_id}}">
+                        <img src="/foto_ktgr/{{$ktgr->foto_procus}}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h6>{{$ktgr->jenis_procus}}</h6>
+                        </div>
                     </a>
                 </div>
             </div>
@@ -35,35 +36,41 @@
             @foreach($sablon as $val)
             @if($val->harga !=0)
             <div class="col">
-                <div class="card h-100 card-body shadow-sm">
-                    <div class="row">
-                        <div class="col-5">
-                            <h6>Ukuran</h6>
+                <form action="/addsablontocart" method="post">
+                    @csrf
+                    <div class="card h-100 card-body shadow-sm">
+                        <input type="hidden" name="user_id" value="{{Auth::user()->user_id}}">
+                        <input type="hidden" name="sablon_id" value="{{$val->sablon_id}}">
+                        <input type="hidden" name="jumlah_order" value="1">
+                        <div class="row">
+                            <div class="col-5">
+                                <h6>Ukuran</h6>
+                            </div>
+                            <div class="col-6">
+                                <p class="card-text">{{$val->ukuran_sablon}}</p>
+                            </div>
                         </div>
-                        <div class="col-6">
-                            <p class="card-text">{{$val->ukuran_sablon}}</p>
+                        <div class="row">
+                            <div class="col-5">
+                                <h6>Harga</h6>
+                            </div>
+                            <div class="col-6">
+                                <p class="card-text">Rp. {{$val->harga}}
+                                    <input type="hidden" value="{{$val->harga}}">
+                            </div>
+                        </div>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-center mt-4">
+                            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modalBeli{{$val->sablon_id}}">
+                                <i class="fas fa-money-check-alt"></i></button>
+                            <button class="btn btn-outline-warning" type="submit"><i class="fas fa-cart-plus"></i></button>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-5">
-                            <h6>Harga</h6>
-                        </div>
-                        <div class="col-6">
-                            <p class="card-text">{{$val->harga}}
-                        </div>
-                    </div>
-                    <div class="mt-5 mb-0 mx-auto">
-                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalBeli{{$val->sablon_id}}">
-                            <i class="fas fa-shopping-bag"></i>
-                            Pesan
-                        </button>
-                    </div>
-                </div>
+                </form>
             </div>
             @endif
 
             <!-- user_id	sablon_id	kurir_id	payment_id	bdp	bl	jml	pay_status	stts_produksi	trx_status -->
-            <!-- modal pesan sablon -->
+            <!-- modal beli lngsung sablon -->
             <div class="modal fade" id="modalBeli{{$val->sablon_id}}" tabindex=" -1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -71,7 +78,7 @@
                             <h1 class="modal-title fs-5" id="exampleModalLabel">Pesan sablon</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form action="trx_sablon/addtrxSablon" method="post" enctype="multipart/form-data">
+                        <form action="trx_sablon/addtrxSablon" method="post">
                             <div class="modal-body">
                                 @csrf
                                 <div class="row">
@@ -99,8 +106,25 @@
                                         </select>
                                     </div>
                                     <div class="col-12 mb-3">
+                                        <h6>Harga satuan Rp. {{$val->harga}}</h6>
+                                        <input type="hidden" value="{{$val->harga}}" id="hargaSablon">
+                                    </div>
+                                    <div class="col-12 mb-3">
                                         <h6>Jumlah</h6>
-                                        <input class="form-control" type="number" name="jml" placeholder="masukkan jumlah sablon" aria-label="default input example">
+                                        <input type="number" id="jumlah_order" name="jml" class="form-control">
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <h6>Total</h6>
+                                        <input type="number" name="harga_totals" id="total" class="form-control" placeholder="Total">
+                                    </div>
+                                    <div class="col-12 mt-3">
+                                        <div class="card-header">Tinggalkan pesan</div>
+                                        <div class="card-body">
+                                            <div class="form-group with-title mb-3">
+                                                <textarea class="form-control" name="tinggalkanpesan" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                                <label>tinggalkan pesan untuk pesanan sablon anda</label>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="col-12 mb-3">
                                         <input class="form-control" type="hidden" name="tgl_trx" value="{{date('Y/m/d')}}" aria-label="default input example">
@@ -120,7 +144,7 @@
                     </div>
                 </div>
             </div>
-            <!-- end-modal pesan sablon -->
+            <!-- end-modal beli langsung sablon -->
 
             @endforeach
         </div>
@@ -140,8 +164,8 @@
         @if($ktgr->ktgr_procus_id == $pro->ktgr_procus_id)
         <div class="col">
             <div class="card h-100 shadow-sm">
-                <a href="/details/{{$pro->procus_id}}">
-                    <img src="/foto_produk/depan/{{$pro->foto_dep}}" height="235px" class="card-img-top mt-3" alt="404">
+                <a id="{{$ktgr->ktgr_procus_id}}" href="/details/{{$ktgr->ktgr_procus_id}}">
+                    <img src="/foto_produk/depan/{{$pro->foto_dep}}" class="card-img-top mt-3" alt="404">
                     <div class="card-body">
                         <a href="/details/{{$ktgr->ktgr_procus_id}}" class="text__nodecoration color__green">{{$pro->nama_produk}}</a>
                         <br>
@@ -157,4 +181,24 @@
     </div>
 </div>
 <!-- end produk custom -->
+
+<script>
+    // function count total harga
+    // $(document).ready(function() {
+    //     let harga = document.getElementById('hargaSablon')
+    //     let jumlah = document.getElementById('jumlah_order')
+    //     let www = harga * jumlah
+    //     console.log(www)
+    // console.log(jumlah)
+
+    // $(`#jumlah_order, #hargaSablon`).keyup(function() {
+    //     let harga_juals = $("#hargaSablon").val(); //get value from input id harga jual
+    //     let jmls = $("#jumlah_order").val(); //get jumlah order from input order
+    //     console.log(harga_juals)
+    //     let total = harga_juals * jmls; //count harga jual and jumlah harga
+    //     $("#total").val(total); //return value total to input total
+    // });
+    // });
+</script>
+
 @endsection

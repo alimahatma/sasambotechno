@@ -102,17 +102,6 @@
                     @csrf
                     <div class="row">
                         <div class="col-6 mt-3">
-                            <h6>Jenis kategori</h6>
-                            <fieldset class="form-group">
-                                <select name="ktgr_id" id="basicSelect" class="form-select">
-                                    <option selected>pilih kategori produk</option>
-                                    @foreach($kategori as $valId)
-                                    <option value="{{$valId->ktgr_id}}">{{$valId->jenis_kategori}}</option>
-                                    @endforeach
-                                </select>
-                            </fieldset>
-                        </div>
-                        <div class="col-6 mt-3">
                             <h6>Supplier</h6>
                             <fieldset class="form-group">
                                 <select name="supplier_id" id="basicSelect" class="form-select">
@@ -123,8 +112,6 @@
                                 </select>
                             </fieldset>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-6 mt-3">
                             <h6>Kategori produk custom</h6>
                             <fieldset class="form-group">
@@ -138,6 +125,8 @@
                                 </select>
                             </fieldset>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-6 mt-3">
                             <h6>Warna</h6>
                             <fieldset class="form-group">
@@ -152,51 +141,49 @@
                                 </select>
                             </fieldset>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-6 mt-3">
                             <h6>Nama produk</h6>
                             <input class="form-control" type="text" name="nama_produk" placeholder="masukkan nama produk" aria-label="default input example">
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-6 mt-3">
                             <h6>Foto depan</h6>
                             <input class="form-control" type="file" name="foto_dep" aria-label="default input example">
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-6 mt-3">
                             <h6>Foto belakang</h6>
                             <input class="form-control" type="file" name="foto_bel" aria-label="default input example">
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-6 mt-3">
                             <h6>Satuan produk</h6>
                             <input class="form-control" type="text" name="satuan" placeholder="masukkan satuan produk" aria-label="default input example">
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-6 mt-3">
                             <h6>Jenis kain</h6>
                             <input class="form-control" type="text" name="jenis_kain" placeholder="masukkan jenis kain" aria-label="default input example">
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-6 mt-3">
                             <h6>Size</h6>
                             <input class="form-control" type="text" name="size" placeholder="masukkan ukuran produk" aria-label="default input example">
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-6 mt-3">
                             <h6>Harga beli</h6>
                             <input class="form-control" type="number" name="harga_beli" placeholder="masukkan harga beli" aria-label="default input example">
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-6 mt-3">
                             <h6>Harga jual</h6>
                             <input class="form-control" type="number" name="harga_jual" placeholder="masukkan harga jual" aria-label="default input example">
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 mt-3">
+                        <div class="col-6 mt-3">
                             <h6>Tanggal masuk</h6>
-                            <input class="form-control" type="date" name="tgl_masuk" placeholder="masukkan tanggal masuk" aria-label="default input example">
+                            <input class="form-control" type="text" name="tgl_masuk" value="{{date('Y/m/d')}}" aria-label="default input example" readonly>
                         </div>
                     </div>
                     <div class="row">
@@ -262,18 +249,7 @@
                 <div class="modal-body">
                     @csrf
                     <div class="row">
-                        <div class="col-6 mt-3">
-                            <h6>Jenis kategori</h6>
-                            <input type="hidden" class="form-control" name="procus_id" value="{{$row->procus_id}}">
-                            <fieldset class="form-group">
-                                <select name="ktgr_id" id="basicSelect" class="form-select">
-                                    <option value="{{$row->ktgr_id}}" selected>{{$row->jenis_kategori}}</option>
-                                    @foreach($kategori as $valId)
-                                    <option value="{{$valId->ktgr_id}}">{{$valId->jenis_kategori}}</option>
-                                    @endforeach
-                                </select>
-                            </fieldset>
-                        </div>
+                        <input type="hidden" class="form-control" name="procus_id" value="{{$row->procus_id}}">
                         <div class="col-6 mt-3">
                             <h6>Supplier</h6>
                             <fieldset class="form-group">
@@ -285,8 +261,6 @@
                                 </select>
                             </fieldset>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-6 mt-3">
                             <h6>Kategori produk custom</h6>
                             <fieldset class="form-group">
@@ -298,6 +272,8 @@
                                 </select>
                             </fieldset>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-6 mt-3">
                             <h6>Warna</h6>
                             <fieldset class="form-group">
@@ -312,52 +288,52 @@
                                 </select>
                             </fieldset>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-6 mt-3">
                             <h6>Nama produk</h6>
                             <input class="form-control" type="text" name="nama_produk" value="{{$row->nama_produk}}" placeholder="masukkan nama produk" aria-label="default input example">
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-6 mt-3">
                             <h6>Foto depan</h6>
                             <input class="form-control" type="file" name="foto_dep" aria-label="default input example">
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-6 mt-3">
                             <h6>Foto belakang</h6>
                             <input class="form-control" type="file" name="foto_bel" aria-label="default input example">
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-6 mt-3">
                             <h6>Satuan produk</h6>
                             <input class="form-control" type="text" name="satuan" value="{{$row->satuan}}" aria-label="default input example">
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-6 mt-3">
                             <h6>Jenis kain</h6>
                             <input class="form-control" type="text" name="jenis_kain" value="{{$row->jenis_kain}}" aria-label="default input example">
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-6 mt-3">
                             <h6>Size</h6>
                             <input class="form-control" type="text" name="size" value="{{$row->size}}" aria-label="default input example">
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-6 mt-3">
                             <h6>Harga beli</h6>
                             <input class="form-control" type="number" name="harga_beli" value="{{$row->harga_beli}}" aria-label="default input example">
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-6 mt-3">
                             <h6>Harga jual</h6>
                             <input class="form-control" type="number" name="harga_jual" value="{{$row->harga_jual}}" aria-label="default input example">
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 mt-3">
+                        <div class="col-6 mt-3">
                             <h6>Tanggal masuk</h6>
                             <input class="form-control" type="date" name="tgl_masuk" value="{{$row->tgl_masuk}}" aria-label="default input example">
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-12 mt-2">
                             <h6>Deskripsi produk</h6>
                             <div class="card-body">

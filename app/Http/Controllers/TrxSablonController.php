@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Instansi;
 use App\Models\Pesanan;
 use App\Models\Sablon;
+use App\Models\Shop_cart;
 use App\Models\Trx_sablon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -35,6 +36,7 @@ class TrxSablonController extends Controller
             'kurir_id' => 'required',
             'payment_id' => 'required',
             'jml' => 'required',
+            'tinggalkanpesan' => 'required',
             'tgl_trx' => 'required',
         ]);
         try {
@@ -44,14 +46,15 @@ class TrxSablonController extends Controller
                 'kurir_id' => $req->kurir_id,
                 'payment_id' => $req->payment_id,
                 'jml' => $req->jml,
+                'tinggalkanpesan' => $req->tinggalkanpesan,
                 'tgl_trx' => $req->tgl_trx,
             ]);
             // dd($datas);
             $datas->save();
-            return redirect('pesanananda')->with('success', 'transaksi berhasil');
+            return redirect('pesanananda')->with('success', 'transaksi sablon berhasil');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            return redirect('home')->with('message', 'transaksi gagal');
+            return redirect('home')->with('message', 'transaksi sablon gagal');
         }
     }
     public function UpdtTrxSablon(Request $req)
@@ -77,7 +80,8 @@ class TrxSablonController extends Controller
     {
         if (Auth::user()->role == 'pelanggan') {
             $instansi = Instansi::select('logo', 'whatsapp')->get();
-            $dataPesanan = Pesanan::joinToProdukCustom()->joinToKategoriProdukCustom()->joinToWarna()->joinToUser()->joinToKurir()->joinToPayment()->orderBy('pesanan_id', 'desc')->get();
+            $isiKeranjang = Shop_cart::where('user_id', '=', Auth::user()->user_id)->get()->count(); //hitung isi keranjang berdasarkan user yang login 
+            $dataPesanan = Pesanan::joinToProdukCustom()->joinToWarna()->joinToUser()->joinToKurir()->joinToPayment()->orderBy('pesanan_id', 'desc')->get();
             $pesananSablon = Trx_sablon::joinToUser()->joinToSablon()->joinToKurir()->joinToPayment()->orderBy('trx_sablon_id', 'desc')->get();
             // dd($dataPesanan);
             return view('members.pesananAnda', [
@@ -85,6 +89,7 @@ class TrxSablonController extends Controller
                 'instansi' => $instansi,
                 'pesanansablon' => $pesananSablon,
                 'pesananpakaiancustom' => $dataPesanan,
+                'isiKeranjang' => $isiKeranjang,
             ]);
         }
     }

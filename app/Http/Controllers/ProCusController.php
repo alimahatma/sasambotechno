@@ -25,14 +25,7 @@ class ProCusController extends Controller
         $kategori = KategoriProduk::all();
         $ktgr_procus = KtgrProcus::all();
         $supplier = Supplier::all();
-        $produkCustom = ProdukCustom::joinProdukCostum()->joinKategoriProduk()->joinWarna()->joinToSupplier()->get();
-        // $prdk = DB::table('produk_custom')
-        //     ->join()
-        //     // ->join('warna', 'warna.warna_id', '=', 'produk_custom.warna_id')
-        //     // ->join('ktgr_prdk_custom', 'ktgr_prdk_custom.ktgr_procus_id', '=', 'produk_custom.ktgr_procus_id')
-        //     // ->join('supplier', 'supplier.supplier_id', '=', 'produk_custom.supplier_id')
-        //     ->get();
-        // dd($produkCustom);
+        $produkCustom = ProdukCustom::joinKategoriProdukCostum()->joinWarna()->joinToSupplier()->get();
         return view('superadmin.procus', [
             'title' => 'all product',
             'procus' => $produkCustom,
@@ -46,7 +39,6 @@ class ProCusController extends Controller
     public function AddProduct(Request $request)
     {
         $request->validate([
-            'ktgr_id' => 'required',
             'supplier_id' => 'required',
             'ktgr_procus_id' => 'required',
             'warna_id' => 'required',
@@ -70,7 +62,6 @@ class ProCusController extends Controller
             $fotoBelakang = time() . '.' . $request->foto_bel->extension();
             $request->foto_bel->move(public_path('foto_produk/belakang'), $fotoBelakang);
             $data = new ProdukCustom([
-                'ktgr_id' => $request->ktgr_id,
                 'supplier_id' => $request->supplier_id,
                 'ktgr_procus_id' => $request->ktgr_procus_id,
                 'warna_id' => $request->warna_id,
@@ -96,7 +87,6 @@ class ProCusController extends Controller
     {
 
         $request->validate([
-            'ktgr_id' => 'required',
             'supplier_id' => 'required',
             'ktgr_procus_id' => 'required',
             'warna_id' => 'required',
@@ -120,7 +110,6 @@ class ProCusController extends Controller
             $fotoBelakang = time() . '.' . $request->foto_bel->extension();
             $request->foto_bel->move(public_path('foto_produk/belakang'), $fotoBelakang);
             $data = array(
-                'ktgr_id' => $request->post('ktgr_id'),
                 'supplier_id' => $request->post('supplier_id'),
                 'ktgr_procus_id' => $request->post('ktgr_procus_id'),
                 'warna_id' => $request->post('warna_id'),

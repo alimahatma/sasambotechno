@@ -167,7 +167,7 @@
                     @csrf
                     <div class="row">
                         <div class="col-12 mt-1">
-                            <input type="text" class="form-control" name="ktgr_procus_id" value="{{$row->ktgr_procus_id}}">
+                            <input type="hidden" class="form-control" name="ktgr_procus_id" value="{{$row->ktgr_procus_id}}">
                             <h6>Jenis kategori</h6>
                             <fieldset class="form-group">
                                 <select name="ktgr_id" id="basicSelect" class="form-select">

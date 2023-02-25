@@ -23,7 +23,7 @@
         <!-- view read transaction sablon -->
         <div class="card">
             <div class="card-body shadow-sm">
-                <div class="row">
+                <div class="row align-items-center">
                     <div class="col">
                         <p>{{$pes->nama_lengkap}}</p>
                     </div>
@@ -48,6 +48,19 @@
                     <div class="col">
                         <p>Total Rp. <?= $total_harga = ($pes->jml * $pes->harga) ?> </p>
                     </div>
+                    @if($pes->pay_status == "pending")
+                    <div class="col">
+                        <p class="text text-warning">lakukan pembayaran terlebih dahulu</p>
+                    </div>
+                    @elseif($pes->pay_status == "bayar")
+                    <div class="col">
+                        <p class="text text-success">pembayaran menunggu persetujuan</p>
+                    </div>
+                    @elseif($pes->pay_status != "pending" && $pes->pay_status != "bayar")
+                    <div class="col">
+                        <p class="text text-success">pesanan {{$pes->trx_status}}</p>
+                    </div>
+                    @endif
                 </div>
 
                 <!-- tombol modal -->
@@ -111,14 +124,10 @@
                                 <h6>Status pesanan</h6>
                             </div>
                             <div class="col-md-3 col-lg-5 col-sm-6 mb-3">
-                                <p>: <?= $total_harga = ($pes->jml * $pes->harga) ?></p>
+                                <p class="text text-success">: {{$pes->trx_status}}</p>
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-success">Submit</button>
-                            </div> -->
                 </div>
             </div>
         </div>
@@ -134,9 +143,9 @@
         <!-- view read transaction pesanan pakaian custom -->
         <div class="card">
             <div class="card-body shadow-sm">
-                <div class="row">
+                <div class="row align-items-center">
                     <div class="col">
-                        <img src="/foto_produk/depan/{{$vals->foto_dep}}" width="80px" height="100px" alt="404">
+                        <img src="/foto_produk/depan/{{$vals->foto_dep}}" width="100px" height="130px" alt="404">
                     </div>
                     <div class="col">
                         <p>{{$vals->nama_lengkap}}</p>

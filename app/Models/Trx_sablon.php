@@ -11,7 +11,7 @@ class Trx_sablon extends Model
     use HasFactory;
     protected $table = 'trx_sablon';
     protected $primaryKey = 'trx_sablon_id';
-    protected $fillable = ['user_id', 'sablon_id', 'kurir_id',    'payment_id',    'bdp',    'bl', 'jml', 'tgl_trx', 'pay_status',    'stts_produksi',    'trx_status'];
+    protected $fillable = ['user_id', 'sablon_id', 'kurir_id',    'payment_id',    'bdp',    'bl', 'jml', 'tinggalkanpesan', 'tgl_trx', 'pay_status',    'stts_produksi',    'trx_status'];
     public $timestamps = false;
 
     public function scopeJoinToUser($query)

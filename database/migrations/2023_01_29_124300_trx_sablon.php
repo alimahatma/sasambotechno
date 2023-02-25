@@ -23,8 +23,8 @@ return new class extends Migration
             $table->string('bl', 30)->nullable();
             $table->integer('jml')->length(10)->unsigned();
             $table->date('tgl_trx');
-            $table->enum('pay_status', ['belum lunas', 'lunas'])->default('belum lunas');
-            $table->enum('stts_produksi', ['diterima', 'produksi', 'packing', 'kasir'])->default('diterima');
+            $table->enum('pay_status', ['pending', 'bayar', 'belum lunas', 'lunas'])->default('pending');
+            $table->enum('stts_produksi', ['pending', 'diterima', 'produksi', 'packing', 'kasir'])->default('pending');
             $table->enum('trx_status', ['pending', 'diterima', 'kirim', 'selesai'])->default('pending');
             $table->timestamps();
             $table->foreign('user_id')->references('user_id')->on('users')->cascadeOnupdate()->cascadeOnDelete();

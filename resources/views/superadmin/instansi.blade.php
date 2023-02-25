@@ -355,7 +355,6 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <input type="hidden" class="form-control" value="{{$val->inst_id}}" name="produk_id">
                 <p>Yakin ingin menghapus data ini..?</p>
             </div>
             <div class="modal-footer justify-content-between">

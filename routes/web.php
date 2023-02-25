@@ -18,6 +18,7 @@ use App\Http\Controllers\PesananController;
 use App\Http\Controllers\ProSoftController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\SablonController;
+use App\Http\Controllers\ShopCartController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\TrxSablonController;
@@ -227,8 +228,8 @@ Route::name('admin')->group(function () {
 // route for role access member or client
 Route::name('members')->group(function () {
     Route::get('/home', [RoleMemberController::class, 'GetHome'])->name('home')->middleware('verified');
-    Route::get('/selectcloth/{id}', [RoleMemberController::class, 'DetailCloth'])->name('pilihbaju')->middleware('verified');
-    Route::get('/details/{id}', [RoleMemberController::class, 'SendToDetailAfterCheckout'])->name('details')->middleware('verified'); // detail sebelum menambahkan ke barang barang
+    // Route::get('/selectcloth/{id}', [RoleMemberController::class, 'DetailCloth'])->name('pilihbaju')->middleware('verified');
+    Route::get('/details/{id}', [RoleMemberController::class, 'SendToDetailAfterCheckout'])->name('details')->middleware('verified'); // detail sebelum menambahkan ke keranjang barang
 
     //route lengkapi profile oleh pelanggan
     Route::get('/form', [UserController::class, 'GetForm'])->name('form'); //get form lengkapi akun
@@ -238,8 +239,14 @@ Route::name('members')->group(function () {
     Route::get('/pesanananda', [TrxSablonController::class, 'GetPesananAnda'])->name('pesananAnda')->middleware('verified');
     Route::get('/invoice', [RoleMemberController::class, 'GetInvoice'])->name('invoice')->middleware('verified');
 
-    Route::get('/cart', [KeranjangController::class, 'GetDataCart'])->name('cart');
+    Route::get('/cart', [ShopCartController::class, 'GetDataCart'])->name('cart');
+    Route::post('/addtocart', [ShopCartController::class, 'AddToCart'])->name('addcart');
+    Route::post('/addsablontocart', [ShopCartController::class, 'AddSablonToCart'])->name('addsablontocart');
 });
 Route::prefix('pilihbaju')->group(function () {
     Route::get('/{id}', [RoleMemberController::class, 'DataProcus'])->middleware('verified');
+});
+
+Route::prefix('cart')->group(function () {
+    Route::get('delete/{id}', [ShopCartController::class, 'DelBarangOnKeranjang'])->name('delete');
 });

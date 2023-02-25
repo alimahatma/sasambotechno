@@ -8,15 +8,18 @@ use App\Models\Kurir;
 use App\Models\Payment;
 use App\Models\ProdukCustom;
 use App\Models\Sablon;
+use App\Models\Shop_cart;
 use App\Models\User;
 use App\Models\Warna;
+use Illuminate\Support\Facades\Auth;
 
 class RoleMemberController extends Controller
 {
     public function GetHome()
     {
+        $isiKeranjang = Shop_cart::where('user_id', '=', Auth::user()->user_id)->get()->count(); //hitung isi keranjang berdasarkan user yang login 'isiKeranjang' => $isiKeranjang,
         $procategori = KtgrProcus::joinToKategori()->get();
-        $procus = ProdukCustom::joinProdukCostum()->get();
+        $procus = ProdukCustom::joinKategoriProdukCostum()->get();
         $instansi = Instansi::all();
         $sablon = Sablon::all();
         $payment = Payment::all();
@@ -29,27 +32,30 @@ class RoleMemberController extends Controller
             'sablon' => $sablon,
             'payment' => $payment,
             'kurir' => $kurir,
+            'isiKeranjang' => $isiKeranjang,
         ]);
     }
 
     public function GetInvoice()
     {
         $data = Instansi::all();
+        $isiKeranjang = Shop_cart::where('user_id', '=', Auth::user()->user_id)->get()->count();
         return view('members.yourInvoice', [
             'title' => 'histori invoice anda',
-            'instansi' => $data
+            'instansi' => $data,
+            'isiKeranjang' => $isiKeranjang,
         ]);
     }
     public function GetProfile()
     {
-
-        User::all();
+        $isiKeranjang = Shop_cart::where('user_id', '=', Auth::user()->user_id)->get()->count();
         $data = Instansi::select('logo')->get();
         $users = User::all();
         return view('members.profile', [
             'title' => 'profile anda',
             'instansi' => $data,
             'users' => $users,
+            'isiKeranjang' => $isiKeranjang,
         ]);
     }
 
@@ -61,12 +67,12 @@ class RoleMemberController extends Controller
         // menampilkan foto produk, ukuran produk, berdasarkan nama produk yang sama
         $procategori = KtgrProcus::joinProdukCostum()->joinToKategori()->get();
         // dd($procategori);
-        $procus = ProdukCustom::joinProdukCostum()->get();
-        $prdkGroup = ProdukCustom::select('nama_produk')->joinProdukCostum()->groupBy('nama_produk', 'nama_produk')->get();
+        $procus = ProdukCustom::joinKategoriProdukCostum()->get();
+        $prdkGroup = ProdukCustom::select('nama_produk')->joinKategoriProdukCostum()->groupBy('nama_produk', 'nama_produk')->get();
 
         // query menampilkan warna berdasarkan produk
         $color = Warna::all();
-        $proColor = ProdukCustom::joinProdukCostum()
+        $proColor = ProdukCustom::joinKategoriProdukCostum()
             ->join('warna', 'warna.warna_id', 'produk_custom.warna_id')
             ->get();
         $kustom = ProdukCustom::limit(2)->get();
@@ -106,16 +112,15 @@ class RoleMemberController extends Controller
         // menampilkan foto produk, ukuran produk, berdasarkan nama produk yang sama
         $procategori = KtgrProcus::joinProdukCostum()->joinToKategori()->get();
         // dd($procategori);
-        $procus = ProdukCustom::joinProdukCostum()->get();
+        $procus = ProdukCustom::joinKategoriProdukCostum()->get();
 
         $prdkGroup = ProdukCustom::select('produk_custom.nama_produk')
-            ->joinKategoriProduk()
             ->groupBy('produk_custom.nama_produk')
             ->get();
 
         // query menampilkan warna berdasarkan produk
         $color = Warna::all();
-        $proColor = ProdukCustom::joinProdukCostum()->joinWarna()->get(); //panggil scope function on model
+        $proColor = ProdukCustom::joinKategoriProdukCostum()->joinWarna()->get(); //panggil scope function on model
         $limitCustom2 = ProdukCustom::limit(2)->get();
         $kategori_produk_custom = KtgrProcus::all();
 
@@ -153,11 +158,12 @@ class RoleMemberController extends Controller
     public function SendToDetailAfterCheckout($id)
     {
         $data = Instansi::all();
-        $procus = ProdukCustom::joinProdukCostum()->get();
-        $prdkGroup = ProdukCustom::select('produk_custom.nama_produk')->joinKategoriProduk()->groupBy('produk_custom.nama_produk')->get();
+        $isiKeranjang = Shop_cart::where('user_id', '=', Auth::user()->user_id)->get()->count(); //hitung isi keranjang berdasarkan user yang login 'isiKeranjang' => $isiKeranjang,
+        $procus = ProdukCustom::joinKategoriProdukCostum()->get();
+        $prdkGroup = ProdukCustom::select('produk_custom.nama_produk')->groupBy('produk_custom.nama_produk')->get();
         // query menampilkan warna berdasarkan produk
         $color = Warna::all();
-        $proColor = ProdukCustom::joinProdukCostum()->joinWarna()->get(); //panggil scope function on model
+        $proColor = ProdukCustom::joinKategoriProdukCostum()->joinWarna()->get(); //panggil scope function on model
         $limitCustom2 = ProdukCustom::limit(2)->get();
         // load data kategori
         $show = ProdukCustom::find($id);
@@ -179,6 +185,7 @@ class RoleMemberController extends Controller
             'user' => $user,
             'show' => $show,
             'gmKate' => $gmKate,
+            'isiKeranjang' => $isiKeranjang,
         ]);
     }
 }

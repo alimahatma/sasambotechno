@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Instansi;
+use App\Models\Shop_cart;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -25,12 +26,15 @@ class UserController extends Controller
                 'instansi' => $in
             ]);
         } elseif (Auth::user()->role == 'pelanggan') {
+
+            $isiKeranjang = Shop_cart::where('user_id', '=', Auth::user()->user_id)->get()->count(); //hitung isi keranjang berdasarkan user yang login
             $instansi = Instansi::select('logo')->get();
             $user = User::all();
             return view('members.profile', [
                 'title' => 'akun user',
                 'users' => $user,
-                'instansi' => $instansi
+                'instansi' => $instansi,
+                'isiKeranjang' => $isiKeranjang,
             ]);
         } else {
             print('akses di tolak');
@@ -186,9 +190,11 @@ class UserController extends Controller
     public function GetForm()
     {
         $instansi = Instansi::select('logo')->get();
+        $isiKeranjang = Shop_cart::where('user_id', '=', Auth::user()->user_id)->get()->count(); //hitung isi keranjang berdasarkan user yang login
         return view('members.getFormProfile', [
             'title' => 'lengkapi akun',
-            'instansi' => $instansi
+            'instansi' => $instansi,
+            'isiKeranjang' => $isiKeranjang,
         ]);
     }
 }
