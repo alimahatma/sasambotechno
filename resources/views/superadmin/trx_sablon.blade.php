@@ -53,7 +53,7 @@
                                 <td>{{$val->harga}}</td>
                                 <td>{{$val->jml}}</td>
                                 <td><?= $total_harga = ($val->jml * $val->harga) ?></td>
-                                <td>{{$val->created_at}}</td>
+                                <td>{{$val->tgl_trx}}</td>
                                 <td>
                                     <div class="d-flex justify-content-center">
                                         <div class="col-md-6 col-lg-3">

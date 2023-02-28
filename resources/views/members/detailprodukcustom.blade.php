@@ -25,9 +25,9 @@
                                 <!-- code read image -->
                                 <div class="col-lg-3 col-md-4 col-sm-4">
                                     <!-- menampilkan foto depan produk -->
-                                    <img id="main-image" class="d-block w-100" src="/foto_produk/depan/{{$show->foto_dep}}" alt="404" height="400px" alt="404">
+                                    <img id="main-image" class="d-block w-100" src="/foto_produk/depan/{{$getProdukCustomById->foto_dep}}" alt="404" height="400px" alt="404">
                                     <div class="scrollmenu d-flex">
-                                        @foreach($gmKate as $gm)
+                                        @foreach($getProdukCustomIfTogetherWithKategoriProdukCustom as $gm)
                                         <img id="d{{$gm->foto_dep}}" src="/foto_produk/depan/{{$gm->foto_dep}}" class="d-block w-100" height="100px" alt="404" onclick="return tampil('/foto_produk/depan/<?= $gm->foto_dep; ?>')">
                                         <img id="b{{$gm->foto_bel}}" src="/foto_produk/belakang/{{$gm->foto_bel}}" class="d-block w-100" height="100px" alt="404" onclick="return tampil('/foto_produk/belakang/<?= $gm->foto_bel; ?>')">
                                         @endforeach
@@ -38,16 +38,10 @@
                                         <div class="card-body">
                                             <!-- input data id prdk custom dan get harga produk-->
                                             <div class="col">
-                                                @foreach($kategori_produk_custom as $row)
-                                                @foreach($produkcustoms2 as $prdklimit)
-                                                @if(($row->ktgr_procus_id == $id) && ($prdklimit->ktgr_procus_id == $row->ktgr_procus_id))
-                                                <h5 class="card-title color__green">{{$prdklimit->nama_produk}}</h5>
-                                                <h6 class="card-title color__green">Rp. {{$prdklimit->harga_jual}}</h6>
-                                                <input type="hidden" name="ktgr_procus_id" value="{{$prdklimit->ktgr_procus_id}}"> <!-- ambil data id produk custom-->
-                                                <input type="hidden" value="{{$prdklimit->harga_jual}}" id="harga_jual"> <!--mengambil harga barang menngunakan input-->
-                                                @endif
-                                                @endforeach
-                                                @endforeach
+                                                <h5 class="card-title color__green">{{$getProdukCustomById->nama_produk}}</h5>
+                                                <h6 class="card-title color__green">Rp. {{$getProdukCustomById->harga_jual}}</h6>
+                                                <input type="hidden" name="ktgr_procus_id" value="{{$getProdukCustomById->ktgr_procus_id}}"> <!-- ambil data id produk custom-->
+                                                <input type="hidden" value="{{$getProdukCustomById->harga_jual}}" id="harga_jual"> <!--mengambil harga barang menngunakan input-->
                                             </div>
 
                                             <!-- menampilkan jenis kain produk -->
@@ -56,7 +50,7 @@
                                                     <h6>Jenis kain</h6>
                                                 </div>
                                                 <div class="col-lg-3 col-sm-7 col-md-8">
-                                                    <p class="card-text">: </p>
+                                                    <p class="card-text">{{$getProdukCustomById->jenis_kain}}</p>
                                                 </div>
                                             </div>
 
@@ -116,9 +110,9 @@
                                             </div>
                                             <div>
                                                 @foreach($kategori_produk_custom as $row)
-                                                @foreach($produkcustoms2 as $prdklimit)
-                                                @if(($row->ktgr_procus_id == $id) && ($prdklimit->ktgr_procus_id == $row->ktgr_procus_id))
-                                                <input type="hidden" name="harga_satuan" value="{{$prdklimit->harga_jual}}" id="harga_jual">
+                                                @foreach($getProdukCustomByPaginate as $produkPaginate)
+                                                @if(($row->ktgr_procus_id == $id) && ($produkPaginate->ktgr_procus_id == $row->ktgr_procus_id))
+                                                <input type="hidden" name="harga_satuan" value="{{$produkPaginate->harga_jual}}" id="harga_jual">
                                                 @endif
                                                 @endforeach
                                                 @endforeach

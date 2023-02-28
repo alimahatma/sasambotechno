@@ -32,7 +32,6 @@
                                 <th class="text-center">Nama produk</th>
                                 <th class="text-center">Size order</th>
                                 <th class="text-center">Jumlah order</th>
-                                <th class="text-center">Ukuran sablon</th>
                                 <th class="text-center">Staus pembayaran</th>
                                 <th class="text-center">Status produksi</th>
                                 <th class="text-center">Status pesanan</th>
@@ -50,19 +49,18 @@
                                 <td>{{$val->nama_produk}}</td>
                                 <td>{{$val->size_order}}</td>
                                 <td>{{$val->jml_order}}</td>
-                                <td>{{$val->ukuran_sablon}}</td>
                                 <td>{{$val->pay_status}}</td>
                                 <td>{{$val->stts_produksi}}</td>
                                 <td>{{$val->status_pesanan}}</td>
                                 <td>{{$val->tgl_order}}</td>
                                 <td>
                                     <div class="d-flex justify-content-center">
-                                        <div class="col-md-6 col-lg-4 col-sm-6">
+                                        <div class="col-md-6 col-lg-6 col-sm-6">
                                             <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalInfo{{$val->pesanan_id}}">
                                                 <i class="fas fa-info"></i>
                                             </button>
                                         </div>
-                                        <div class="col-md-6 col-lg-4 col-sm-6">
+                                        <div class="col-md-6 col-lg-6 col-sm-6">
                                             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete{{$val->pesanan_id}}">
                                                 <i class="fas fa-trash"></i>
                                             </button>
@@ -77,7 +75,6 @@
                                 <td>{{$val->nama_produk}}</td>
                                 <td>{{$val->size_order}}</td>
                                 <td>{{$val->jml_order}}</td>
-                                <td>{{$val->ukuran_sablon}}</td>
                                 <td class="text text-danger">{{$val->pay_status}}</td>
                                 <td class="text text-primary">{{$val->stts_produksi}}</td>
                                 <td class="text text-primary">{{$val->status_pesanan}}</td>

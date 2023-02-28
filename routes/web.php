@@ -229,7 +229,7 @@ Route::name('admin')->group(function () {
 Route::name('members')->group(function () {
     Route::get('/home', [RoleMemberController::class, 'GetHome'])->name('home')->middleware('verified');
     // Route::get('/selectcloth/{id}', [RoleMemberController::class, 'DetailCloth'])->name('pilihbaju')->middleware('verified');
-    Route::get('/details/{id}', [RoleMemberController::class, 'SendToDetailAfterCheckout'])->name('details')->middleware('verified'); // detail sebelum menambahkan ke keranjang barang
+    Route::get('/details/{id}', [RoleMemberController::class, 'SendToDetailBeforeCheckout'])->name('details')->middleware('verified'); // detail sebelum menambahkan ke keranjang barang
 
     //route lengkapi profile oleh pelanggan
     Route::get('/form', [UserController::class, 'GetForm'])->name('form'); //get form lengkapi akun

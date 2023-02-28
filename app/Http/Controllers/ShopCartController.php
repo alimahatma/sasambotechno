@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Instansi;
+use App\Models\Pesanan;
 use App\Models\Shop_cart;
+use App\Models\Trx_sablon;
 use App\Models\Warna;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 
@@ -94,69 +97,74 @@ class ShopCartController extends Controller
             return redirect('/cart')->with('errors', 'gagal menghapus barang dari keranjang');
         }
     }
-    // public function TrxSablon(Request $request)
-    // {
-    //     $request->validate([
-    //         '' => 'required',
-    //         '' => 'required',
-    //         '' => 'required',
-    //         '' => 'required',
-    //     ]);
-    //     try {
-    //         $trxSablon = new Trx_sablon([
-    //             ''=>$request->,
-    //             ''=>$request->,
-    //             ''=>$request->,
-    //             ''=>$request->,
-    //         ]);
-    //         $trxSablon->save();
-    //         return redirect('/pesanananda')->with('success','transaksi berhasil');
-    //     } catch (\Exception $e) {
-    //         Log::error($e->getMessage());
-    //         return redirect('/cart')->with('errors','transaksi gagal..!');
-    //     }
-    // }
-    // public function TrxPakaiancustom(Request $request)
-    // {
-    //     $request->validate([
-    //         '' => 'required',
-    //         '' => 'required',
-    //         '' => 'required',
-    //         '' => 'required',
-    //     ]);
-    //     try {
-    //         $trxSablon = new Trx_sablon([
-    //             ''=>$request->,
-    //             ''=>$request->,
-    //             ''=>$request->,
-    //             ''=>$request->,
-    //         ]);
-    //         $trxSablon->save();
-    //         return redirect('/pesanananda')->with('success','transaksi berhasil');
-    //     } catch (\Exception $e) {
-    //         Log::error($e->getMessage());
-    //         return redirect('/cart')->with('errors','transaksi gagal..!');
-    //     }
-    // }
-    // public function AllTrx()
-    // {
-    //     // jika transaksi masih dalam satu fungsi maka pakaitransaction
-    //     // DB::transaction(function(){
-    //     // $this->TrxSablon();
-    //     // $this->TrxPakaiancustom();
-    //     // });
+    public function TrxSablon(Request $request)
+    {
+        $request->validate([
+            'sablon_id' => 'required',
+            'payment_id' => 'required',
+            'kurir_id' => 'required',
+            'jumlah_order' => 'required',
+            'tinggalkanpesan' => 'required',
+        ]);
+        try {
+            $trxSablon = new Trx_sablon([
+                'sablon_id' => $request->sablon_id,
+                'payment_id' => $request->payment_id,
+                'kurir_id' => $request->kurir_id,
+                'jumlah_order' => $request->jumlah_order,
+                'tinggalkanpesan' => $request->tinggalkanpesan,
+            ]);
+            $trxSablon->save();
+            return redirect('/pesanananda')->with('success', 'transaksi berhasil');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return redirect('/cart')->with('errors', 'transaksi gagal..!');
+        }
+    }
+    public function TrxPakaiancustom(Request $request)
+    {
+        $request->validate([
+            'procus_id' => 'required',
+            'payment_id' => 'required',
+            'kurir_id' => 'required',
+            'jumlah_order' => 'required',
+            'tinggalkanpesan' => 'required',
+        ]);
+        try {
+            $trxSablon = new Pesanan([
+                'procus_id' => $request->procus_id,
+                'payment_id' => $request->payment_id,
+                'kurir_id' => $request->kurir_id,
+                'jml_order' => $request->jumlah_order,
+                't_pesan' => $request->tinggalkanpesan,
+            ]);
+            $trxSablon->save();
+            return redirect('/pesanananda')->with('success', 'transaksi berhasil');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return redirect('/cart')->with('errors', 'transaksi gagal..!');
+        }
+    }
+    public function AllTrx()
+    {
+        // jika transaksi masih dalam satu fungsi maka pakaitransaction
+        // DB::transaction(function(){
+        // $this->TrxSablon();
+        // $this->TrxPakaiancustom();
+        // });
 
-    //     try {
-    //         DB::beginTransaction();
-    //         $this->TrxSablon();
-    //         $this->TrxPakaiancustom();
-    //         DB::commit();
-    //         $trxSablon->save();
-    //         return redirect('/pesanananda')->with('success','transaksi berhasil');
-    //     } catch (\Exception $e) {
-    //         DB::rollback();
-    //     }
-    //     // jika transaksi menggunakan fungsi yang berbeda maka gunakan begin transaction
+        DB::beginTransaction();
+        try {
+            $this->TrxSablon();
+            $this->TrxPakaiancustom();
 
-    // }
+            DB::commit();
+            return redirect('/pesanananda')->with('success', 'transaksi berhasil');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            DB::rollback();
+        }
+        // jika transaksi menggunakan fungsi yang berbeda maka gunakan begin transaction
+
+    }
 }

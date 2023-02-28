@@ -19,7 +19,9 @@ class RoleMemberController extends Controller
     {
         $isiKeranjang = Shop_cart::where('user_id', '=', Auth::user()->user_id)->get()->count(); //hitung isi keranjang berdasarkan user yang login 'isiKeranjang' => $isiKeranjang,
         $procategori = KtgrProcus::joinToKategori()->get();
-        $procus = ProdukCustom::joinKategoriProdukCostum()->get();
+        $produkCustom = ProdukCustom::joinKategoriProdukCostum()->get();
+        // $testing = ProdukCustom::joinKategoriProdukCostum()->orderBy('ktgr_procus_id', 'desc')->paginate(1);
+        // dd($testing);
         $instansi = Instansi::all();
         $sablon = Sablon::all();
         $payment = Payment::all();
@@ -28,10 +30,11 @@ class RoleMemberController extends Controller
             'title' => 'home',
             'instansi' => $instansi,
             'kategoricustom' => $procategori,
-            'procus' => $procus,
+            'produk_custom' => $produkCustom,
             'sablon' => $sablon,
             'payment' => $payment,
             'kurir' => $kurir,
+            // 'testing' => $testing,
             'isiKeranjang' => $isiKeranjang,
         ]);
     }
@@ -155,7 +158,7 @@ class RoleMemberController extends Controller
         ]);
     }
 
-    public function SendToDetailAfterCheckout($id)
+    public function SendToDetailBeforeCheckout($id)
     {
         $data = Instansi::all();
         $isiKeranjang = Shop_cart::where('user_id', '=', Auth::user()->user_id)->get()->count(); //hitung isi keranjang berdasarkan user yang login 'isiKeranjang' => $isiKeranjang,
@@ -164,12 +167,13 @@ class RoleMemberController extends Controller
         // query menampilkan warna berdasarkan produk
         $color = Warna::all();
         $proColor = ProdukCustom::joinKategoriProdukCostum()->joinWarna()->get(); //panggil scope function on model
-        $limitCustom2 = ProdukCustom::limit(2)->get();
+        $getProdukCustomByPaginate = ProdukCustom::paginate(1);
         // load data kategori
-        $show = ProdukCustom::find($id);
-        $gm = $show->ktgr_procus_id;
-        $gmKate = ProdukCustom::where('ktgr_procus_id', $gm)->get();
-
+        $getProdukCustomById = ProdukCustom::find($id);
+        $FilterKategoriProdukCustom = $getProdukCustomById->ktgr_procus_id;
+        $getProdukCustomIfTogetherWithKategoriProdukCustom = ProdukCustom::where('ktgr_procus_id', $FilterKategoriProdukCustom)->get();
+        // dd($getProdukCustomById);
+        // dd($gmKate);
         $kategori_produk_custom = KtgrProcus::all();
         $user = User::select('user_id', 'user_id')->get();
         return view('members.detailprodukcustom', [
@@ -181,10 +185,10 @@ class RoleMemberController extends Controller
             'colors' => $color,
             'procolor' => $proColor,
             'kategori_produk_custom' => $kategori_produk_custom,
-            'produkcustoms2' => $limitCustom2,
+            'getProdukCustomByPaginate' => $getProdukCustomByPaginate,
             'user' => $user,
-            'show' => $show,
-            'gmKate' => $gmKate,
+            'getProdukCustomById' => $getProdukCustomById,
+            'getProdukCustomIfTogetherWithKategoriProdukCustom' => $getProdukCustomIfTogetherWithKategoriProdukCustom,
             'isiKeranjang' => $isiKeranjang,
         ]);
     }
