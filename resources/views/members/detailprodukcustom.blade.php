@@ -41,7 +41,7 @@
                                                 <h5 class="card-title color__green">{{$getProdukCustomById->nama_produk}}</h5>
                                                 <h6 class="card-title color__green">Rp. {{$getProdukCustomById->harga_jual}}</h6>
                                                 <input type="hidden" name="ktgr_procus_id" value="{{$getProdukCustomById->ktgr_procus_id}}"> <!-- ambil data id produk custom-->
-                                                <input type="hidden" value="{{$getProdukCustomById->harga_jual}}" id="harga_jual"> <!--mengambil harga barang menngunakan input-->
+                                                <input type="hidden" name="harga_satuan" value="{{$getProdukCustomById->harga_jual}}" id="harga_jual"> <!--mengambil harga barang menngunakan input-->
                                             </div>
 
                                             <!-- menampilkan jenis kain produk -->
@@ -67,10 +67,10 @@
                                                 <div class="col-lg-3 col-sm-7 col-md-8">
                                                     <select name="warna_id" class="form-select" aria-label="Default select example">
                                                         <option selected>pilih warna</option>
-                                                        @foreach($colors as $col)
-                                                        @foreach($procolor as $prclr)
-                                                        @if($prclr->ktgr_procus_id == $id && $prclr->nama_warna == $col->nama_warna)
-                                                        <option value="{{$prclr->warna_id}}">{{$prclr->warna_id}},{{$prclr->nama_warna}}</option>
+                                                        @foreach($getProdukCustomIfTogetherWithKategoriProdukCustom as $col)
+                                                        @foreach($colors as $war)
+                                                        @if($war->warna_id == $col->warna_id)
+                                                        <option value="{{$col->warna_id}}">{{$war->nama_warna}}</option>
                                                         @endif
                                                         @endforeach
                                                         @endforeach
@@ -84,17 +84,11 @@
                                                     <h6>Size</h6>
                                                 </div>
                                                 <div class="col-lg-3 col-sm-7 col-md-8 d-flex justify-content-between">
-                                                    @foreach($procus as $prd)
-                                                    @foreach($prdkgroup as $prg)
-                                                    @if($prd->ktgr_procus_id == $id)
-                                                    @if($prd->nama_produk == $prg->nama_produk)
+                                                    @foreach($getProdukCustomIfTogetherWithKategoriProdukCustom as $prd)
                                                     <div class="form-check col-2">
                                                         <input class="form-check-input" type="radio" name="procus_id" value="{{$prd->procus_id}}" id="GetValueSize flexRadioDefault1">
                                                         <label class="form-check-label" for="flexRadioDefault1">{{$prd->size}}</label>
                                                     </div>
-                                                    @endif
-                                                    @endif
-                                                    @endforeach
                                                     @endforeach
                                                 </div>
                                             </div>
@@ -143,8 +137,8 @@
 
                         <!-- tombol beli dan tambahkan ke keranjang -->
                         <div class="mb-2 mt-4 col-3 mx-auto d-flex justify-content-between">
-                            <button id="BeliProduk" type="submit" class="btn btn-outline-success">
-                                <span><i class="fas fa-money-check-alt"></i></span>
+                            <button id="BeliProduk" type="button" class="btn btn-outline-success">
+                                <span><i class="fas fa-dollar-sign"></i></span>
                                 Beli
                             </button>
                             <button id="AddToCart" type="submit" class="btn btn-outline-warning" data-bs-dismiss="modal">

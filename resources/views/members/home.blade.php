@@ -61,8 +61,8 @@
                         </div>
                         <div class="d-grid gap-2 d-md-flex justify-content-md-center mt-4">
                             <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modalBeli{{$val->sablon_id}}">
-                                <i class="fas fa-money-check-alt"></i></button>
-                            <button class="btn btn-outline-warning" type="submit"><i class="fas fa-cart-plus"></i></button>
+                                <i class="fas fa-dollar-sign"></i>
+                                <button class="btn btn-outline-warning" type="submit"><i class="fas fa-cart-plus"></i></button>
                         </div>
                     </div>
                 </form>
@@ -78,7 +78,7 @@
                             <h1 class="modal-title fs-5" id="exampleModalLabel">Pesan sablon</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form action="trx_sablon/addtrxSablon" method="post">
+                        <form action="" method="post">
                             <div class="modal-body">
                                 @csrf
                                 <div class="row">
@@ -106,16 +106,16 @@
                                         </select>
                                     </div>
                                     <div class="col-12 mb-3">
-                                        <h6>Harga satuan Rp. {{$val->harga}}</h6>
-                                        <input type="hidden" value="{{$val->harga}}" id="hargaSablon">
+                                        <h6>Jumlah</h6>
+                                        <input type="number" id="jml_order_langsung" name="jumlah_order" class="form-control">
                                     </div>
                                     <div class="col-12 mb-3">
-                                        <h6>Jumlah</h6>
-                                        <input type="number" id="jumlah_order" name="jml" class="form-control">
+                                        <h6>Harga satuan Rp. {{$val->harga}}</h6>
+                                        <input type="hidden" id="harga_satuan_langsung" data-ordersablon="{{$val->harga}}">
                                     </div>
                                     <div class="col-12 mb-3">
                                         <h6>Total</h6>
-                                        <input type="number" name="harga_totals" id="total" class="form-control" placeholder="Total">
+                                        <p id="harga_total_sablon"></p>
                                     </div>
                                     <div class="col-12 mt-3">
                                         <div class="card-header">Tinggalkan pesan</div>
@@ -179,22 +179,14 @@
 <!-- end produk custom -->
 
 <script>
-    // function count total harga
-    // $(document).ready(function() {
-    //     let harga = document.getElementById('hargaSablon')
-    //     let jumlah = document.getElementById('jumlah_order')
-    //     let www = harga * jumlah
-    //     console.log(www)
-    // console.log(jumlah)
-
-    // $(`#jumlah_order, #hargaSablon`).keyup(function() {
-    //     let harga_juals = $("#hargaSablon").val(); //get value from input id harga jual
-    //     let jmls = $("#jumlah_order").val(); //get jumlah order from input order
-    //     console.log(harga_juals)
-    //     let total = harga_juals * jmls; //count harga jual and jumlah harga
-    //     $("#total").val(total); //return value total to input total
-    // });
-    // });
+    function jmlOrder() {
+        let getJumlahOrderLangsung = document.getElementById('jumlah_order_langsung');
+        let gethargaSatuanLangsung = document.getElementById('harga_satuan_langsung').getAttribute('data-ordersablon');
+        console.log(gethargaSatuanLangsung);
+        console.log(getJumlahOrderLangsung);
+        let TotalHargaLangsung = getJumlahOrderLangsung * gethargaSatuanLangsung;
+        document.getElementById('harga_total_langsung').innerHTML = "Rp. " + TotalHargaLangsung;
+    }
 </script>
 
 @endsection

@@ -91,7 +91,7 @@
                         <a class="nav-link active" style="color:#FFFFFF" aria-current="page" href="/videos">VIDEO</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" style="color:#FFFFFF" aria-current="page" href="/contact">ABOUT ME</a>
+                        <a class="nav-link active" style="color:#FFFFFF" aria-current="page" href="/contact">CONTACT US</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" style="color:#FFFFFF" aria-current="page" href="/login">LOGIN</a>

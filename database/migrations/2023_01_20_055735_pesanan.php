@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('procus_id');
             $table->string('color', 20);
             $table->foreignId('user_id');
+            $table->foreignId('sablon_id');
             $table->string('size_order', 10);
             $table->foreignId('kurir_id');
             $table->foreignId('payment_id');
@@ -35,6 +36,7 @@ return new class extends Migration
             $table->timestamps();
             $table->foreign('procus_id')->references('procus_id')->on('produk_custom')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreign('user_id')->references('user_id')->on('users')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreign('sablon_id')->references('sablon_id')->on('sablon')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreign('kurir_id')->references('kurir_id')->on('kurir')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreign('payment_id')->references('payment_id')->on('payment')->cascadeOnUpdate()->cascadeOnDelete();
         });

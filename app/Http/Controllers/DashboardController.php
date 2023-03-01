@@ -6,9 +6,9 @@ use App\Models\Instansi;
 use App\Models\Pesanan;
 use Illuminate\Http\Request;
 
-class RoleAdminController extends Controller
+class DashboardController extends Controller
 {
-    public function GetIndex()
+    public function GetViewDashboard()
     {
         $instansi = Instansi::select('logo')->get();
         $pesananPending = Pesanan::where('status_pesanan', '=', 'pending')->count();

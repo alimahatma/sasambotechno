@@ -9,7 +9,7 @@
         <div class="row">
             <!-- pesanan selesai -->
             <div class="col-6 col-lg-3 col-md-6">
-                <div class="card shadow-sm">
+                <div class="card shadow-lg">
                     <div class="card-body px-4 py-4-5">
                         <div class="row">
                             <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
@@ -27,7 +27,7 @@
             </div>
             <!-- pesanan masuk -->
             <div class="col-6 col-lg-3 col-md-6">
-                <div class="card shadow-sm">
+                <div class="card shadow-lg">
                     <div class="card-body px-4 py-4-5">
                         <div class="row">
                             <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
@@ -45,7 +45,7 @@
             </div>
             <!-- pesanan di produksi -->
             <div class="col-6 col-lg-3 col-md-6">
-                <div class="card shadow-sm">
+                <div class="card shadow-lg">
                     <div class="card-body px-4 py-4-5">
                         <div class="row">
                             <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
@@ -63,7 +63,7 @@
             </div>
             <!-- pesanan belum di bayar -->
             <div class="col-6 col-lg-3 col-md-6">
-                <div class="card shadow-sm">
+                <div class="card shadow-lg">
                     <div class="card-body px-4 py-4-5">
                         <div class="row">
                             <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">

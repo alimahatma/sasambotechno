@@ -4,20 +4,40 @@ namespace App\Http\Controllers;
 
 use App\Models\Instansi;
 use App\Models\Pesanan;
+use App\Models\Shop_cart;
+use App\Models\Trx_sablon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
-class PesananController extends Controller
+class PesananSablonController extends Controller
 {
+    public function GetPesananAnda()
+    {
+        if (Auth::user()->role == 'pelanggan') {
+            $instansi = Instansi::select('logo', 'whatsapp')->get();
+            $isiKeranjang = Shop_cart::where('user_id', '=', Auth::user()->user_id)->get()->count(); //hitung isi keranjang berdasarkan user yang login
+
+            $dataPesanan = Pesanan::joinToProdukCustom()->joinToKategoriProdukCustom()->joinToWarna()
+                ->joinToUser()->joinToSablon()->joinToKurir()->joinToPayment()->orderBy('pesanan_id', 'desc')->get();
+            // dd($dataPesanan);
+            return view('members.pesananAnda', [
+                'title' => 'history transaksi',
+                'instansi' => $instansi,
+                'data_pesanan' => $dataPesanan,
+                'isiKeranjang' => $isiKeranjang,
+            ]);
+        }
+    }
+
     public function GetPesanan()
     {
         if (Auth::user()->role == 'superadmin') {
             $data = Pesanan::joinToProdukCustom()->joinToKategoriProdukCustom()->joinToWarna()
                 ->joinToUser()->joinToSablon()->joinToKurir()->joinToPayment()->get();
             $instansi = Instansi::select('logo')->get();
-            return view('superadmin.pesanan', [
-                'title' => 'pesanan pakaian custom',
+            return view('superadmin.pesanan_sablon', [
+                'title' => 'pesanan sablon',
                 'instansi' => $instansi,
                 'pesanan' => $data,
             ]);
@@ -25,8 +45,8 @@ class PesananController extends Controller
             $data = Pesanan::joinToProdukCustom()->joinToKategoriProdukCustom()->joinToWarna()
                 ->joinToUser()->joinToSablon()->joinToKurir()->joinToPayment()->get();
             $instansi = Instansi::select('logo')->get();
-            return view('superadmin.pesanan', [
-                'title' => 'pesanan pakaian custom',
+            return view('superadmin.pesanan_sablon', [
+                'title' => 'pesanan sablon',
                 'instansi' => $instansi,
                 'pesanan' => $data,
             ]);
@@ -34,8 +54,8 @@ class PesananController extends Controller
             $data = Pesanan::joinToProdukCustom()->joinToKategoriProdukCustom()->joinToWarna()
                 ->joinToUser()->joinToSablon()->joinToKurir()->joinToPayment()->get();
             $instansi = Instansi::select('logo')->get();
-            return view('superadmin.pesanan', [
-                'title' => 'pesanan pakaian custom',
+            return view('superadmin.pesanan_sablon', [
+                'title' => 'pesanan sablon',
                 'instansi' => $instansi,
                 'pesanan' => $data,
             ]);
@@ -44,7 +64,6 @@ class PesananController extends Controller
         }
     }
 
-    // pesan langsung dari halaman detail produk custom
     public function AddPesanan(Request $req)
     {
         $req->validate([
@@ -71,7 +90,7 @@ class PesananController extends Controller
                 't_pesan' => $req->t_pesan,
                 'tgl_order' => $req->tgl_order,
             ]);
-            // dd($data);
+            dd($data);
             $data->save();
             return redirect('pesanananda')->with('success', 'pesanan berhasil');
         } catch (\Exception $e) {
@@ -140,10 +159,10 @@ class PesananController extends Controller
                 'status_pesanan' => $req->post('status_pesanan'),
             );
             Pesanan::where('pesanan_id', '=', $req->post('pesanan_id'))->update($validationPayment);
-            return redirect('pesanan')->with('success', 'validasi berhasil');
+            return redirect('pesanansablon')->with('success', 'validasi berhasil');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            return redirect('pesanan')->with('errors', 'validasi pembayaran');
+            return redirect('pesanansablon')->with('errors', 'validasi pembayaran');
         }
     }
 
@@ -157,10 +176,10 @@ class PesananController extends Controller
                 'stts_produksi' => $req->post('stts_produksi'),
             );
             Pesanan::where('pesanan_id', '=', $req->post('pesanan_id'))->update($validasiProduksi);
-            return redirect('pesanan')->with('success', 'rubah status produksi berhasil');
+            return redirect('pesanansablon')->with('success', 'rubah status produksi berhasil');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            return redirect('pesanan')->with('errors', 'rubah status produksi gagal');
+            return redirect('pesanansablon')->with('errors', 'rubah status produksi gagal');
         }
     }
 
@@ -176,10 +195,10 @@ class PesananController extends Controller
                 '' => $req->post(''),
             );
             Pesanan::where('pesanan_id', '=', $req->post('pesanan_id'))->update();
-            return redirect('pesanan')->with('success', 'diskon berhasil');
+            return redirect('pesanansablon')->with('success', 'diskon berhasil');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            return redirect('pesanan')->with('errors', 'diskon gagal');
+            return redirect('pesanansablon')->with('errors', 'diskon gagal');
         }
     }
 
@@ -187,10 +206,10 @@ class PesananController extends Controller
     {
         try {
             Pesanan::where('pesanan_id', '=', $id)->delete();
-            return redirect('pesanan')->with('success', 'pesanan berhasil di hapus');
+            return redirect('pesanansablon')->with('success', 'pesanan berhasil di hapus');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            return redirect('pesanan')->with('success', 'pesanan gagal di hapus');
+            return redirect('pesanansablon')->with('success', 'pesanan gagal di hapus');
         }
     }
 }

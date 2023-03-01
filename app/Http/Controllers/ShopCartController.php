@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Instansi;
+use App\Models\Kurir;
+use App\Models\Payment;
 use App\Models\Pesanan;
 use App\Models\Shop_cart;
 use App\Models\Trx_sablon;
@@ -15,18 +17,20 @@ use Illuminate\Support\Facades\Redirect;
 
 class ShopCartController extends Controller
 {
+    // fungsi untuk menampilkan semua data yang ada di keranjang
     public function GetDataCart()
     {
         $instansi = Instansi::select('logo')->get();
         $isiKeranjang = Shop_cart::where('user_id', '=', Auth::user()->user_id)->get()->count(); //hitung isi keranjang berdasarkan user yang login 
         $shopCartProduk = Shop_cart::joinProcus()->joinToWarna()->joinTableSablon()->get();
-        // $shopCartSablon = Shop_cart::joinTableSablon()->get();
-        // dd($shopCartProduk);
+        $kurir = Kurir::all();
+        $payment = Payment::all();
         return view('members.mycart', [
             'title' => 'keranjang saya',
             'instansi' => $instansi,
             'shopcartproduk' => $shopCartProduk,
-            // 'shopcartsablon' => $shopCartSablon,
+            'kurir' => $kurir,
+            'payment' => $payment,
             'isiKeranjang' => $isiKeranjang,
         ]);
     }
@@ -62,7 +66,7 @@ class ShopCartController extends Controller
         }
     }
 
-    //funcsi untuk menambahkan sablon ke keranjang
+    //fungsi untuk menambahkan sablon ke keranjang
     public function AddSablonToCart(Request $request)
     {
         $request->validate([
@@ -87,6 +91,7 @@ class ShopCartController extends Controller
         }
     }
 
+    // fungsi untuk menghapus satu barang dari keranjang belanja
     public function DelBarangOnKeranjang($id)
     {
         try {
@@ -97,54 +102,63 @@ class ShopCartController extends Controller
             return redirect('/cart')->with('errors', 'gagal menghapus barang dari keranjang');
         }
     }
-    public function TrxSablon(Request $request)
-    {
-        $request->validate([
-            'sablon_id' => 'required',
-            'payment_id' => 'required',
-            'kurir_id' => 'required',
-            'jumlah_order' => 'required',
-            'tinggalkanpesan' => 'required',
-        ]);
-        try {
-            $trxSablon = new Trx_sablon([
-                'sablon_id' => $request->sablon_id,
-                'payment_id' => $request->payment_id,
-                'kurir_id' => $request->kurir_id,
-                'jumlah_order' => $request->jumlah_order,
-                'tinggalkanpesan' => $request->tinggalkanpesan,
-            ]);
-            $trxSablon->save();
-            return redirect('/pesanananda')->with('success', 'transaksi berhasil');
-        } catch (\Exception $e) {
-            Log::error($e->getMessage());
-            return redirect('/cart')->with('errors', 'transaksi gagal..!');
-        }
-    }
+
+    // fungsi untuk checkout satu pakaian custom dari keranjang
     public function TrxPakaiancustom(Request $request)
     {
         $request->validate([
             'procus_id' => 'required',
-            'payment_id' => 'required',
+            'user_id' => 'required',
             'kurir_id' => 'required',
-            'jumlah_order' => 'required',
-            'tinggalkanpesan' => 'required',
+            'payment_id' => 'required',
+            'jml_order' => 'required',
+            't_pesan' => 'required',
+
+            // 'procus_id',
+            // 'color',
+            // 'user_id',
+            // 'sablon_id',
+            // 'size_order',
+            // 'kurir_id',
+            // 'payment_id',
+            // 'jml_order',
+            // 'jml_dp',
+            // 'jml_lunas',
+            // 'all_total',
+            // 'b_dp',
+            // 'b_lunas',
+            // 't_pesan',
         ]);
         try {
-            $trxSablon = new Pesanan([
+            $data = new Pesanan([
                 'procus_id' => $request->procus_id,
-                'payment_id' => $request->payment_id,
+                'color' => $request->color,
+                'user_id' => $request->user_id,
+                'size_order' => $request->size_order,
                 'kurir_id' => $request->kurir_id,
-                'jml_order' => $request->jumlah_order,
-                't_pesan' => $request->tinggalkanpesan,
+                'payment_id' => $request->payment_id,
+                'jml_order' => $request->jml_order,
+                't_pesan' => $request->t_pesan,
+                'tgl_order' => $request->tgl_order,
             ]);
-            $trxSablon->save();
-            return redirect('/pesanananda')->with('success', 'transaksi berhasil');
+            $data->save();
+            // $trxPakaianCustom = new Pesanan([
+            //     'procus_id' => $request->procus_id,
+            //     'user_id' => $request->user_id,
+            //     'kurir_id' => $request->kurir_id,
+            //     'payment_id' => $request->payment_id,
+            //     'jml_order' => $request->jml_order,
+            //     't_pesan' => $request->t_pesan,
+            // ]);
+            // dd($trxPakaianCustom);
+            // $trxPakaianCustom->save();
+            return redirect('pesanananda')->with('success', 'transaksi berhasil');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            return redirect('/cart')->with('errors', 'transaksi gagal..!');
+            return redirect('cart')->with('errors', 'transaksi gagal..!');
         }
     }
+
     public function AllTrx()
     {
         // jika transaksi masih dalam satu fungsi maka pakaitransaction
@@ -153,17 +167,17 @@ class ShopCartController extends Controller
         // $this->TrxPakaiancustom();
         // });
 
-        DB::beginTransaction();
-        try {
-            $this->TrxSablon();
-            $this->TrxPakaiancustom();
+        // DB::beginTransaction();
+        // try {
+        //     $this->TrxSablon();
+        //     $this->TrxPakaiancustom();
 
-            DB::commit();
-            return redirect('/pesanananda')->with('success', 'transaksi berhasil');
-        } catch (\Exception $e) {
-            Log::error($e->getMessage());
-            DB::rollback();
-        }
+        //     DB::commit();
+        //     return redirect('/pesanananda')->with('success', 'transaksi berhasil');
+        // } catch (\Exception $e) {
+        //     Log::error($e->getMessage());
+        //     DB::rollback();
+        // }
         // jika transaksi menggunakan fungsi yang berbeda maka gunakan begin transaction
 
     }

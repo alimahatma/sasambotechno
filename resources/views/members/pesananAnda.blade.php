@@ -2,7 +2,7 @@
 @section('content')
 <div class="content">
     <div class="card-header">
-        <h4 class="card-title text-center mb-3">Pesanan anda</h4>
+        <h4 class="card-title text-center mb-3">Pesanan saya</h4>
     </div>
     <div class="row">
         <!-- alert error or success-->
@@ -18,8 +18,8 @@
         </div>
         <!-- end-alert -->
 
-        @foreach($pesanansablon as $pes)
-        @if(Auth::user()->user_id == $pes->user_id)
+        @foreach($data_pesanan as $pes)
+        @if(Auth::user()->user_id == $pes->user_id && $pes->sablon_id == TRUE)
         <!-- view read transaction sablon -->
         <div class="card">
             <div class="card-body shadow-sm">
@@ -34,19 +34,10 @@
                         <p>Sablon. {{$pes->ukuran_sablon}}</p>
                     </div>
                     <div class="col">
-                        <p>X. {{$pes->jml}}</p>
+                        <p>X. {{$pes->jml_order}}</p>
                     </div>
                     <div class="col">
-                        <p>{{$pes->nama_jakir}},{{$pes->jenis_jakir}}</p>
-                    </div>
-                    <div class="col">
-                        <p>{{$pes->pay_method}}</p>
-                    </div>
-                    <div class="col">
-                        <p>Rp. {{$pes->harga}} / satuan</p>
-                    </div>
-                    <div class="col">
-                        <p>Total Rp. <?= $total_harga = ($pes->jml * $pes->harga) ?> </p>
+                        <p>Rp. {{$pes->harga}} / titik</p>
                     </div>
                     @if($pes->pay_status == "pending")
                     <div class="col">
@@ -58,7 +49,18 @@
                     </div>
                     @elseif($pes->pay_status != "pending" && $pes->pay_status != "bayar")
                     <div class="col">
-                        <p class="text text-success">pesanan {{$pes->trx_status}}</p>
+                        <p class="text text-success">pesanan {{$pes->status_pesanan}}</p>
+                    </div>
+                    @endif
+                    <div class="col">
+                        <p>{{$pes->tgl_order}}</p>
+                    </div>
+                    @if($pes->b_dp != NULL)
+                    <div class="col">
+                        <h6 class="text text-warning">Sisa bayar</h6>
+                    </div>
+                    <div class="col">
+                        <p class="text text-warning">: <?= $sisa = ($vals->jml_order * $vals->harga_jual) - $vals->jml_dp ?></p>
                     </div>
                     @endif
                 </div>
@@ -83,7 +85,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Detail pesanan</h1>
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Detail pesanan sablon {{$pes->ukuran_sablon}}</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -105,6 +107,22 @@
                         </div>
                         <div class="row">
                             <div class="col-md-4 col-lg-6 col-sm-6 mb-3">
+                                <h6>Jasa kirim</h6>
+                            </div>
+                            <div class="col-md-3 col-lg-5 col-sm-6 mb-3">
+                                <p>: {{$pes->nama_jakir}} {{$pes->jenis_jakir}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 col-lg-6 col-sm-6 mb-3">
+                                <h6>Metode pembayaran</h6>
+                            </div>
+                            <div class="col-md-3 col-lg-5 col-sm-6 mb-3">
+                                <p>: {{$pes->pay_method}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 col-lg-6 col-sm-6 mb-3">
                                 <h6>Harga satuan</h6>
                             </div>
                             <div class="col-md-3 col-lg-5 col-sm-6 mb-3">
@@ -116,7 +134,7 @@
                                 <h6>Harga total</h6>
                             </div>
                             <div class="col-md-3 col-lg-5 col-sm-6 mb-3">
-                                <p>: <?= $total_harga = ($pes->jml * $pes->harga) ?></p>
+                                <p>: Rp. <?= $total_harga = ($pes->jml_order * $pes->harga) ?> </p>
                             </div>
                         </div>
                         <div class="row">
@@ -124,7 +142,7 @@
                                 <h6>Status pesanan</h6>
                             </div>
                             <div class="col-md-3 col-lg-5 col-sm-6 mb-3">
-                                <p class="text text-success">: {{$pes->trx_status}}</p>
+                                <p class="text text-success">: {{$pes->status_pesanan}}</p>
                             </div>
                         </div>
                     </div>
@@ -137,8 +155,8 @@
     </div>
 
     <div class="row">
-        @foreach($pesananpakaiancustom as $vals)
-        @if(Auth::user()->user_id == $vals->user_id)
+        @foreach($data_pesanan as $vals)
+        @if(Auth::user()->user_id == $vals->user_id && $vals->procus_id == TRUE)
 
         <!-- view read transaction pesanan pakaian custom -->
         <div class="card">

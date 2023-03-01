@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ContactUsController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InstansiController;
 use App\Http\Controllers\KategoriProdukController;
@@ -21,7 +23,7 @@ use App\Http\Controllers\SablonController;
 use App\Http\Controllers\ShopCartController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\TransaksiController;
-use App\Http\Controllers\TrxSablonController;
+use App\Http\Controllers\PesananSablonController;
 use App\Http\Controllers\TutorialController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\WarnaController;
@@ -56,6 +58,8 @@ Route::get('/tutorials', [HomeController::class, 'SendToTutorial'])->name('tutor
 Route::get('/videos', [HomeController::class, 'SendToVideo'])->name('video');
 Route::get('/contact', [HomeController::class, 'SendToContact'])->name('contact');
 
+Route::get('/detailcustom/{id}', [RoleMemberController::class, 'DetailCustom']); //route detail procus
+
 // route authentication
 Route::get('/login', [UserController::class, 'GetLogin'])->name('login');
 Route::name('auth')->group(function () {
@@ -80,6 +84,11 @@ Route::prefix('user')->group(function () {
     Route::get('/data', [UserController::class, 'GetAll'])->name('data');
     Route::post('/change', [UserController::class, 'ChangeRole'])->name('change');
     Route::get('/delete/{id}', [UserController::class, 'Delete'])->name('delete');
+});
+
+// route dashboard
+Route::prefix('dashboard')->group(function () {
+    Route::get('/', [DashboardController::class, 'GetViewDashboard'])->name('dashboard');
 });
 
 // route table instansi
@@ -167,10 +176,9 @@ Route::prefix('transaksi')->group(function () {
     Route::get('/', [TransaksiController::class, 'GetTransaksi'])->name('transaksi');
 });
 
-// route table pesanan
+// route table pesanan pakaian custom
 Route::prefix('pesanan')->group(function () {
     Route::get('/', [PesananController::class, 'GetPesanan'])->name('pesanan');
-    Route::get('/detailcustom/{id}', [RoleMemberController::class, 'DetailCustom']); //route detail procus
     Route::post('validasipesanan', [PesananController::class, 'ValidasiPesanan'])->name('validasipesanan'); //for superadmin
     Route::post('validasiproduksi', [PesananController::class, 'ValidasiProduction'])->name('validasiproduksi'); //for role production
     Route::post('/addpesanan', [PesananController::class, 'AddPesanan'])->name('addPesanan'); //checkout pesanan produk custom
@@ -180,12 +188,24 @@ Route::prefix('pesanan')->group(function () {
     Route::get('/delpesanan/{id}', [PesananController::class, 'DeletePesanan'])->name('delpesanan');
 });
 
-// route transaksi sablon
-Route::prefix('trx_sablon')->group(function () {
-    Route::get('/', [TrxSablonController::class, 'GetTrxSablon'])->name('trxSablon');
-    Route::post('/addtrxSablon', [TrxSablonController::class, 'AddTrxSablon'])->name('addtrxSablon');
-    Route::post('/updttrxSablon', [TrxSablonController::class, 'UpdtTrxSablon'])->name('updttrxSablon');
-    Route::get('/delete/{id}', [TrxSablonController::class, 'DeleteTrxSablon'])->name('deletetrxSablon');
+// route table pesanan pakaian custom
+Route::prefix('pesanansablon')->group(function () {
+    Route::get('/', [PesananSablonController::class, 'GetPesanan'])->name('pesanan');
+    Route::post('/validasipesanan', [PesananSablonController::class, 'ValidasiPesanan'])->name('validasipesanan'); //for superadmin
+    Route::post('/validasiproduksi', [PesananSablonController::class, 'ValidasiProduction'])->name('validasiproduksi'); //for role production
+    Route::post('/addpesanan', [PesananSablonController::class, 'AddPesanan'])->name('addPesanan'); //checkout pesanan produk custom
+    Route::post('/bayar', [PesananSablonController::class, 'BayarProdukCustom'])->name('bayar');
+    Route::post('/bayarlunas', [PesananSablonController::class, 'BayarLunas'])->name('bayarlunas');
+    Route::post('/diskons', [PesananSablonController::class, 'Discount'])->name('diskons');
+    Route::get('/delpesanan/{id}', [PesananSablonController::class, 'DeletePesanan'])->name('delpesanan');
+});
+
+Route::prefix('contactus')->group(function () {
+    Route::get('/', [ContactUsController::class, 'GetContactUs'])->name('contactus');
+    Route::post('/add', [ContactUsController::class, 'Comment'])->name('addcomments');
+    Route::post('/addcomments', [ContactUsController::class, 'AddComment'])->name('comment');
+    Route::post('/updtcontactus', [ContactUsController::class, 'UpdtContactUs'])->name('updtcontactus');
+    Route::get('/delete/{id}', [ContactUsController::class, 'DelContactUs'])->name('delcontactus');
 });
 
 // route role table tutorial
@@ -236,7 +256,7 @@ Route::name('members')->group(function () {
     Route::post('/updtakun', [UserController::class, 'UpdtUser'])->name('updtakun'); //kirim nilai yang di input dari form
 
     Route::get('/profile', [UserController::class, 'GetAllUser'])->name('Profile')->middleware('verified');
-    Route::get('/pesanananda', [TrxSablonController::class, 'GetPesananAnda'])->name('pesananAnda')->middleware('verified');
+    Route::get('/pesanananda', [PesananSablonController::class, 'GetPesananAnda'])->name('pesananAnda')->middleware('verified');
     Route::get('/invoice', [RoleMemberController::class, 'GetInvoice'])->name('invoice')->middleware('verified');
 
     Route::get('/cart', [ShopCartController::class, 'GetDataCart'])->name('cart');
@@ -248,5 +268,6 @@ Route::prefix('pilihbaju')->group(function () {
 });
 
 Route::prefix('cart')->group(function () {
-    Route::get('delete/{id}', [ShopCartController::class, 'DelBarangOnKeranjang'])->name('delete');
+    Route::get('/delete/{id}', [ShopCartController::class, 'DelBarangOnKeranjang'])->name('delete');
+    Route::post('/checkout', [ShopCartController::class, 'TrxPakaiancustom'])->name('checkout');
 });

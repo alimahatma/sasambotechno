@@ -6,7 +6,7 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Pesanan pakaian custom</h3>
+                <h3>Pesanan sablon</h3>
                 <p class="text-subtitle text-muted">Selamat datang kembali {{Auth::user()->name}}</p>
             </div>
         </div>
@@ -30,8 +30,8 @@
                             <tr>
                                 <th class="text-center">No</th>
                                 <th class="text-center">Nama pembeli</th>
-                                <th class="text-center">Nama produk</th>
-                                <th class="text-center">Size order</th>
+                                <th class="text-center">Ukuran sablon</th>
+                                <th class="text-center">Harga sablon</th>
                                 <th class="text-center">Jumlah order</th>
                                 <th class="text-center">Staus pembayaran</th>
                                 <th class="text-center">Status produksi</th>
@@ -43,12 +43,12 @@
                         <tbody>
                             <?php $i = 1; ?>
                             @foreach($pesanan as $val)
-                            @if(Auth::user()->role == 'superadmin' && $val->procus_id == TRUE)
+                            @if(Auth::user()->role == 'superadmin' && $val->sablon_id == TRUE)
                             <tr class="text-center">
                                 <td><?= $i++ ?></td>
                                 <td>{{$val->nama_lengkap}}</td>
-                                <td>{{$val->nama_produk}}</td>
-                                <td>{{$val->size_order}}</td>
+                                <td>{{$val->ukuran_sablon}}</td>
+                                <td>{{$val->harga}}</td>
                                 <td>{{$val->jml_order}}</td>
                                 <td>{{$val->pay_status}}</td>
                                 <td>{{$val->stts_produksi}}</td>
@@ -69,12 +69,12 @@
                                     </div>
                                 </td>
                             </tr>
-                            @elseif(Auth::user()->role == 'kasir' && $val->procus_id == TRUE)
+                            @elseif(Auth::user()->role == 'kasir' && $val->sablon_id == TRUE)
                             <tr class="text-center">
                                 <td><?= $i++ ?></td>
                                 <td>{{$val->nama_lengkap}}</td>
-                                <td>{{$val->nama_produk}}</td>
-                                <td>{{$val->size_order}}</td>
+                                <td>{{$val->ukuran_sablon}}</td>
+                                <td>{{$val->harga}}</td>
                                 <td>{{$val->jml_order}}</td>
                                 <td class="text text-danger">{{$val->pay_status}}</td>
                                 <td class="text text-primary">{{$val->stts_produksi}}</td>
@@ -100,12 +100,12 @@
                                     </div>
                                 </td>
                             </tr>
-                            @elseif(Auth::user()->role == 'produksi' && $val->status_pesanan == 'diterima' && $val->procus_id == TRUE)
+                            @elseif(Auth::user()->role == 'produksi' && $val->status_pesanan == 'diterima' && $val->sablon_id == TRUE)
                             <tr class="text-center">
                                 <td><?= $i++ ?></td>
                                 <td>{{$val->nama_lengkap}}</td>
-                                <td>{{$val->nama_produk}}</td>
-                                <td>{{$val->size_order}}</td>
+                                <td>{{$val->ukuran_sablon}}</td>
+                                <td>{{$val->harga}}</td>
                                 <td>{{$val->jml_order}}</td>
                                 <td>{{$val->ukuran_sablon}}</td>
                                 <td></td>
@@ -147,7 +147,7 @@
                 <h5 class="modal-title" id="exampleModalLabel">Validasi pembayaran</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="/pesanan/validasipesanan" method="post">
+            <form action="/pesanansablon/validasipesanan" method="post">
                 @csrf
                 <div class="modal-body">
                     <div class="row">
@@ -202,7 +202,7 @@
                 <h5 class="modal-title" id="exampleModalLabel">Validasi proses pesanan</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="/pesanan/validasiproduksi" method="post">
+            <form action="/pesanansablon/validasiproduksi" method="post">
                 @csrf
                 <div class="modal-body">
                     <div class="row">
@@ -293,16 +293,22 @@
                         <p>: {{$row->pay_method}}</p>
                     </div>
                     <div class="col-md-4 col-lg-4 col-sm-6 mb-1">
+                        <h6>Ukuran sablon</h6>
+                    </div>
+                    <div class="col-md-3 col-lg-8 col-sm-6 mb-1">
+                        <p>: {{$row->ukuran_sablon}}</p>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-6 mb-1">
                         <h6>Harga satuan</h6>
                     </div>
                     <div class="col-md-3 col-lg-8 col-sm-6 mb-1">
-                        <p>: {{$row->harga_jual}}</p>
+                        <p>: {{$row->harga}}</p>
                     </div>
                     <div class="col-md-4 col-lg-4 col-sm-6 mb-1">
                         <h6>Jumlah order</h6>
                     </div>
                     <div class="col-md-3 col-lg-8 col-sm-6 mb-1">
-                        <p>: {{$row->jml_order}}/{{$row->satuan}}</p>
+                        <p>: {{$row->jml_order}}/{{'titik'}}</p>
                     </div>
                     <div class="col-md-4 col-lg-4 col-sm-6 mb-1">
                         <h6>Tanggal order</h6>
@@ -314,7 +320,7 @@
                         <h6>Harga total</h6>
                     </div>
                     <div class="col-md-3 col-lg-8 col-sm-6 mb-1">
-                        <p>: Rp. <?= $total_harga = ($row->jml_order * $row->harga_jual) ?></p>
+                        <p>: Rp. <?= $total_harga = ($row->jml_order * $row->harga) ?></p>
                     </div>
                     @if($row->b_dp != NULL)
                     <div class="col-md-4 col-lg-4 col-sm-6 mb-1">
@@ -347,7 +353,7 @@
                 <h5 class="modal-title" id="exampleModalLabel">Diskon</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="/pesanan/diskons" method="post">
+            <form action="/pesanansablon/diskons" method="post">
                 @csrf
                 <div class="modal-body">
                     <div class="row">
@@ -426,7 +432,7 @@
                 <h5 class="modal-title" id="exampleModalLabel">Hapus pesanan</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="/pesanan/validasipesanan" method="post">
+            <form action="/pesanansablon/validasipesanan" method="post">
                 @csrf
                 <div class="modal-body">
                     <div class="row">
@@ -435,7 +441,7 @@
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>
-                    <a href="/pesanan/delpesanan/{{$row->pesanan_id}}" class="btn btn-danger">Delete</a>
+                    <a href="/pesanansablon/delpesanan/{{$row->pesanan_id}}" class="btn btn-danger">Delete</a>
                 </div>
             </form>
         </div>

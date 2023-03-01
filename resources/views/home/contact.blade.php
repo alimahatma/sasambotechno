@@ -12,29 +12,32 @@
             </div>
         </div>
         <div class="card">
-            <div class="card-body">
-                <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Nama</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" value="{{$inst->nama_instansi}}" disabled>
+            <form action="/contactus/add" method="post">
+                @csrf
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Nama</label>
+                        <input type="text" class="form-control" name="nama" placeholder="masukkan nama" id="exampleFormControlInput1">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Email</label>
+                        <input type="email" class="form-control" name="email" placeholder="masuklkan email" id="exampleFormControlInput1">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">WhatsApp</label>
+                        <input type="text" class="form-control" name="telepon" placeholder="mamsukkan telepon / whatsapp" id="exampleFormControlInput1">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlTextarea1" class="form-label">Pesan / saran</label>
+                        <textarea class="form-control" name="saran" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    </div>
+                    <div class="d-flex flex-row-reverse bd-highlight size__font">
+                        <button type="submit" class="btn btn-success">
+                            <i class="uil uil-message"></i>Send
+                        </button>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Email</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" value="{{$inst->email}}" disabled>
-                </div>
-                <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">WhatsApp</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" value="{{$inst->whatsapp}}" disabled>
-                </div>
-                <div class="mb-3">
-                    <label for="exampleFormControlTextarea1" class="form-label">Pesan / saran</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" disabled></textarea>
-                </div>
-                <div class="d-flex flex-row-reverse bd-highlight size__font">
-                    <button type="button" class="btn btn-success">
-                        <i class="uil uil-message"></i>Send
-                    </button>
-                </div>
-            </div>
+            </form>
         </div>
         @endforeach
     </div>

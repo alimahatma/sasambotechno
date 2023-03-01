@@ -103,7 +103,7 @@ class UserController extends Controller
         ]);
         if (Auth::attempt($req->only('email', 'password'))) {
             if (Auth::user()->role == 'superadmin') {
-                return redirect('user');
+                return redirect('dashboard');
             } elseif (Auth::user()->role == 'kasir') {
                 return redirect('index');
             } elseif (Auth::user()->role == 'produksi') {

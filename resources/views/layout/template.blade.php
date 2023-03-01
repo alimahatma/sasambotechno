@@ -87,14 +87,14 @@
                 <div class="sidebar-menu">
                     <ul class="menu">
                         <li class="sidebar-title">Menu</li>
-                        <!-- <li class="sidebar-item active "> -->
-                        <!-- <li class="sidebar-item">
+                        @if(Auth::user()->role == 'superadmin')
+                        <li class="sidebar-item active">
+                        <li class="sidebar-item">
                             <a href="dashboard" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Dashboard</span>
                             </a>
-                        </li> -->
-                        @if(Auth::user()->role == 'superadmin')
+                        </li>
                         <li class="sidebar-item">
                             <a href="instansi" class='sidebar-link'>
                                 <i class="fas fa-hotel"></i>
@@ -134,7 +134,7 @@
                         <li class="sidebar-item">
                             <a href="warna" class='sidebar-link'>
                                 <i class="fas fa-palette"></i>
-                                <span>Warna</span>
+                                <span>Warna pakaian</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
@@ -170,7 +170,7 @@
                         <li class="sidebar-item">
                             <a href="pesanan" class='sidebar-link'>
                                 <i class="fas fa-shopping-cart"></i>
-                                <span>Pesanan</span>
+                                <span>Pesanan custom</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
@@ -180,9 +180,9 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="trx_sablon" class='sidebar-link'>
-                                <i class="fas fa-luggage-cart"></i>
-                                <span>Tansaksi sablon</span>
+                            <a href="pesanansablon" class='sidebar-link'>
+                                <i class="fas fa-pencil-ruler"></i>
+                                <span>Pesanan sablon</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
@@ -198,6 +198,12 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
+                            <a href="contactus" class='sidebar-link'>
+                                <i class="fas fa-comment"></i>
+                                <span>Contact us</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
                             <a href="logout" class='sidebar-link'>
                                 <i class="fas fa-sign-out-alt"></i>
                                 <span>Logout</span>
@@ -206,14 +212,20 @@
                         @elseif(Auth::user()->role == 'kasir')
                         <li class="sidebar-item">
                             <a href="index" class='sidebar-link'>
-                                <i class="fas fa-home"></i>
-                                <span>Home</span>
+                                <i class="bi bi-grid-fill"></i>
+                                <span>Dashboard</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
                             <a href="pesanan" class='sidebar-link'>
                                 <i class="fas fa-shopping-bag"></i>
-                                <span>Pesanan</span>
+                                <span>Pesanan custom</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="pesanansablon" class='sidebar-link'>
+                                <i class="fas fa-pencil-ruler"></i>
+                                <span>Pesanan sablon</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
@@ -222,7 +234,7 @@
                                 <span>Cetak invoice</span>
                             </a>
                         </li>
-                        <li class="sidebar-item">
+                        <!-- <li class="sidebar-item">
                             <a href="#" class='sidebar-link'>
                                 <i class="fas fa-cube"></i>
                                 <span>Pesanan di proses</span>
@@ -233,7 +245,7 @@
                                 <i class="fas fa-cubes"></i>
                                 <span>Pesanan siap kirim</span>
                             </a>
-                        </li>
+                        </li> -->
                         <li class="sidebar-item">
                             <a href="logout" class='sidebar-link'>
                                 <i class="fas fa-sign-out-alt"></i>
@@ -244,12 +256,12 @@
                         <li class="sidebar-item">
                             <a href="pesanan" class='sidebar-link'>
                                 <i class="fas fa-shopping-bag"></i>
-                                <span>Pesanan</span>
+                                <span>Pesanan custom</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="#" class='sidebar-link'>
-                                <i class="fas fa-pen-fancy"></i>
+                            <a href="pesanansablon" class='sidebar-link'>
+                                <i class="fas fa-pencil-ruler"></i>
                                 <span>Pesanan sablon</span>
                             </a>
                         </li>

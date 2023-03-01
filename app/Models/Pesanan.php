@@ -14,6 +14,7 @@ class Pesanan extends Model
         'procus_id',
         'color',
         'user_id',
+        'sablon_id',
         'size_order',
         'kurir_id',
         'payment_id',
@@ -33,30 +34,34 @@ class Pesanan extends Model
 
     public function scopeJoinToProdukCustom($query)
     {
-        return $query->join('produk_custom', 'produk_custom.procus_id', '=', 'pesanan.procus_id');
+        return $query->leftJoin('produk_custom', 'produk_custom.procus_id', '=', 'pesanan.procus_id');
     }
 
     public function scopeJoinToKategoriProdukCustom($query)
     {
-        return $query->join('ktgr_prdk_custom', 'ktgr_prdk_custom.ktgr_procus_id', '=', 'produk_custom.ktgr_procus_id');
+        return $query->leftJoin('ktgr_prdk_custom', 'ktgr_prdk_custom.ktgr_procus_id', '=', 'produk_custom.ktgr_procus_id');
     }
 
     public function scopeJoinToWarna($query)
     {
-        return $query->join('warna', 'warna.warna_id', 'produk_custom.warna_id');
+        return $query->leftJoin('warna', 'warna.warna_id', 'produk_custom.warna_id');
     }
 
     public function scopeJoinToUser($query)
     {
-        return $query->join('users', 'users.user_id', '=', 'pesanan.user_id');
+        return $query->leftJoin('users', 'users.user_id', '=', 'pesanan.user_id');
     }
 
     public function scopeJoinToKurir($query)
     {
-        return $query->join('kurir', 'kurir.kurir_id', '=', 'pesanan.kurir_id');
+        return $query->leftJoin('kurir', 'kurir.kurir_id', '=', 'pesanan.kurir_id');
     }
     public function scopeJoinToPayment($query)
     {
-        return $query->join('payment', 'payment.payment_id', '=', 'pesanan.payment_id');
+        return $query->leftJoin('payment', 'payment.payment_id', '=', 'pesanan.payment_id');
+    }
+    public function scopeJoinToSablon($query)
+    {
+        return $query->leftJoin('sablon', 'sablon.sablon_id', '=', 'pesanan.sablon_id');
     }
 }

@@ -66,98 +66,38 @@ class RoleMemberController extends Controller
     public function DetailCustom($id)
     {
         $data = Instansi::all();
-
-        // menampilkan foto produk, ukuran produk, berdasarkan nama produk yang sama
-        $procategori = KtgrProcus::joinProdukCostum()->joinToKategori()->get();
-        // dd($procategori);
+        // $isiKeranjang = Shop_cart::where('user_id', '=', Auth::user()->user_id)->get()->count(); //hitung isi keranjang berdasarkan user yang login 'isiKeranjang' => $isiKeranjang,
         $procus = ProdukCustom::joinKategoriProdukCostum()->get();
-        $prdkGroup = ProdukCustom::select('nama_produk')->joinKategoriProdukCostum()->groupBy('nama_produk', 'nama_produk')->get();
-
+        $prdkGroup = ProdukCustom::select('produk_custom.nama_produk')->groupBy('produk_custom.nama_produk')->get();
         // query menampilkan warna berdasarkan produk
         $color = Warna::all();
-        $proColor = ProdukCustom::joinKategoriProdukCostum()
-            ->join('warna', 'warna.warna_id', 'produk_custom.warna_id')
-            ->get();
-        $kustom = ProdukCustom::limit(2)->get();
-        // dd($kustom);
-        // query load data jasa kiri / kurir
-        $jakir = Kurir::all();
 
-        // load data sablon
-        $sablon = Sablon::all();
-
+        $getProdukCustomByPaginate = ProdukCustom::paginate(1);
         // load data kategori
-        $k = KtgrProcus::all();
+        $getProdukCustomById = ProdukCustom::find($id);
+        $FilterKategoriProdukCustom = $getProdukCustomById->ktgr_procus_id;
+        $getProdukCustomIfTogetherWithKategoriProdukCustom = ProdukCustom::where('ktgr_procus_id', $FilterKategoriProdukCustom)->get();
+        // dd($getProdukCustomIfTogetherWithKategoriProdukCustom);
+
+        $kategori_produk_custom = KtgrProcus::all();
         $user = User::select('user_id', 'user_id')->get();
-        // dd($user);
         return view('home.pilihbaju', [
             'title' => 'stok baju', //judul to header
             'instansi' => $data, //load data instansi
-            'kategoriCus' => $procategori, //
             'procus' => $procus,
             'id' => $id, //ambil id dari url dan kirim ke view
             'prdkgroup' => $prdkGroup,
             'colors' => $color,
-            'procolor' => $proColor,
-            'jakir' => $jakir,
-            'sablon' => $sablon,
-            'kategori_produk_custom' => $k,
-            'produkcustoms' => $kustom,
-            'user' => $user,
-        ]);
-    }
-
-    // not fungsionality
-    public function DetailCloth($id)
-    {
-        $data = Instansi::all();
-
-        // menampilkan foto produk, ukuran produk, berdasarkan nama produk yang sama
-        $procategori = KtgrProcus::joinProdukCostum()->joinToKategori()->get();
-        // dd($procategori);
-        $procus = ProdukCustom::joinKategoriProdukCostum()->get();
-
-        $prdkGroup = ProdukCustom::select('produk_custom.nama_produk')
-            ->groupBy('produk_custom.nama_produk')
-            ->get();
-
-        // query menampilkan warna berdasarkan produk
-        $color = Warna::all();
-        $proColor = ProdukCustom::joinKategoriProdukCostum()->joinWarna()->get(); //panggil scope function on model
-        $limitCustom2 = ProdukCustom::limit(2)->get();
-        $kategori_produk_custom = KtgrProcus::all();
-
-        // query load data jasa kiri / kurir
-        $jakir = Kurir::all();
-
-        // load data kategori
-        $show = ProdukCustom::find($id);
-        $gm = $show->ktgr_procus_id;
-        $gmKate = ProdukCustom::where('ktgr_procus_id', $gm)->get();
-
-        $pay = Payment::select('payment_id', 'pay_method')->get();
-        $user = User::select('user_id', 'user_id')->get();
-        // dd($user);
-        // dd($show);
-        return view('members.pilihbaju', [
-            'title' => 'stok baju', //judul to header
-            'instansi' => $data, //load data instansi
-            'kategoriCus' => $procategori, //
-            'procus' => $procus,
-            'id' => $id, //ambil id dari url dan kirim ke view
-            'prdkgroup' => $prdkGroup,
-            'colors' => $color,
-            'procolor' => $proColor,
-            'jakir' => $jakir,
             'kategori_produk_custom' => $kategori_produk_custom,
-            'produkcustoms2' => $limitCustom2,
+            'getProdukCustomByPaginate' => $getProdukCustomByPaginate,
             'user' => $user,
-            'payment' => $pay,
-            'show' => $show,
-            'gmKate' => $gmKate,
+            'getProdukCustomById' => $getProdukCustomById,
+            'getProdukCustomIfTogetherWithKategoriProdukCustom' => $getProdukCustomIfTogetherWithKategoriProdukCustom,
+            // 'isiKeranjang' => $isiKeranjang,
         ]);
     }
 
+    // detail custom setelah login
     public function SendToDetailBeforeCheckout($id)
     {
         $data = Instansi::all();
@@ -166,14 +106,14 @@ class RoleMemberController extends Controller
         $prdkGroup = ProdukCustom::select('produk_custom.nama_produk')->groupBy('produk_custom.nama_produk')->get();
         // query menampilkan warna berdasarkan produk
         $color = Warna::all();
-        $proColor = ProdukCustom::joinKategoriProdukCostum()->joinWarna()->get(); //panggil scope function on model
+
         $getProdukCustomByPaginate = ProdukCustom::paginate(1);
         // load data kategori
         $getProdukCustomById = ProdukCustom::find($id);
         $FilterKategoriProdukCustom = $getProdukCustomById->ktgr_procus_id;
         $getProdukCustomIfTogetherWithKategoriProdukCustom = ProdukCustom::where('ktgr_procus_id', $FilterKategoriProdukCustom)->get();
-        // dd($getProdukCustomById);
-        // dd($gmKate);
+        // dd($getProdukCustomIfTogetherWithKategoriProdukCustom);
+
         $kategori_produk_custom = KtgrProcus::all();
         $user = User::select('user_id', 'user_id')->get();
         return view('members.detailprodukcustom', [
@@ -183,7 +123,6 @@ class RoleMemberController extends Controller
             'id' => $id, //ambil id dari url dan kirim ke view
             'prdkgroup' => $prdkGroup,
             'colors' => $color,
-            'procolor' => $proColor,
             'kategori_produk_custom' => $kategori_produk_custom,
             'getProdukCustomByPaginate' => $getProdukCustomByPaginate,
             'user' => $user,
