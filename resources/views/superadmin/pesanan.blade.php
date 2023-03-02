@@ -105,10 +105,9 @@
                                 <td><?= $i++ ?></td>
                                 <td>{{$val->nama_lengkap}}</td>
                                 <td>{{$val->nama_produk}}</td>
-                                <td>{{$val->size_order}}</td>
+                                <td>{{$val->size}}</td>
                                 <td>{{$val->jml_order}}</td>
                                 <td>{{$val->ukuran_sablon}}</td>
-                                <td></td>
                                 <td class="text text-danger">{{$val->stts_produksi}}</td>
                                 <td></td>
                                 <td>{{$val->tgl_order}}</td>
@@ -247,29 +246,45 @@
             </div>
             @csrf
             <div class="modal-body">
-                @if($row->b_dp != NULL)
-                <div class="row mb-2">
-                    <p class="text-center">Bukti DP</p>
-                    <div class="col-5 mx-auto">
-                        <img src="/pembayaran/bukti_dp/{{$row->b_dp}}" alt="404">
+                @if($row->b_dp == TRUE && $row->b_lunas == FALSE)
+                <div class="row row-cols-1 row-cols-md-2 g-2">
+                    <div class="col mx-auto">
+                        <div class="card">
+                            <img src="/pembayaran/bukti_dp/{{$row->b_dp}}" class="card-img-top" alt="404">
+                            <div class="card-body">
+                                <p class="text-center">Bukti DP</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                @elseif($row->b_dp != NULL && $row->b_lunas != NULL)
-                <div class="row mb-2 d-flex jutify-content-between">
-                    <div class="col-5">
-                        <p class="text-center">Bukti DP</p>
-                        <img src="/pembayaran/bukti_dp/{{$row->b_dp}}" alt="404">
+                @elseif($row->b_dp == TRUE && $row->b_lunas == TRUE)
+                <div class="row row-cols-1 row-cols-md-2 g-4">
+                    <div class="col">
+                        <div class="card">
+                            <img src="/pembayaran/bukti_dp/{{$row->b_dp}}" class="card-img-top" alt="404">
+                            <div class="card-body">
+                                <p class="text-center">Bukti DP</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-5">
-                        <p class="text-center">Bukti Lunas</p>
-                        <img src="/pembayaran/bukti_lunas/{{$row->b_lunas}}" alt="404">
+                    <div class="col">
+                        <div class="card">
+                            <img src="/pembayaran/bukti_lunas/{{$row->b_lunas}}" class="card-img-top" alt="404">
+                            <div class="card-body">
+                                <p class="text-center">Bukti Lunas</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                @elseif($row->b_lunas != NULL)
-                <div class="row mb-2">
-                    <p class="text-center">Bukti cash</p>
-                    <div class="col-5 mx-auto">
-                        <img src="pembayaran/bukti_lunas/{{$row->b_lunas}}" alt="404">
+                @elseif($row->b_dp == FALSE && $row->b_lunas == TRUE)
+                <div class="row row-cols-1 row-cols-md-2 g-2">
+                    <div class="col mx-auto">
+                        <div class="card">
+                            <img src="/pembayaran/bukti_lunas/{{$row->b_lunas}}" class="card-img-top" alt="404">
+                            <div class="card-body">
+                                <p class="text-center">Bukti Lunas</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 @endif

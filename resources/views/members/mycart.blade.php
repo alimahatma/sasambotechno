@@ -20,7 +20,6 @@
 <!-- lihat data produk yang ada di dalam keranjang anda -->
 @foreach($shopcartproduk as $row)
 @if(Auth::user()->user_id == $row->user_id)
-@csrf
 <!-- jika id produk custom tidak kosong -->
 @if($row->procus_id != NULL)
 <div class="card shadow-sm">
@@ -110,7 +109,9 @@
     </div>
 </div>
 @endif
-@elseif(Auth::user()->user_id != $row->user_id)
+@endif
+@endforeach
+@if($isiKeranjang == 0)
 <!-- notifification if cart on null -->
 <div class="row">
     <div class="col-sm-6 col-md-6 col-lg-4 mx-auto">
@@ -124,15 +125,13 @@
     </div>
 </div>
 @endif
-
-@endforeach
 <!-- end view read data pesanan sablon yang ada di dalam keranjang anda -->
 
 <!-- tombol checkout semua data produk yang ada di dalam keranjang anda -->
 <!-- <div>
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteMulti{{$row->sablon_id ?? $row->procus_id}}"><i class="fas fa-trash"></i></button>
-        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#checkoutMulti{{$row->sablon_id ?? $row->procus_id}}">Checkout</button>
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteMulti"><i class="fas fa-trash"></i></button>
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#checkoutMulti">Checkout</button>
     </div>
 </div> -->
 <!-- end tombol checkout semua data produk yang ada di dalam keranjang anda -->
@@ -143,19 +142,20 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Checkout barang</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="/cart/checkout" method="post">
                 @csrf
                 <div class="modal-body">
-                    <input type="text" name="procus_id" value="{{$val->procus_id}}" class="form-control" id="exampleFormControlInput1">
-                    <input type="text" name="color" value="{{$val->nama_warna}}" class="form-control" id="exampleFormControlInput1">
-                    <input type="hidden" name="user_id" value="{{Auth::user()->user_id}}" class="form-control" id="exampleFormControlInput1">
-                    <!-- <p>{{$val->nama_produk}}</p>
-                    <p>{{$val->nama_warna}}</p>
-                    <p>{{$val->jumlah_order}}</p> -->
-                    <input type="text" name="jml_order" value="{{$val->jumlah_order}}" class="form-control" id="exampleFormControlInput1">
+                    <div class="col mb-3">
+                        <h6>Jumlah order</h6>
+                        <input type="hidden" name="procus_id" value="{{$val->procus_id}}" class="form-control" id="exampleFormControlInput1">
+                        <input type="hidden" name="sablon_id" value="{{$val->sablon_id}}" class="form-control" id="exampleFormControlInput1">
+                        <input type="hidden" name="color" value="{{$val->nama_warna}}" class="form-control" id="exampleFormControlInput1">
+                        <input type="hidden" name="user_id" value="{{Auth::user()->user_id}}" class="form-control" id="exampleFormControlInput1">
+                        <input type="number" name="jml_order" value="{{$val->jumlah_order}}" class="form-control" id="exampleFormControlInput1">
+                    </div>
                     <div class="mb-3">
                         <h6>Pilih jasa kirim</h6>
                         <select name="kurir_id" class="form-select" aria-label="Default select example">
@@ -178,7 +178,7 @@
                         <label for="exampleFormControlTextarea1" class="form-label">Tinggalkan pesan</label>
                         <textarea name="t_pesan" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                     </div>
-                    <input type="date" name="tgl_order" id="" class="form-control">
+                    <input type="hidden" name="tgl_order" value="{{date('Y/m/d')}}" class="form-control">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>

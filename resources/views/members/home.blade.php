@@ -107,7 +107,7 @@
                                     </div>
                                     <div class="col-12 mb-3">
                                         <h6>Jumlah</h6>
-                                        <input type="number" id="jml_order_langsung" name="jumlah_order" class="form-control">
+                                        <input type="number" id="jml_order_langsung" name="jumlah_order" onchange="jmlOrderLangsung()" class="form-control">
                                     </div>
                                     <div class="col-12 mb-3">
                                         <h6>Harga satuan Rp. {{$val->harga}}</h6>
@@ -179,7 +179,7 @@
 <!-- end produk custom -->
 
 <script>
-    function jmlOrder() {
+    function jmlOrderLangsung() {
         let getJumlahOrderLangsung = document.getElementById('jumlah_order_langsung');
         let gethargaSatuanLangsung = document.getElementById('harga_satuan_langsung').getAttribute('data-ordersablon');
         console.log(gethargaSatuanLangsung);

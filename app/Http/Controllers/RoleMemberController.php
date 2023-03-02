@@ -113,7 +113,9 @@ class RoleMemberController extends Controller
         $FilterKategoriProdukCustom = $getProdukCustomById->ktgr_procus_id;
         $getProdukCustomIfTogetherWithKategoriProdukCustom = ProdukCustom::where('ktgr_procus_id', $FilterKategoriProdukCustom)->get();
         // dd($getProdukCustomIfTogetherWithKategoriProdukCustom);
-
+        // dd($procus);
+        $payment = Payment::all();
+        $kurir = Kurir::all();
         $kategori_produk_custom = KtgrProcus::all();
         $user = User::select('user_id', 'user_id')->get();
         return view('members.detailprodukcustom', [
@@ -129,6 +131,8 @@ class RoleMemberController extends Controller
             'getProdukCustomById' => $getProdukCustomById,
             'getProdukCustomIfTogetherWithKategoriProdukCustom' => $getProdukCustomIfTogetherWithKategoriProdukCustom,
             'isiKeranjang' => $isiKeranjang,
+            'kurir' => $kurir,
+            'payment' => $payment
         ]);
     }
 }

@@ -7,11 +7,8 @@ use App\Models\Kurir;
 use App\Models\Payment;
 use App\Models\Pesanan;
 use App\Models\Shop_cart;
-use App\Models\Trx_sablon;
-use App\Models\Warna;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 
@@ -22,7 +19,7 @@ class ShopCartController extends Controller
     {
         $instansi = Instansi::select('logo')->get();
         $isiKeranjang = Shop_cart::where('user_id', '=', Auth::user()->user_id)->get()->count(); //hitung isi keranjang berdasarkan user yang login 
-        $shopCartProduk = Shop_cart::joinProcus()->joinToWarna()->joinTableSablon()->get();
+        $shopCartProduk = Shop_cart::joinProcus()->joinToWarna()->joinTableSablon()->orderBy('cart_id', 'desc')->get();
         $kurir = Kurir::all();
         $payment = Payment::all();
         return view('members.mycart', [
@@ -106,56 +103,61 @@ class ShopCartController extends Controller
     // fungsi untuk checkout satu pakaian custom dari keranjang
     public function TrxPakaiancustom(Request $request)
     {
-        $request->validate([
-            'procus_id' => 'required',
-            'user_id' => 'required',
-            'kurir_id' => 'required',
-            'payment_id' => 'required',
-            'jml_order' => 'required',
-            't_pesan' => 'required',
-
-            // 'procus_id',
-            // 'color',
-            // 'user_id',
-            // 'sablon_id',
-            // 'size_order',
-            // 'kurir_id',
-            // 'payment_id',
-            // 'jml_order',
-            // 'jml_dp',
-            // 'jml_lunas',
-            // 'all_total',
-            // 'b_dp',
-            // 'b_lunas',
-            // 't_pesan',
-        ]);
-        try {
-            $data = new Pesanan([
-                'procus_id' => $request->procus_id,
-                'color' => $request->color,
-                'user_id' => $request->user_id,
-                'size_order' => $request->size_order,
-                'kurir_id' => $request->kurir_id,
-                'payment_id' => $request->payment_id,
-                'jml_order' => $request->jml_order,
-                't_pesan' => $request->t_pesan,
-                'tgl_order' => $request->tgl_order,
+        if ($request->procus_id == true) {
+            $request->validate([
+                'procus_id' => 'required',
+                'user_id' => 'required',
+                'kurir_id' => 'required',
+                'payment_id' => 'required',
+                'jml_order' => 'required',
+                't_pesan' => 'required',
             ]);
-            $data->save();
-            // $trxPakaianCustom = new Pesanan([
-            //     'procus_id' => $request->procus_id,
-            //     'user_id' => $request->user_id,
-            //     'kurir_id' => $request->kurir_id,
-            //     'payment_id' => $request->payment_id,
-            //     'jml_order' => $request->jml_order,
-            //     't_pesan' => $request->t_pesan,
-            // ]);
-            // dd($trxPakaianCustom);
-            // $trxPakaianCustom->save();
-            return redirect('pesanananda')->with('success', 'transaksi berhasil');
-        } catch (\Exception $e) {
-            Log::error($e->getMessage());
-            return redirect('cart')->with('errors', 'transaksi gagal..!');
+            try {
+                $data = new Pesanan([
+                    'procus_id' => $request->procus_id,
+                    'color' => $request->color,
+                    'user_id' => $request->user_id,
+                    'size_order' => $request->size_order,
+                    'kurir_id' => $request->kurir_id,
+                    'payment_id' => $request->payment_id,
+                    'jml_order' => $request->jml_order,
+                    't_pesan' => $request->t_pesan,
+                    'tgl_order' => $request->tgl_order,
+                ]);
+                $data->save();
+                // $this->DelBarangOnKeranjang();
+                return redirect('pesanananda')->with('success', 'transaksi berhasil');
+            } catch (\Exception $e) {
+                Log::error($e->getMessage());
+                return redirect('cart')->with('errors', 'transaksi gagal..!');
+            }
+        }
+        if ($request->sablon_id == true) {
+            $request->validate([
+                'sablon_id' => 'required',
+                'user_id' => 'required',
+                'kurir_id' => 'required',
+                'payment_id' => 'required',
+                'jml_order' => 'required',
+                't_pesan' => 'required',
+            ]);
+            try {
+                $data = new Pesanan([
+                    'sablon_id' => $request->sablon_id,
+                    'user_id' => $request->user_id,
+                    'kurir_id' => $request->kurir_id,
+                    'payment_id' => $request->payment_id,
+                    'jml_order' => $request->jml_order,
+                    't_pesan' => $request->t_pesan,
+                    'tgl_order' => $request->tgl_order,
+                ]);
+                // dd($data);
+                $data->save();
+                return redirect('pesanananda')->with('success', 'transaksi berhasil');
+            } catch (\Exception $e) {
+                Log::error($e->getMessage());
+                return redirect('cart')->with('errors', 'transaksi gagal..!');
+            }
         }
     }
 

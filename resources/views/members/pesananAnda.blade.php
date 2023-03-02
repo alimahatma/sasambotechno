@@ -55,33 +55,51 @@
                     <div class="col">
                         <p>{{$pes->tgl_order}}</p>
                     </div>
-                    @if($pes->b_dp != NULL)
+                    @if($pes->b_dp != NULL && $pes->b_lunas == NULL)
                     <div class="col">
                         <h6 class="text text-warning">Sisa bayar</h6>
                     </div>
                     <div class="col">
-                        <p class="text text-warning">: <?= $sisa = ($vals->jml_order * $vals->harga_jual) - $vals->jml_dp ?></p>
+                        <p class="text text-warning">: <?= $sisa = ($pes->jml_order * $pes->harga_jual) - $pes->jml_dp ?></p>
+                    </div>
+                    @elseif($pes->b_dp == TRUE && $pes->b_lunas == TRUE)
+                    <div class="col">
+                        <h6 class="text text-success">Lunas</h6>
+                    </div>
+                    <div class="col">
+                        <p class="text text-success">: <?= $sisa = ($pes->jml_order * $pes->harga_jual) - ($pes->jml_dp + $pes->jml_lunas) ?></p>
                     </div>
                     @endif
                 </div>
 
-                <!-- tombol modal -->
+                <!-- button modals -->
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalInfo{{$pes->trx_sablon_id}}">
+                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalInfoSablon{{$pes->pesanan_id}}">
                         <i class="fas fa-info"></i>
                         Detail
                     </button>
-                    <button type="button" class="btn btn-success ml-1" data-bs-toggle="modal" data-bs-target="#modalInfo{{$pes->trx_sablon_id}}">
-                        <i class="fas fa-info"></i>
+                    @if($pes->status_pesanan != 'selesai')
+                    @if($pes->pay_method == 'Cash' || $pes->b_dp != NULL)
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalBayarLunasSablon{{$pes->pesanan_id}}">
+                        <i class="fas fa-dollar-sign"></i>
                         Bayar
                     </button>
+                    @elseif($pes->pay_method != 'Cash')
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalBayarDpSablon{{$pes->pesanan_id}}">
+                        <i class="fas fa-dollar-sign"></i>
+                        Bayar dp
+                    </button>
+                    @endif
+                    @elseif($pes->status_pesanan == 'selesai')
+                    <a href="/home" class="btn btn-outline-success">Beli lagi</a>
+                    @endif
                 </div>
             </div>
         </div>
         <!-- end view read transaction sablon -->
 
         <!-- modal info transaction sablon -->
-        <div class="modal fade" id="modalInfo{{$pes->trx_sablon_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="modalInfoSablon{{$pes->pesanan_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -123,6 +141,14 @@
                         </div>
                         <div class="row">
                             <div class="col-md-4 col-lg-6 col-sm-6 mb-3">
+                                <h6>Jumlah order</h6>
+                            </div>
+                            <div class="col-md-3 col-lg-5 col-sm-6 mb-3">
+                                <p>: {{$pes->jml_order}} / titik</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 col-lg-6 col-sm-6 mb-3">
                                 <h6>Harga satuan</h6>
                             </div>
                             <div class="col-md-3 col-lg-5 col-sm-6 mb-3">
@@ -141,9 +167,36 @@
                             <div class="col-md-4 col-lg-6 col-sm-6 mb-3">
                                 <h6>Status pesanan</h6>
                             </div>
-                            <div class="col-md-3 col-lg-5 col-sm-6 mb-3">
-                                <p class="text text-success">: {{$pes->status_pesanan}}</p>
+                            @if($pes->pay_status == "pending")
+                            <div class="col">
+                                <p class="text text-warning">: lakukan pembayaran terlebih dahulu</p>
                             </div>
+                            @elseif($pes->pay_status == "bayar")
+                            <div class="col">
+                                <p class="text text-success">: pembayaran menunggu persetujuan</p>
+                            </div>
+                            @elseif($pes->pay_status != "pending" && $pes->pay_status != "bayar")
+                            <div class="col">
+                                <p class="text text-success">: pesanan {{$pes->status_pesanan}}</p>
+                            </div>
+                            @endif
+                        </div>
+                        <div class="row">
+                            @if($pes->b_dp != NULL && $pes->b_lunas == NULL)
+                            <div class="col">
+                                <h6 class="text text-warning">Sisa bayar</h6>
+                            </div>
+                            <div class="col">
+                                <p class="text text-warning">: <?= $sisa = ($pes->jml_order * $pes->harga_jual) - $pes->jml_dp ?></p>
+                            </div>
+                            @elseif($pes->b_dp == TRUE && $pes->b_lunas == TRUE)
+                            <div class="col">
+                                <h6 class="text text-success">Lunas</h6>
+                            </div>
+                            <div class="col">
+                                <p class="text text-success">: <?= $sisa = ($pes->jml_order * $pes->harga_jual) - ($pes->jml_dp + $pes->jml_lunas) ?></p>
+                            </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -196,12 +249,19 @@
                     <div class="col">
                         <p>{{$vals->tgl_order}}</p>
                     </div>
-                    @if($vals->b_dp != NULL)
+                    @if($vals->b_dp != NULL && $vals->b_lunas == NULL)
                     <div class="col">
                         <h6 class="text text-warning">Sisa bayar</h6>
                     </div>
                     <div class="col">
                         <p class="text text-warning">: <?= $sisa = ($vals->jml_order * $vals->harga_jual) - $vals->jml_dp ?></p>
+                    </div>
+                    @elseif($vals->b_dp == TRUE && $vals->b_lunas == TRUE)
+                    <div class="col">
+                        <h6 class="text text-success">Lunas</h6>
+                    </div>
+                    <div class="col">
+                        <p class="text text-success">: <?= $lunas = ($vals->jml_dp + $vals->jml_lunas) ?></p>
                     </div>
                     @endif
 
@@ -224,7 +284,7 @@
                         </button>
                         @endif
                         @elseif($vals->status_pesanan == 'selesai')
-                        <a href="/home" class="btn btn-primary">Beli lagi</a>
+                        <a href="/home" class="btn btn-outline-success">Beli lagi</a>
                         @endif
                     </div>
                 </div>
@@ -297,7 +357,7 @@
                                 <p>: Rp. <?= $total_harga = ($vals->jml_order * $vals->harga_jual) ?></p>
                             </div>
                         </div>
-                        @if($vals->b_dp != NULL)
+                        @if($vals->b_dp != NULL && $vals->b_lunas == NULL)
                         <div class="row">
                             <div class="col-md-4 col-lg-6 col-sm-6 mb-3">
                                 <h6>Jumlah DP</h6>
@@ -312,6 +372,15 @@
                             </div>
                             <div class="col-md-3 col-lg-5 col-sm-6 mb-3">
                                 <p class="text text-warning">: Rp. <?= $sisa = ($vals->jml_order * $vals->harga_jual) - $vals->jml_dp ?></p>
+                            </div>
+                        </div>
+                        @elseif($vals->b_dp == TRUE && $vals->b_lunas == TRUE)
+                        <div class="row">
+                            <div class="col-md-4 col-lg-6 col-sm-6 mb-3">
+                                <h6 class="text text-success">Lunas</h6>
+                            </div>
+                            <div class="col-md-3 col-lg-5 col-sm-6 mb-3">
+                                <p class="text text-success">: <?= $lunas = ($vals->jml_dp + $vals->jml_lunas) ?></p>
                             </div>
                         </div>
                         @endif
@@ -337,11 +406,11 @@
                             </div>
                             <div class="row">
                                 <div class="form-group">
-                                    <input type="text" name="pesanan_id" value="{{$vals->pesanan_id}}" class="form-control">
+                                    <input type="hidden" name="pesanan_id" value="{{$vals->pesanan_id}}" class="form-control">
                                     <p>Jumlah DP</p>
                                     <div class="col">
                                         <input type="number" class="form-control" name="jml_dp" placeholder="masukkan jumlah DP">
-                                        <input type="text" class="form-control" name="pay_status" value="bayar">
+                                        <input type="hidden" class="form-control" name="pay_status" value="bayar">
                                     </div>
                                 </div>
                                 <div class="form-group">

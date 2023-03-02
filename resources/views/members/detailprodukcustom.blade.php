@@ -137,7 +137,7 @@
 
                         <!-- tombol beli dan tambahkan ke keranjang -->
                         <div class="mb-2 mt-4 col-3 mx-auto d-flex justify-content-between">
-                            <button id="BeliProduk" type="button" class="btn btn-outline-success">
+                            <button id="BeliProduk" type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modalBLangsung{{$prd->procus_id}}">
                                 <span><i class="fas fa-dollar-sign"></i></span>
                                 Beli
                             </button>
@@ -150,6 +150,46 @@
                 </div>
                 <!-- </form> -->
             </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalBLangsung{{$prd->procus_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="" method="post">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <h6>Kurir</h6>
+                            <select name="kurir_id" class="form-select" aria-label="Default select example">
+                                <option selected>pilih jasa kirim</option>
+                                @foreach($kurir as $row)
+                                <option value="{{$row->kurir_id}}">{{$row->nama_jakir}}, {{$row->jenis_jakir}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <h6>Metode pembayaran</h6>
+                            <select name="payment_id" class="form-select" aria-label="Default select example">
+                                <option selected>pilih metode</option>
+                                @foreach($payment as $pay)
+                                <option value="{{$pay->payment_id}}">{{$pay->pay_method}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success">Bayar</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
