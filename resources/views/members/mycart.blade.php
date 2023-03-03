@@ -150,6 +150,7 @@
                 <div class="modal-body">
                     <div class="col mb-3">
                         <h6>Jumlah order</h6>
+                        <input type="hidden" name="cart_id" value="{{$val->cart_id}}" class="form-control" id="exampleFormControlInput1">
                         <input type="hidden" name="procus_id" value="{{$val->procus_id}}" class="form-control" id="exampleFormControlInput1">
                         <input type="hidden" name="sablon_id" value="{{$val->sablon_id}}" class="form-control" id="exampleFormControlInput1">
                         <input type="hidden" name="color" value="{{$val->nama_warna}}" class="form-control" id="exampleFormControlInput1">

@@ -19,6 +19,12 @@
     <link rel="stylesheet" href="{{asset('assets')}}/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="{{asset('assets')}}/css/pages/datatables.css">
     <script type="text/javascript" src="{{asset('assets')}}/extensions/jquery/jquery.min.js"></script>
+
+    <!-- load grafiq -->
+    <script type="text/javascript" src="https://code.highcharts.com/highcharts.js"></script>
+    <script type="text/javascript" src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <!-- end-load grafiq -->
+
     <style>
         #hidden_div {
             display: none;
@@ -360,8 +366,8 @@
     <script src="{{asset('assets')}}/js/app.js"></script>
 
     <!-- uncomment for load dashboard and chartJS -->
-    <!-- <script src="{{asset('assets')}}/extensions/apexcharts/apexcharts.min.js"></script> -->
-    <!-- <script src="{{asset('assets')}}/js/pages/dashboard.js"></script> -->
+    <!-- <script src="{{asset('assets')}}/extensions/apexcharts/apexcharts.min.js"></script>
+    <script src="{{asset('assets')}}/js/pages/dashboard.js"></script> -->
 
     <!-- load datatable jquery -->
     <script src="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.js"></script>

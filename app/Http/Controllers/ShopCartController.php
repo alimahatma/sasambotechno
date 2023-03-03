@@ -9,6 +9,7 @@ use App\Models\Pesanan;
 use App\Models\Shop_cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 
@@ -113,6 +114,7 @@ class ShopCartController extends Controller
                 't_pesan' => 'required',
             ]);
             try {
+                DB::beginTransaction();
                 $data = new Pesanan([
                     'procus_id' => $request->procus_id,
                     'color' => $request->color,
@@ -125,10 +127,12 @@ class ShopCartController extends Controller
                     'tgl_order' => $request->tgl_order,
                 ]);
                 $data->save();
-                // $this->DelBarangOnKeranjang();
+                Shop_cart::where('cart_id', '=', $request->cart_id)->delete();
+                DB::commit();
                 return redirect('pesanananda')->with('success', 'transaksi berhasil');
             } catch (\Exception $e) {
                 Log::error($e->getMessage());
+                DB::rollBack();
                 return redirect('cart')->with('errors', 'transaksi gagal..!');
             }
         }
@@ -142,6 +146,7 @@ class ShopCartController extends Controller
                 't_pesan' => 'required',
             ]);
             try {
+                DB::beginTransaction();
                 $data = new Pesanan([
                     'sablon_id' => $request->sablon_id,
                     'user_id' => $request->user_id,
@@ -153,9 +158,12 @@ class ShopCartController extends Controller
                 ]);
                 // dd($data);
                 $data->save();
+                Shop_cart::where('cart_id', '=', $request->cart_id)->delete();
+                DB::commit();
                 return redirect('pesanananda')->with('success', 'transaksi berhasil');
             } catch (\Exception $e) {
                 Log::error($e->getMessage());
+                DB::rollBack();
                 return redirect('cart')->with('errors', 'transaksi gagal..!');
             }
         }

@@ -80,6 +80,52 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Profile Visit</h4>
+                    </div>
+                    <div class="card-body">
+                        <div id="grafik-barang"></div>
+                        <!-- <div id="mycChart"></div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 </div>
+<!-- <script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script> -->
+<script type="text/javascript">
+    var variableX = <?= json_encode($sumbuXHorizontal) ?>;
+    var variableY = <?= json_encode($sumbuYVertikal) ?>;
+    // console.log(variableY);
+    // console.log(variableX);
+    Highcharts.chart('grafik-barang', {
+        annotations: {
+            position: 'back'
+        },
+        title: {
+            text: 'Grafik penjualan pakaian custom'
+        },
+        xAxis: {
+            categories: variableX
+        },
+        yAxis: {
+            title: {
+                text: 'Nominal pakaian custom terjual Y'
+            }
+        },
+        plotOptions: {
+            series: {
+                allowPointSelect: true
+            }
+        },
+        series: [{
+            name: 'Trafik penjualan per bulan',
+            data: variableY
+        }]
+    })
+</script>
 @endsection
