@@ -41,6 +41,30 @@ class UserController extends Controller
         }
     }
 
+    // register user di lakukan oleh super admin
+    public function AddUser(Request $req)
+    {
+        try {
+            $req->validate([
+                'name' => 'required',
+                'email' => 'required|unique:users',
+                'password' => 'required|min:6',
+                'role' => 'required'
+            ]);
+            $data = new User([
+                'name' => $req->name,
+                'email' => $req->email,
+                'password' => Hash::make('password'),
+                'role' => $req->role,
+            ]);
+            $data->save();
+            // dd($data);
+            return redirect('user')->with('success', 'register berhasil');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return redirect('user')->with('errors', 'register gagal');
+        }
+    }
     // get data user with json
     // public function GetAll()
     // {

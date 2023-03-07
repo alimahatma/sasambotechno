@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
                 <h3>Akun user</h3>
-                <p class="text-subtitle text-muted">Selamat datang kembali </p>
+                <p class="text-subtitle text-muted">Selamat datang kembali {{Auth::user()->name}}</p>
             </div>
         </div>
     </div>
@@ -24,6 +24,11 @@
         </div>
         <div class="card">
             <div class="card-body">
+                <div class="col mb-3">
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAdd">
+                        <i class="fas fa-plus"></i> Tambah data
+                    </button>
+                </div>
                 <div class="table-responsive">
                     <table class="table table-striped" id="table1">
                         <thead>
@@ -75,6 +80,76 @@
     </section>
 </div>
 
+<!-- modal add user -->
+<div class="modal fade" id="modalAdd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Register</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/user/adduser" method="post">
+                <div class="modal-body">
+                    @csrf
+                    <div class="row">
+                        <div class="form-group mt-2">
+                            <div class="col">
+                                <label>Username</label>
+                                <input class="form-control form-control-sm @error('name') is-invalid @enderror" type="text" name="name" placeholder="your username" aria-label="default input example" value="{{ old('name') }}" required autofocus>
+                                @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group mt-2">
+                            <div class="col">
+                                <label>Email</label>
+                                <input class="form-control form-control-sm @error('email') is-invalid @enderror" type="email" name="email" placeholder="email@gmail.com" aria-label="default input example">
+                                @error('email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group mt-2">
+                            <div class="col">
+                                <label>Password</label>
+                                <input class="form-control form-control-sm @error('password') is-invalid @enderror" type="password" name="password" placeholder="input password" aria-label="default input example">
+                                @error('password')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <h6>Hak akses</h6>
+                            <fieldset class="form-group">
+                                <select name="role" id="basicSelect" class="form-select">
+                                    <option selected>pilih hak akses</option>
+                                    <option value="superadmin">Super Admin</option>
+                                    <option value="kasir">Kasir</option>
+                                    <option value="produksi">Production</option>
+                                    <option value="pengguna">Pelanggan</option>
+                                </select>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Register</button>
+                        <!-- <button type="submit" class="btn" style="background-color: #0FAA5D; color:#fff">Register</button> -->
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- modal end-add user -->
+
 <!-- Modal change role-->
 @foreach($users as $valId)
 <div class="modal fade" id="modalUpdate{{$valId->user_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -94,9 +169,10 @@
                             <fieldset class="form-group">
                                 <select name="role" id="basicSelect" class="form-select">
                                     <option value="{{$valId->role}}" selected>{{$valId->role}}</option>
-                                    <option value="super_admin">Super Admin</option>
-                                    <option value="admin">Admin</option>
-                                    <option value="pengguna">Pengguna</option>
+                                    <option value="superadmin">Super Admin</option>
+                                    <option value="kasir">Kasir</option>
+                                    <option value="produksi">Production</option>
+                                    <option value="pengguna">Pelanggan</option>
                                 </select>
                             </fieldset>
                         </div>
@@ -104,7 +180,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="submit" class="btn btn-success">Save</button>
                 </div>
             </form>
         </div>
@@ -169,8 +245,8 @@
                             <p>: {{$valId->provinsi}}</p>
                         </div>
                     </div>
-                    <div class="modal-footer col-1 mx-auto justify-content-center">
-                        <button type="submit" class="btn btn-danger">Close</button>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>

@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
                 <h3>Kategori produk software</h3>
-                <p class="text-subtitle text-muted">Selamat datang kembali </p>
+                <p class="text-subtitle text-muted">Selamat datang kembali {{Auth::user()->name}}</p>
             </div>
         </div>
     </div>
@@ -99,19 +99,19 @@
                             </fieldset>
                         </div>
                         <div class="col-12 mt-1">
-                            <h6>Jenis kategori produk</h6>
+                            <h6>Jenis kategori software</h6>
                             <input class="form-control" type="text" name="jenis_prosoft" placeholder="nama produk custom" aria-label="default input example">
                         </div>
                         <div class="col-12 mt-1">
-                            <h6>Foto kategori produk</h6>
+                            <h6>Foto kategori software</h6>
                             <input class="form-control" type="file" name="foto_prosoft" aria-label="default input example">
                         </div>
                         <div class="col-12 mt-3">
-                            <div class="card-header">Deskripsi kategori</div>
+                            <div class="card-header">Deskripsi kategori software</div>
                             <div class="card-body">
                                 <div class="form-group with-title mb-3">
                                     <textarea class="form-control" name="des_ktgrprosoft" id="exampleFormControlTextarea1" rows="3"></textarea>
-                                    <label>Deskripsi kategori</label>
+                                    <label>Deskripsi kategori software</label>
                                 </div>
                             </div>
                         </div>
@@ -170,7 +170,7 @@
                     @csrf
                     <div class="row">
                         <div class="col-12 mt-1">
-                            <input type="text" class="form-control" name="ktgr_prosoft_id" value="{{$row->ktgr_prosoft_id}}">
+                            <input type="hidden" class="form-control" name="ktgr_prosoft_id" value="{{$row->ktgr_prosoft_id}}">
                             <h6>Jenis kategori</h6>
                             <fieldset class="form-group">
                                 <select name="ktgr_id" id="basicSelect" class="form-select">
@@ -182,19 +182,19 @@
                             </fieldset>
                         </div>
                         <div class="col-12 mt-1">
-                            <h6>Jenis kategori produk</h6>
+                            <h6>Jenis kategori software</h6>
                             <input class="form-control" type="text" name="jenis_prosoft" value="{{$row->jenis_prosoft}}" placeholder="nama produk custom" aria-label="default input example">
                         </div>
                         <div class="col-12 mt-1">
-                            <h6>Foto kategori produk</h6>
+                            <h6>Foto kategori software</h6>
                             <input class="form-control" type="file" name="foto_prosoft" value="{{$row->foto_prosoft}} aria-label=" default input example">
                         </div>
                         <div class="col-12 mt-3">
-                            <div class="card-header">Deskripsi kategori</div>
+                            <div class="card-header">Deskripsi kategori software</div>
                             <div class="card-body">
                                 <div class="form-group with-title mb-3">
                                     <textarea class="form-control" name="des_ktgrprosoft" id="exampleFormControlTextarea1" rows="3">{{$row->des_ktgrprosoft}}</textarea>
-                                    <label>Deskripsi kategori</label>
+                                    <label>Deskripsi produk software</label>
                                 </div>
                             </div>
                         </div>

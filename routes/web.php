@@ -82,6 +82,7 @@ Route::name('auth')->group(function () {
 Route::prefix('user')->group(function () {
     Route::get('/', [UserController::class, 'GetAllUser'])->name('akun');
     Route::get('/data', [UserController::class, 'GetAll'])->name('data');
+    Route::post('/adduser', [UserController::class, 'Adduser'])->name('adduser');
     Route::post('/change', [UserController::class, 'ChangeRole'])->name('change');
     Route::get('/delete/{id}', [UserController::class, 'Delete'])->name('delete');
 });
@@ -188,7 +189,7 @@ Route::prefix('pesanan')->group(function () {
     Route::get('/delpesanan/{id}', [PesananController::class, 'DeletePesanan'])->name('delpesanan');
 });
 
-// route table pesanan pakaian custom
+// route table pesanan sablon
 Route::prefix('pesanansablon')->group(function () {
     Route::get('/', [PesananSablonController::class, 'GetPesanan'])->name('pesanan');
     Route::post('/validasipesanan', [PesananSablonController::class, 'ValidasiPesanan'])->name('validasipesanan'); //for superadmin
@@ -242,7 +243,7 @@ Route::prefix('partner')->group(function () {
 
 // route role admin
 Route::name('admin')->group(function () {
-    Route::get('/index', [RoleAdminController::class, 'GetIndex'])->name('akun')->middleware('verified');
+    Route::get('/index', [DashboardController::class, 'GetViewDashboard'])->name('viewdashboard')->middleware('verified');
 });
 
 // route for role access member or client
