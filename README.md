@@ -1,20 +1,18 @@
  ![ecommerce](https://user-images.githubusercontent.com/52597151/230013634-2d3c029e-ec96-4c13-befb-fc1637eaf314.png)
  
 LAPORAN PENGUMPULAN DATA
+<br>
 1. Penyebaran kuesioner SUS
  ![image](https://user-images.githubusercontent.com/52597151/230014179-8fb48d8d-7f18-4b4d-9160-98dde5d00a7c.png)
-  
-
-
+<br>
 2. Hasil pengumpulan data dengan kuesioner
 ![image](https://user-images.githubusercontent.com/52597151/230014225-af93ece6-9d01-4882-970b-e49378294b4c.png)
 
- 
-
+<br>
 3. Daftar pertanyaan ke responden
 ![image](https://user-images.githubusercontent.com/52597151/230014255-d39eac52-1e37-436b-8be2-b941ace3fd02.png)
 
- 4. 
+<br>
 ![image](https://user-images.githubusercontent.com/52597151/230014275-33c77f49-c921-46b2-90f2-738684de58d0.png)
 
 
