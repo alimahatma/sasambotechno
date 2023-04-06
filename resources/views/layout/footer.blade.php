@@ -22,15 +22,16 @@
                 <div class="col-sm-5 col-md-3 col-xl-2">
                     <div class="single-footer-widget footer_2">
                         <h6>OUR PARTNER</h6>
-                        <p class="style__font">Stay updated with our latest trends Seed heaven so said place winged over given forth fruit.
-                        </p>
-                    </div>
-                </div>
-                <div class="col-sm-5 col-md-3 col-xl-2">
-                    <div class="single-footer-widget footer_2">
-                        <h6>DOWNLOAD APP</h6>
-                        <p class="style__font">Stay updated with our latest trends Seed heaven so said place winged over given forth fruit.
-                        </p>
+                        @foreach($partnerperusahaan as $val)
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <img src="/logo_prshn_partner/{{$val->logo_prshn}}" style="height:30px; width:30px" class="card-img-top" alt="404">
+                            </div>
+                            <div>
+                                <p class="style__font">{{$val->nama_prshn}}</p>
+                            </div>
+                        </div>
+                        @endforeach
                     </div>
                 </div>
                 <div class="col-sm-5 col-md-3 col-lg-3">

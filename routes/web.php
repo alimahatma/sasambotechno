@@ -1,15 +1,14 @@
 <?php
 
+use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InstansiController;
 use App\Http\Controllers\KategoriProdukController;
-use App\Http\Controllers\KeranjangController;
 use App\Http\Controllers\KtgrProCusController;
 use App\Http\Controllers\KtgrProSoftController;
 use App\Http\Controllers\ProCusController;
-use App\Http\Controllers\RoleAdminController;
 use App\Http\Controllers\RoleMemberController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +28,7 @@ use App\Http\Controllers\VideoController;
 use App\Http\Controllers\WarnaController;
 use App\Http\Middleware\Authenticate;
 use Illuminate\Auth\Events\Verified;
+use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -57,6 +57,7 @@ Route::get('/produk', [HomeController::class, 'SendToProduk'])->name('produk');
 Route::get('/tutorials', [HomeController::class, 'SendToTutorial'])->name('tutorial');
 Route::get('/videos', [HomeController::class, 'SendToVideo'])->name('video');
 Route::get('/contact', [HomeController::class, 'SendToContact'])->name('contact');
+// Route::get('/verify', [VerificationController::class, 'Verify'])->name('verify');
 
 Route::get('/detailcustom/{id}', [RoleMemberController::class, 'DetailCustom']); //route detail procus
 

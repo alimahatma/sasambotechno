@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Instansi;
+use App\Models\Partner;
 use App\Models\Shop_cart;
 use App\Models\User;
 use Exception;
@@ -77,10 +78,12 @@ class UserController extends Controller
     // get view register
     public function GetRegister()
     {
+        $partnerPerusahaan = Partner::select('nama_prshn', 'logo_prshn')->get();
         $data = Instansi::all();
         return view('auth.register', [
             'title' => 'halaman register',
-            'instansi' => $data
+            'instansi' => $data,
+            'partnerperusahaan' => $partnerPerusahaan
         ]);
     }
 
@@ -101,7 +104,7 @@ class UserController extends Controller
             ]);
             // dd($data);
             $data->save();
-            return redirect('home')->with('success', 'registrasi berhasil');
+            return redirect('login')->with('success', 'registrasi berhasil');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
             return redirect('register')->with('message', 'register gagal');
@@ -111,10 +114,12 @@ class UserController extends Controller
     // funtion for get view login
     public function GetLogin()
     {
+        $partnerPerusahaan = Partner::select('nama_prshn', 'logo_prshn')->get();
         $data = Instansi::all();
         return view('auth.login', [
             'title' => 'halaman login',
-            'instansi' => $data
+            'instansi' => $data,
+            'partnerperusahaan' => $partnerPerusahaan
         ]);
     }
 
@@ -138,7 +143,7 @@ class UserController extends Controller
                 print("anda tidak memiliki hak akses");
             }
         }
-        return back()->withErrors(['message', 'email atau password salah']);
+        return back()->withErrors(['password', 'email atau password salah']);
     }
 
     // funtion for logout

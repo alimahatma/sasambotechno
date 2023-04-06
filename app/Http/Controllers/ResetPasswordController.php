@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Instansi;
+use App\Models\Partner;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -15,10 +16,12 @@ class ResetPasswordController extends Controller
 {
     public function ViewResetPasswd()
     {
+        $partnerPerusahaan = Partner::select('nama_prshn', 'logo_prshn')->get();
         $data = Instansi::all();
         return view('auth.requestReset', [
             'title' => 'reset password',
             'instansi' => $data,
+            'partnerperusahaan' => $partnerPerusahaan
         ]);
     }
     public function SendResetPasswd(Request $request)
@@ -42,11 +45,13 @@ class ResetPasswordController extends Controller
     }
     public function ResetPasswdForm($token)
     {
+        $partnerPerusahaan = Partner::select('nama_prshn', 'logo_prshn')->get();
         $data = Instansi::all();
         return view('auth.resetpasswdform', [
             'title' => 'form reset',
             'token' => $token,
-            'instansi' => $data
+            'instansi' => $data,
+            'partnerperusahaan' => $partnerPerusahaan
         ]);
     }
 

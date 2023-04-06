@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Auth\VerifiesEmails;
-use App\Http\Controllers\UserController;
 
 class VerificationController extends Controller
 {

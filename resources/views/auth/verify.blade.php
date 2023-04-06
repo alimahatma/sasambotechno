@@ -19,14 +19,16 @@
                     Link verifikasi telah di kirim ke email anda..!
                 </div>
                 @endif
-                Silahkan periksa email Anda untuk link verifikasi. <br>
-                Jika Anda tidak menerima email silahkan klik tombol <br>
-                untuk kirim ulang link verifikasi. <br>
+                <p style="text-align: justify;">
+                    Silahkan periksa email Anda untuk link verifikasi. <br>
+                    Jika Anda tidak menerima email silahkan klik tombol di bawah <br>
+                    untuk kirim ulang link verifikasi. <br>
+                </p>
                 <div class="mt-2">
                     <form action="{{ route('verification.resend') }}" method="POST" class="d-inline">
                         @csrf
                         <button type="submit" class="btn btn-success">
-                            kirim ulang
+                            Kirim
                         </button>
                     </form>
                 </div>
