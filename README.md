@@ -1,6 +1,6 @@
  ![ecommerce](https://user-images.githubusercontent.com/52597151/230013634-2d3c029e-ec96-4c13-befb-fc1637eaf314.png)
  
-                                                                    LAPORAN PENGUMPULAN DATA
+                                                      LAPORAN PENGUMPULAN DATA
 
 ![image](https://user-images.githubusercontent.com/52597151/230014179-8fb48d8d-7f18-4b4d-9160-98dde5d00a7c.png)
 
