@@ -27,7 +27,7 @@ return new class extends Migration
 
             $table->foreign('user_id')->references('user_id')->on('users')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreign('procus_id')->references('procus_id')->on('produk_custom')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreign('warna_id')->references('warna_id')->on('warna_id')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreign('warna_id')->references('warna_id')->on('warna')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreign('sablon_id')->references('sablon_id')->on('sablon')->cascadeOnUpdate()->cascadeOnDelete();
         });
     }

@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id('inst_id');
             $table->string('nama_instansi');
             $table->string('logo', 30);
-            $table->string('visi', 100);
-            $table->string('misi', 200);
+            $table->longText('visi', 100);
+            $table->longText('misi', 200);
             $table->longText('tentang');
             $table->longText('alamat');
             $table->string('domain', 30);

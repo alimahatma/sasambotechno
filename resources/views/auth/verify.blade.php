@@ -12,17 +12,18 @@
 <body>
     <div class="container">
         <div class="col-sm-6 col-lg-6 mx-auto">
-            <div class="bg-light p-5 rounded mt-5">
+            <div class="bg-light p-5 rounded mt-5 shadow-lg">
                 <h2>Verifikasi</h2>
                 @if (session('resent'))
                 <div class="alert alert-success" role="alert">
                     Link verifikasi telah di kirim ke email anda..!
+                    Jika belum menerima email verifikasi, silahkan klik tombol di bawah <br>
+                    untuk kirim ulang email verifikasi.
                 </div>
                 @endif
                 <p style="text-align: justify;">
-                    Silahkan periksa email Anda untuk link verifikasi. <br>
-                    Jika Anda tidak menerima email silahkan klik tombol di bawah <br>
-                    untuk kirim ulang link verifikasi. <br>
+                    Klik tombol di bawah untuk mendapatkan link verifikasi email<br>
+                    <br>
                 </p>
                 <div class="mt-2">
                     <form action="{{ route('verification.resend') }}" method="POST" class="d-inline">
