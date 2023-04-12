@@ -16,7 +16,7 @@
                     <a href="#{{$ktgr->ktgr_procus_id}}">
                         <img src="/foto_ktgr/{{$ktgr->foto_procus}}" class="card-img-top" alt="...">
                         <div class="card-body">
-                            <h6>{{$ktgr->jenis_procus}}</h6>
+                            <h6>{{$ktgr->produk_custom}}</h6>
                         </div>
                     </a>
                 </div>
@@ -78,13 +78,13 @@
                             <h1 class="modal-title fs-5" id="exampleModalLabel">Pesan sablon</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form action="" method="post">
+                        <form action="pesanan/pesanlangsungsablon" method="post">
                             <div class="modal-body">
                                 @csrf
                                 <div class="row">
                                     <div class="col-12 mb-3">
                                         <input type="hidden" class="form-control" name="user_id" value="{{Auth::user()->user_id}}">
-                                        <input class="form-control" type="hidden" name="sablon_id" value="{{$val->sablon_id}}" aria-label="default input example" autofocus>
+                                        <input type="hidden" class="form-control" name="sablon_id" value="{{$val->sablon_id}}" aria-label="default input example" autofocus>
                                     </div>
                                     <!-- input id metode pembayaran -->
                                     <div class="col-12 mb-3">
@@ -107,7 +107,8 @@
                                     </div>
                                     <div class="col-12 mb-3">
                                         <h6>Jumlah</h6>
-                                        <input type="number" id="jml_order_langsung" name="jumlah_order" onchange="jmlOrderLangsung()" class="form-control">
+                                        <!-- <input type="number" id="jml_order_langsung" name="jml_order" class="form-control"> -->
+                                        <input type="number" id="jml_order_langsung" name="jml_order" onchange="jmlOrderLangsung()" class="form-control">
                                     </div>
                                     <div class="col-12 mb-3">
                                         <h6>Harga satuan Rp. {{$val->harga}}</h6>
@@ -121,13 +122,13 @@
                                         <div class="card-header">Tinggalkan pesan</div>
                                         <div class="card-body">
                                             <div class="form-group with-title mb-3">
-                                                <textarea class="form-control" name="tinggalkanpesan" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                                <textarea class="form-control" name="t_pesan" id="exampleFormControlTextarea1" rows="3"></textarea>
                                                 <label>tinggalkan pesan untuk pesanan sablon anda</label>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-12 mb-3">
-                                        <input class="form-control" type="hidden" name="tgl_trx" value="{{date('Y/m/d')}}" aria-label="default input example">
+                                        <input type="hidden" class="form-control" name="tgl_order" value="{{date('Y/m/d')}}" aria-label="default input example">
                                     </div>
                                     <div class="col-12 mt-2">
                                         @foreach($instansi as $inst)
@@ -165,10 +166,10 @@
                 <a id="{{$pro->procus_id}}" href="/details/{{$pro->procus_id}}">
                     <img src="/foto_produk/depan/{{$pro->foto_dep}}" class="card-img-top mt-3" alt="404">
                     <div class="card-body">
-                        <a href="/details/{{$pro->procus_id}}" class="text__nodecoration color__green">{{$pro->nama_produk}}</a>
+                        <a href="/details/{{$pro->procus_id}}" class="text__nodecoration" style="color: #0FAA5D;">{{$pro->nama_produk}}</a>
                         <br>
-                        <del style="font-size: 12px;">Rp. {{$pro->harga_jual}}</del>
-                        <h6 style="color: #0FAA5D;">Rp. {{$pro->harga_jual}}</h6>
+                        <del style="font-size: 12px;" class="text text-danger">Rp. {{$pro->harga_satuan + 5000}}</del>
+                        <h6 style="color: #0FAA5D;">Rp. {{$pro->harga_satuan}}</h6>
                     </div>
                 </a>
             </div>

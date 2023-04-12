@@ -22,7 +22,6 @@ use App\Http\Controllers\SablonController;
 use App\Http\Controllers\ShopCartController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\TransaksiController;
-use App\Http\Controllers\PesananSablonController;
 use App\Http\Controllers\TutorialController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\WarnaController;
@@ -188,18 +187,9 @@ Route::prefix('pesanan')->group(function () {
     Route::post('/bayarlunas', [PesananController::class, 'BayarLunas'])->name('bayarlunas');
     Route::post('/diskons', [PesananController::class, 'Discount'])->name('diskons');
     Route::get('/delpesanan/{id}', [PesananController::class, 'DeletePesanan'])->name('delpesanan');
-});
 
-// route table pesanan sablon
-Route::prefix('pesanansablon')->group(function () {
-    Route::get('/', [PesananSablonController::class, 'GetPesanan'])->name('pesanan');
-    Route::post('/validasipesanan', [PesananSablonController::class, 'ValidasiPesanan'])->name('validasipesanan'); //for superadmin
-    Route::post('/validasiproduksi', [PesananSablonController::class, 'ValidasiProduction'])->name('validasiproduksi'); //for role production
-    Route::post('/addpesanan', [PesananSablonController::class, 'AddPesanan'])->name('addPesanan'); //checkout pesanan produk custom
-    Route::post('/bayar', [PesananSablonController::class, 'BayarProdukCustom'])->name('bayar');
-    Route::post('/bayarlunas', [PesananSablonController::class, 'BayarLunas'])->name('bayarlunas');
-    Route::post('/diskons', [PesananSablonController::class, 'Discount'])->name('diskons');
-    Route::get('/delpesanan/{id}', [PesananSablonController::class, 'DeletePesanan'])->name('delpesanan');
+    // route pesan sablon secara langsung oleh customer
+    Route::post('/pesanlangsungsablon', [PesananController::class, 'PesanLangsungSablon'])->name('pesanlangsungsablon');
 });
 
 Route::prefix('contactus')->group(function () {
@@ -228,10 +218,10 @@ Route::prefix('video')->group(function () {
 
 // route role table payment
 Route::prefix('payment')->group(function () {
-    Route::get('/', [PaymentController::class, 'GetPayment'])->middleware('verified');
-    Route::post('/addpayment', [PaymentController::class, 'AddPayment'])->middleware('verified');
-    Route::post('/updtpayment', [PaymentController::class, 'UpdtPayment'])->middleware('verified');
-    Route::get('/delpayment/{id}', [PaymentController::class, 'DelPayment'])->middleware('verified');
+    Route::get('/', [PaymentController::class, 'GetPayment']);
+    Route::post('/addpayment', [PaymentController::class, 'AddPayment']);
+    Route::post('/updtpayment', [PaymentController::class, 'UpdtPayment']);
+    Route::get('/delpayment/{id}', [PaymentController::class, 'DelPayment']);
 });
 
 // route role table partner perusahaan
@@ -251,14 +241,15 @@ Route::name('admin')->group(function () {
 Route::name('members')->group(function () {
     Route::get('/home', [RoleMemberController::class, 'GetHome'])->name('home')->middleware('verified');
     // Route::get('/selectcloth/{id}', [RoleMemberController::class, 'DetailCloth'])->name('pilihbaju')->middleware('verified');
-    Route::get('/details/{id}', [RoleMemberController::class, 'SendToDetailBeforeCheckout'])->name('details')->middleware('verified'); // detail sebelum menambahkan ke keranjang barang
+    //Route::get('/details/{id}', [RoleMemberController::class, 'SendToDetailBeforeCheckout'])->name('details')->middleware('verified'); // detail sebelum menambahkan ke keranjang barang
+    Route::get('/details/{produk_custom_id}', [RoleMemberController::class, 'DetailProdukCustomSebelumCheckout'])->name('details')->middleware('verified'); // detail sebelum menambahkan ke keranjang barang
 
     //route lengkapi profile oleh pelanggan
     Route::get('/form', [UserController::class, 'GetForm'])->name('form'); //get form lengkapi akun
     Route::post('/updtakun', [UserController::class, 'UpdtUser'])->name('updtakun'); //kirim nilai yang di input dari form
 
     Route::get('/profile', [UserController::class, 'GetAllUser'])->name('Profile')->middleware('verified');
-    Route::get('/pesanananda', [PesananSablonController::class, 'GetPesananAnda'])->name('pesananAnda')->middleware('verified');
+    Route::get('/pesanananda', [PesananController::class, 'GetPesanan'])->name('pesanananda')->middleware('verified');
     Route::get('/invoice', [RoleMemberController::class, 'GetInvoice'])->name('invoice')->middleware('verified');
 
     Route::get('/cart', [ShopCartController::class, 'GetDataCart'])->name('cart');

@@ -43,12 +43,12 @@
                         <tbody>
                             <?php $i = 1; ?>
                             @foreach($pesanan as $val)
-                            @if(Auth::user()->role == 'superadmin' && $val->procus_id == TRUE)
+                            @if(Auth::user()->role == 'superadmin')
                             <tr class="text-center">
                                 <td><?= $i++ ?></td>
-                                <td>{{$val->nama_lengkap}}</td>
+                                <td>{{$val->name}}</td>
                                 <td>{{$val->nama_produk}}</td>
-                                <td>{{$val->size_order}}</td>
+                                <td>{{$val->size_orders}}</td>
                                 <td>{{$val->jml_order}}</td>
                                 <td>{{$val->pay_status}}</td>
                                 <td>{{$val->stts_produksi}}</td>
@@ -69,12 +69,12 @@
                                     </div>
                                 </td>
                             </tr>
-                            @elseif(Auth::user()->role == 'kasir' && $val->procus_id == TRUE)
+                            @elseif(Auth::user()->role == 'kasir')
                             <tr class="text-center">
                                 <td><?= $i++ ?></td>
-                                <td>{{$val->nama_lengkap}}</td>
+                                <td>{{$val->name}}</td>
                                 <td>{{$val->nama_produk}}</td>
-                                <td>{{$val->size_order}}</td>
+                                <td>{{$val->size_orders}}</td>
                                 <td>{{$val->jml_order}}</td>
                                 <td class="text text-danger">{{$val->pay_status}}</td>
                                 <td class="text text-primary">{{$val->stts_produksi}}</td>
@@ -100,12 +100,12 @@
                                     </div>
                                 </td>
                             </tr>
-                            @elseif(Auth::user()->role == 'produksi' && $val->status_pesanan == 'diterima' && $val->procus_id == TRUE)
+                            @elseif(Auth::user()->role == 'produksi' && $val->status_pesanan == 'diterima')
                             <tr class="text-center">
                                 <td><?= $i++ ?></td>
-                                <td>{{$val->nama_lengkap}}</td>
+                                <td>{{$val->name}}</td>
                                 <td>{{$val->nama_produk}}</td>
-                                <td>{{$val->size}}</td>
+                                <td>{{$val->size_orders}}</td>
                                 <td>{{$val->jml_order}}</td>
                                 <td>{{$val->ukuran_sablon}}</td>
                                 <td class="text text-danger">{{$val->stts_produksi}}</td>
@@ -179,7 +179,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                    @if($row->status_pesanan == 'pending' && ($row->pay_status == 'bayar'||$row->pay_status == 'belum lunas'||$row->pay_status == 'lunas'))
+                    @if(($row->status_pesanan == 'pending'||$row->status_pesanan == 'diterima') && ($row->pay_status == 'bayar'||$row->pay_status == 'belum lunas'||$row->pay_status == 'lunas'))
                     <button type="submit" class="btn btn-success">
                         <i class="fas fa-paper-plane"></i>
                         Ke produksi
@@ -293,7 +293,7 @@
                         <h6>Nama pembeli</h6>
                     </div>
                     <div class="col-md-3 col-lg-8 col-sm-6 mb-1">
-                        <p>: {{$row->nama_lengkap}}</p>
+                        <p>: {{$row->name}}</p>
                     </div>
                     <div class="col-md-4 col-lg-4 col-sm-6 mb-1">
                         <h6>Jasa kirim</h6>
@@ -311,13 +311,21 @@
                         <h6>Harga satuan</h6>
                     </div>
                     <div class="col-md-3 col-lg-8 col-sm-6 mb-1">
-                        <p>: {{$row->harga_jual}}</p>
+                        @if($row->sablon_id == true)
+                        <p>: Rp. {{$row->harga}}</p>
+                        @elseif($row->sablon_id == NULL)
+                        <p>: Rp. {{$row->harga_satuan}}</p>
+                        @endif
                     </div>
                     <div class="col-md-4 col-lg-4 col-sm-6 mb-1">
                         <h6>Jumlah order</h6>
                     </div>
                     <div class="col-md-3 col-lg-8 col-sm-6 mb-1">
-                        <p>: {{$row->jml_order}}/{{$row->satuan}}</p>
+                        @if($row->satuan == true)
+                        <p>: {{$row->jml_order}}, {{$row->satuan}}</p>
+                        @elseif($row->satuan == NULL)
+                        <p>: {{$row->jml_order}}, {{"titik"}}</p>
+                        @endif
                     </div>
                     <div class="col-md-4 col-lg-4 col-sm-6 mb-1">
                         <h6>Tanggal order</h6>
@@ -329,9 +337,9 @@
                         <h6>Harga total</h6>
                     </div>
                     <div class="col-md-3 col-lg-8 col-sm-6 mb-1">
-                        <p>: Rp. <?= $total_harga = ($row->jml_order * $row->harga_jual) ?></p>
+                        <p>: Rp. <?= $total_harga = ($row->jml_order * $row->harga_satuan) ?></p>
                     </div>
-                    @if($row->b_dp != NULL)
+                    @if($row->b_dp != NULL && $row->b_dp == NULL)
                     <div class="col-md-4 col-lg-4 col-sm-6 mb-1">
                         <h6>Jumlah DP</h6>
                     </div>
@@ -342,8 +350,12 @@
                         <h6 class="text text-warning">Sisa bayar</h6>
                     </div>
                     <div class="col-md-3 col-lg-8 col-sm-6 mb-1">
-                        <p class="text text-warning">: Rp. <?= $sisa = ($row->jml_order * $row->harga_jual) - $row->jml_dp ?></p>
+                        <p class="text text-warning">: Rp. <?= $sisa = ($row->jml_order * $row->harga_satuan) - $row->jml_dp ?></p>
                     </div>
+                    @elseif($row->b_dp != NULL && $row->b_dp != NULL)
+                    <h6 class="text text-success text-center">Lunas : Rp. <?= $lunas = ($row->jml_dp + $row->jml_lunas) ?></h6>
+                    @elseif($row->b_dp == NULL && $row->b_dp == NULL)
+                    <h6 class="text text-danger text-center">Belum Membayar</h6>
                     @endif
                 </div>
             </div>
@@ -378,7 +390,7 @@
                             <h6>Harga satuan</h6>
                         </div>
                         <div class="col-5">
-                            <p>: <?= $row->harga_jual, ' / ', $row->satuan ?></p>
+                            <p>: <?= $row->harga_satuan, ' / ', $row->satuan ?></p>
                         </div>
                     </div>
                     <div class="row">
@@ -404,7 +416,7 @@
                             <h6>Total produk</h6>
                         </div>
                         <div class="col-5">
-                            <p>: <?= $row->jml_order * $row->harga_jual ?></p>
+                            <p>: <?= $row->jml_order * $row->harga_satuan ?></p>
                         </div>
                     </div>
                     <div class="row">
@@ -420,7 +432,7 @@
                             <h6>Total pesanan</h6>
                         </div>
                         <div class="col-5">
-                            <p>: <?= $row->jml_order * $row->harga_jual ?></p>
+                            <p>: <?= $row->jml_order * $row->harga_satuan ?></p>
                         </div>
                     </div>
                 </div>

@@ -40,7 +40,7 @@
                 <p>{{$row->nama_warna}}</p>
             </div>
             <div class="col">
-                <p>{{$row->size}}</p>
+                <p>{{$row->size_order}}</p>
             </div>
             <div class="col-1 d-flex justify-content-between">
                 <div class="col-2">
@@ -174,6 +174,10 @@
                             <option value="{{$pay->payment_id}}">{{$pay->pay_method}}</option>
                             @endforeach
                         </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">Size_order</label>
+                        <input type="text" name="size_orders" value="{{$val->size_order}}" class="form-control" readonly>
                     </div>
                     <div class="mb-3">
                         <label for="exampleFormControlTextarea1" class="form-label">Tinggalkan pesan</label>

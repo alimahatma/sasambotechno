@@ -10,7 +10,7 @@ class Shop_cart extends Model
     use HasFactory;
     protected $table = 'cart_shop';
     protected $primaryKey = 'cart_id';
-    protected $fillable = ['user_id',    'procus_id',    'warna_id',    'sablon_id',    'jumlah_order',    'harga_satuan',    'harga_totals'];
+    protected $fillable = ['user_id',    'procus_id',    'warna_id',    'sablon_id', 'size_order',    'jumlah_order',    'harga_satuan',    'harga_totals'];
     public $timestamps = false;
 
     public function scopeJoinProcus($query)

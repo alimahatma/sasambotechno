@@ -16,6 +16,8 @@
                     @endif
                 </div>
                 <!-- end-alert -->
+                @foreach($getProdukCustomIfTogetherWithKategoriProdukCustom as $data_prdk)
+                <!-- tambahkan produk custom ke keranjang -->
                 <div class="col-md-12 mx-auto">
                     <!-- <div class="form"> -->
                     <form id="FormProduk" action="/addtocart" method="post" enctype="multipart/form-data">
@@ -28,8 +30,10 @@
                                     <img id="main-image" class="d-block w-100" src="/foto_produk/depan/{{$getProdukCustomById->foto_dep}}" alt="404" height="400px" alt="404">
                                     <div class="scrollmenu d-flex">
                                         @foreach($getProdukCustomIfTogetherWithKategoriProdukCustom as $gm)
-                                        <img id="d{{$gm->foto_dep}}" src="/foto_produk/depan/{{$gm->foto_dep}}" class="d-block w-100" height="100px" alt="404" onclick="return tampil('/foto_produk/depan/<?= $gm->foto_dep; ?>')">
+                                        @if($gm->procus_id == $data_prdk->procus_id)
+                                        <img id="d{{$gm->foto_dep}}" src="/foto_produk/depan/{{$gm->foto_dep}}" class="data-color-<?= $gm->warna_id; ?> d-block w-100" height="100px" alt="404" onclick="return tampil('/foto_produk/depan/<?= $gm->foto_dep; ?>')">
                                         <img id="b{{$gm->foto_bel}}" src="/foto_produk/belakang/{{$gm->foto_bel}}" class="d-block w-100" height="100px" alt="404" onclick="return tampil('/foto_produk/belakang/<?= $gm->foto_bel; ?>')">
+                                        @endif
                                         @endforeach
                                     </div>
                                 </div>
@@ -65,12 +69,12 @@
                                                     <h6>Pilih warna</h6>
                                                 </div>
                                                 <div class="col-lg-3 col-sm-7 col-md-8">
-                                                    <select name="warna_id" class="form-select" aria-label="Default select example">
+                                                    <select name="warna_id" id="warna_id" class="form-select" aria-label="Default select example">
                                                         <option selected>pilih warna</option>
                                                         @foreach($getProdukCustomIfTogetherWithKategoriProdukCustom as $col)
                                                         @foreach($colors as $war)
                                                         @if($war->warna_id == $col->warna_id)
-                                                        <option value="{{$col->warna_id}}">{{$war->nama_warna}}</option>
+                                                        <option data-size="{{$col->size}}" value="{{$col->warna_id}}">{{$war->nama_warna}}</option>
                                                         @endif
                                                         @endforeach
                                                         @endforeach
@@ -85,10 +89,12 @@
                                                 </div>
                                                 <div class="col-lg-3 col-sm-7 col-md-8 d-flex justify-content-between">
                                                     @foreach($getProdukCustomIfTogetherWithKategoriProdukCustom as $prd)
+                                                    @if($prd->procus_id == $data_prdk->procus_id)
                                                     <div class="form-check col-2">
                                                         <input class="form-check-input" type="radio" name="procus_id" value="{{$prd->procus_id}}" id="GetValueSize flexRadioDefault1">
                                                         <label class="form-check-label" for="flexRadioDefault1">{{$prd->size}}</label>
                                                     </div>
+                                                    @endif
                                                     @endforeach
                                                 </div>
                                             </div>
@@ -148,13 +154,14 @@
                         </div>
                     </form>
                 </div>
-                <!-- </form> -->
+                <!-- end modal tambah barang ke keranjang -->
+                @endforeach
             </div>
         </div>
     </div>
 </div>
 
-<!-- Modal -->
+<!-- Modal beli langsung-->
 <div class="modal fade" id="modalBLangsung{{$prd->procus_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -216,5 +223,13 @@
         document.getElementById('main-image').setAttribute('src', a);
 
     }
+
+    $('#warna_id').on('change', function() {
+        var warna_id = $('#warna_id').val();
+        var warna = $('.data-color-' + warna_id).attr('src');
+        $('#main-image').removeAttr('src');
+        $('#main-image').attr('src', warna);
+        $
+    })
 </script>
 @endsection

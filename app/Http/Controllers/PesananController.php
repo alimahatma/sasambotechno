@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Instansi;
 use App\Models\Pesanan;
+use App\Models\Shop_cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -39,8 +40,67 @@ class PesananController extends Controller
                 'instansi' => $instansi,
                 'pesanan' => $data,
             ]);
+        } elseif (Auth::user()->role == 'pelanggan') {
+            $instansi = Instansi::select('logo', 'whatsapp')->get();
+            $isiKeranjang = Shop_cart::where('user_id', '=', Auth::user()->user_id)->get()->count(); //hitung isi keranjang berdasarkan user yang login
+
+            $dataPesanan = Pesanan::joinToProdukCustom()->joinToKategoriProdukCustom()->joinToWarna()
+                ->joinToUser()->joinToSablon()->joinToKurir()->joinToPayment()->orderBy('pesanan_id', 'desc')->get();
+            // dd($dataPesanan);
+            return view('members.pesananAnda', [
+                'title' => 'history transaksi',
+                'instansi' => $instansi,
+                'data_pesanan' => $dataPesanan,
+                'isiKeranjang' => $isiKeranjang,
+            ]);
         } else {
-            echo '419 page expired';
+            echo '403 forbidden';
+        }
+    }
+    public function GetPesananSablon()
+    {
+        if (Auth::user()->role == 'superadmin') {
+            $data = Pesanan::joinToProdukCustom()->joinToKategoriProdukCustom()->joinToWarna()
+                ->joinToUser()->joinToSablon()->joinToKurir()->joinToPayment()->get();
+            $instansi = Instansi::select('logo')->get();
+            return view('superadmin.pesanan_sablon', [
+                'title' => 'pesanan pakaian custom',
+                'instansi' => $instansi,
+                'pesanan' => $data,
+            ]);
+        } elseif (Auth::user()->role == 'kasir') {
+            $data = Pesanan::joinToProdukCustom()->joinToKategoriProdukCustom()->joinToWarna()
+                ->joinToUser()->joinToSablon()->joinToKurir()->joinToPayment()->get();
+            $instansi = Instansi::select('logo')->get();
+            return view('superadmin.pesanan_sablon', [
+                'title' => 'pesanan pakaian custom',
+                'instansi' => $instansi,
+                'pesanan' => $data,
+            ]);
+        } elseif (Auth::user()->role == 'produksi') {
+            $data = Pesanan::joinToProdukCustom()->joinToKategoriProdukCustom()->joinToWarna()
+                ->joinToUser()->joinToSablon()->joinToKurir()->joinToPayment()->get();
+            $instansi = Instansi::select('logo')->get();
+            return view('superadmin.pesanan_sablon', [
+                'title' => 'pesanan pakaian custom',
+                'instansi' => $instansi,
+                'pesanan' => $data,
+            ]);
+        } elseif (Auth::user()->role == 'pelanggan') {
+            $instansi = Instansi::select('logo', 'whatsapp')->get();
+            $isiKeranjang = Shop_cart::where('user_id', '=', Auth::user()->user_id)->get()->count(); //hitung isi keranjang berdasarkan user yang login
+
+            $dataPesanan = Pesanan::joinToProdukCustom()->joinToKategoriProdukCustom()->joinToWarna()
+                ->joinToUser()->joinToSablon()->joinToKurir()->joinToPayment()->orderBy('pesanan_id', 'desc')->get();
+            // dd($dataPesanan);
+            return view('members.pesananAnda', [
+                'title' => 'history transaksi',
+                'instansi' => $instansi,
+                'data_pesanan' => $dataPesanan,
+                'isiKeranjang' => $isiKeranjang,
+            ]);
+        } else {
+            echo '403 forbidden';
         }
     }
 
@@ -59,7 +119,6 @@ class PesananController extends Controller
             'tgl_order' => 'required',
         ]);
         try {
-
             $data = new Pesanan([
                 'procus_id' => $req->procus_id,
                 'color' => $req->color,
@@ -77,6 +136,37 @@ class PesananController extends Controller
         } catch (\Exception $e) {
             Log::error($e->getMessage());
             return redirect('home')->with('errors', 'gagal');
+        }
+    }
+
+    public function PesanLangsungSablon(Request $request)
+    {
+        $request->validate([
+            'user_id' => 'required',
+            'sablon_id' => 'required',
+            'kurir_id' => 'required',
+            'payment_id' => 'required',
+            'jml_order' => 'required',
+            't_pesan' => 'required',
+            'tgl_order' => 'required',
+        ]);
+        // dd($request);
+        try {
+            $data = new Pesanan([
+                'user_id' => $request->user_id,
+                'sablon_id' => $request->sablon_id,
+                'kurir_id' => $request->kurir_id,
+                'payment_id' => $request->payment_id,
+                'jml_order' => $request->jml_order,
+                't_pesan' => $request->t_pesan,
+                'tgl_order' => $request->tgl_order,
+            ]);
+            // dd($data);
+            $data->save();
+            return redirect('pesanananda')->with("success", 'proses pemesanan sablon berhasil');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return redirect('pesanananda')->with('errors', 'pembayaran pemesanan sablon gagal');
         }
     }
 

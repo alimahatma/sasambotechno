@@ -20,7 +20,6 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->enum('role', ['superadmin', 'kasir', 'produksi', 'pelanggan'])->default('pelanggan');
-            $table->string('nama_lengkap', 30)->nullable();
             $table->string('telepon', 14)->nullable();
             $table->enum('gender', ['L', 'P'])->nullable();
             $table->string('desa', 30)->nullable();

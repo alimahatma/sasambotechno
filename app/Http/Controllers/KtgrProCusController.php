@@ -28,7 +28,7 @@ class KtgrProCusController extends Controller
             'ktgr_id' => 'required',
             'jenis_procus' => 'required',
             'foto_procus' => 'required|mimes:png,jpg,jpeg|max:1024',
-            'des_ktgrprocus' => 'required',
+            'deskripsi_kategori_produk_custom' => 'required',
         ]);
         // dd($data);
         try {
@@ -38,7 +38,7 @@ class KtgrProCusController extends Controller
                 'ktgr_id' => $req->ktgr_id,
                 'jenis_procus' => $req->jenis_procus,
                 'foto_procus' => $fotoKtgrProcus,
-                'des_ktgrprocus' => $req->des_ktgrprocus,
+                'deskripsi_kategori_produk_custom' => $req->deskripsi_kategori_produk_custom,
             ]);
             $data->save();
             return redirect('kategoriProcus')->with('success', 'data berhasil di tambahkan');
@@ -53,7 +53,7 @@ class KtgrProCusController extends Controller
             'ktgr_id' => 'required',
             'jenis_procus' => 'required',
             'foto_procus' => 'required|mimes:png,jpg,jpeg|max:1024',
-            'des_ktgrprocus' => 'required',
+            'deskripsi_kategori_produk_custom' => 'required',
         ]);
         // dd($data);
         try {
@@ -63,7 +63,7 @@ class KtgrProCusController extends Controller
                 'ktgr_id' => $req->post('ktgr_id'),
                 'jenis_procus' => $req->post('jenis_procus'),
                 'foto_procus' => $fotoKtgrProcus,
-                'des_ktgrprocus' => $req->post('des_ktgrprocus'),
+                'deskripsi_kategori_produk_custom' => $req->post('deskripsi_kategori_produk_custom'),
             );
             KtgrProcus::where('ktgr_procus_id', '=', $req->post('ktgr_procus_id'))->update($data);
             return redirect('kategoriProcus')->with('success', 'data berhasil di update');

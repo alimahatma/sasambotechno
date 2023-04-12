@@ -15,13 +15,12 @@ return new class extends Migration
     {
         Schema::create('pesanan', function (Blueprint $table) {
             $table->id('pesanan_id');
-            $table->foreignId('procus_id');
+            $table->foreignId('procus_id')->nullable();
             $table->foreignId('user_id');
-            $table->foreignId('sablon_id');
+            $table->foreignId('sablon_id')->nullable();
             $table->foreignId('kurir_id');
             $table->foreignId('payment_id');
-            $table->string('color', 20);
-            $table->string('size_order', 10);
+            $table->string('size_orders', 10)->nullable();
             $table->integer('jml_order')->length(10)->unsigned();
             $table->double('jml_dp')->nullable();
             $table->double('jml_lunas')->nullable();
@@ -30,7 +29,7 @@ return new class extends Migration
             $table->string('b_lunas', 30)->nullable();
             $table->string('t_pesan', 150);
             $table->date('tgl_order');
-            $table->enum('pay_status', ['pending', 'bayar', 'belum lunas', 'lunas'])->default('belum lunas');
+            $table->enum('pay_status', ['pending', 'bayar', 'belum lunas', 'lunas'])->default('pending');
             $table->enum('stts_produksi', ['pending', 'produksi', 'packing', 'selesai'])->default('pending');
             $table->enum('status_pesanan', ['pending', 'diterima', 'kirim', 'selesai'])->default('pending');
             $table->timestamps();

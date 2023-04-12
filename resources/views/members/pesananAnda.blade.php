@@ -25,7 +25,7 @@
             <div class="card-body shadow-sm">
                 <div class="row align-items-center">
                     <div class="col">
-                        <p>{{$pes->nama_lengkap}}</p>
+                        <p>{{$pes->name}}</p>
                     </div>
                     <div class="col">
                         <p>Alamat {{$pes->desa}}</p>
@@ -60,14 +60,14 @@
                         <h6 class="text text-warning">Sisa bayar</h6>
                     </div>
                     <div class="col">
-                        <p class="text text-warning">: <?= $sisa = ($pes->jml_order * $pes->harga_jual) - $pes->jml_dp ?></p>
+                        <p class="text text-warning">: <?= $sisa = ($pes->jml_order * $pes->harga_satuan) - $pes->jml_dp ?></p>
                     </div>
                     @elseif($pes->b_dp == TRUE && $pes->b_lunas == TRUE)
                     <div class="col">
                         <h6 class="text text-success">Lunas</h6>
                     </div>
                     <div class="col">
-                        <p class="text text-success">: <?= $sisa = ($pes->jml_order * $pes->harga_jual) - ($pes->jml_dp + $pes->jml_lunas) ?></p>
+                        <p class="text text-success">: <?= $sisa = ($pes->jml_order * $pes->harga_satuan) - ($pes->jml_dp + $pes->jml_lunas) ?></p>
                     </div>
                     @endif
                 </div>
@@ -112,7 +112,7 @@
                                 <h6>Nama pembeli</h6>
                             </div>
                             <div class="col-md-3 col-lg-5 col-sm-6 mb-3">
-                                <p>: {{$pes->nama_lengkap}}</p>
+                                <p>: {{$pes->name}}</p>
                             </div>
                         </div>
                         <div class="row">
@@ -187,14 +187,14 @@
                                 <h6 class="text text-warning">Sisa bayar</h6>
                             </div>
                             <div class="col">
-                                <p class="text text-warning">: <?= $sisa = ($pes->jml_order * $pes->harga_jual) - $pes->jml_dp ?></p>
+                                <p class="text text-warning">: <?= $sisa = ($pes->jml_order * $pes->harga_satuan) - $pes->jml_dp ?></p>
                             </div>
                             @elseif($pes->b_dp == TRUE && $pes->b_lunas == TRUE)
                             <div class="col">
                                 <h6 class="text text-success">Lunas</h6>
                             </div>
                             <div class="col">
-                                <p class="text text-success">: <?= $sisa = ($pes->jml_order * $pes->harga_jual) - ($pes->jml_dp + $pes->jml_lunas) ?></p>
+                                <p class="text text-success">: <?= $sisa = ($pes->jml_order * $pes->harga_satuan) - ($pes->jml_dp + $pes->jml_lunas) ?></p>
                             </div>
                             @endif
                         </div>
@@ -219,7 +219,7 @@
                         <img src="/foto_produk/depan/{{$vals->foto_dep}}" width="100px" height="130px" alt="404">
                     </div>
                     <div class="col">
-                        <p>{{$vals->nama_lengkap}}</p>
+                        <p>{{$vals->name}}</p>
                     </div>
                     <div class="col">
                         <p>{{$vals->nama_produk}}</p>
@@ -228,7 +228,7 @@
                         <p>Warna. {{$vals->nama_warna}}</p>
                     </div>
                     <div class="col">
-                        <p>Size. {{$vals->size}}</p>
+                        <p>Size. {{$vals->size_orders}}</p>
                     </div>
                     <div class="col">
                         <p>X. {{$vals->jml_order}}</p>
@@ -254,7 +254,7 @@
                         <h6 class="text text-warning">Sisa bayar</h6>
                     </div>
                     <div class="col">
-                        <p class="text text-warning">: <?= $sisa = ($vals->jml_order * $vals->harga_jual) - $vals->jml_dp ?></p>
+                        <p class="text text-warning">: <?= $sisa = ($vals->jml_order * $vals->harga_satuan) - $vals->jml_dp ?></p>
                     </div>
                     @elseif($vals->b_dp == TRUE && $vals->b_lunas == TRUE)
                     <div class="col">
@@ -297,7 +297,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Detail {{$vals->nama_produk}}</h1>
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Detail pesanan {{$vals->nama_produk}}</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -306,7 +306,7 @@
                                 <h6>Nama pembeli</h6>
                             </div>
                             <div class="col-md-3 col-lg-5 col-sm-6 mb-3">
-                                <p>: {{$vals->nama_lengkap}}</p>
+                                <p>: {{$vals->name}}</p>
                             </div>
                         </div>
                         <div class="row">
@@ -330,7 +330,7 @@
                                 <h6>Harga satuan</h6>
                             </div>
                             <div class="col-md-3 col-lg-5 col-sm-6 mb-3">
-                                <p>: {{$vals->harga_jual}}</p>
+                                <p>: {{$vals->harga_satuan}}</p>
                             </div>
                         </div>
                         <div class="row">
@@ -354,7 +354,7 @@
                                 <h6>Harga total</h6>
                             </div>
                             <div class="col-md-3 col-lg-5 col-sm-6 mb-3">
-                                <p>: Rp. <?= $total_harga = ($vals->jml_order * $vals->harga_jual) ?></p>
+                                <p>: Rp. <?= $total_harga = ($vals->jml_order * $vals->harga_satuan) ?></p>
                             </div>
                         </div>
                         @if($vals->b_dp != NULL && $vals->b_lunas == NULL)
@@ -371,8 +371,11 @@
                                 <h6 class="text text-warning">Sisa bayar</h6>
                             </div>
                             <div class="col-md-3 col-lg-5 col-sm-6 mb-3">
-                                <p class="text text-warning">: Rp. <?= $sisa = ($vals->jml_order * $vals->harga_jual) - $vals->jml_dp ?></p>
+                                <p class="text text-warning">: Rp. <?= $sisa = ($vals->jml_order * $vals->harga_satuan) - $vals->jml_dp ?></p>
                             </div>
+                        </div>
+                        <div class="d-grid gap-1 col-6 mx-auto">
+                            <button type="button" class="btn btn-outline-success"><i class="fas fa-file-pdf"></i>Cetak Invoice</button>
                         </div>
                         @elseif($vals->b_dp == TRUE && $vals->b_lunas == TRUE)
                         <div class="row">
@@ -382,6 +385,9 @@
                             <div class="col-md-3 col-lg-5 col-sm-6 mb-3">
                                 <p class="text text-success">: <?= $lunas = ($vals->jml_dp + $vals->jml_lunas) ?></p>
                             </div>
+                        </div>
+                        <div class="d-grid gap-1 col-6 mx-auto">
+                            <button type="button" class="btn btn-outline-success"><i class="fas fa-file-pdf"></i>Cetak Invoice</button>
                         </div>
                         @endif
                     </div>
@@ -402,7 +408,7 @@
                         @csrf
                         <div class="modal-body">
                             <div class="col mb-3">
-                                <p class="card-text">Total produk = Rp. {{$vals->jml_order * $vals->harga_jual}}</p>
+                                <p class="card-text">Total produk = Rp. {{$vals->jml_order * $vals->harga_satuan}}</p>
                             </div>
                             <div class="row">
                                 <div class="form-group">
@@ -444,10 +450,10 @@
                         <div class="modal-body">
                             <div class="row">
                                 <div class="form-group">
-                                    <input type="text" name="pesanan_id" value="{{$vals->pesanan_id}}" class="form-control">
+                                    <input type="hidden" name="pesanan_id" value="{{$vals->pesanan_id}}" class="form-control">
                                     <p>Total bayar</p>
                                     <div class="col">
-                                        <input type="number" class="form-control" name="jml_lunas" value="{{$vals->jml_order * $vals->harga_jual}}">
+                                        <input type="number" class="form-control" name="jml_lunas" value="{{($vals->jml_order * $vals->harga_satuan)-($vals->jml_dp)}}">
                                     </div>
                                 </div>
                                 <div class="form-group">

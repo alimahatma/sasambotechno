@@ -12,12 +12,11 @@ class Pesanan extends Model
     protected $primaryKey = 'pesanan_id';
     protected $fillable = [
         'procus_id',
-        'color',
         'user_id',
         'sablon_id',
-        'size_order',
         'kurir_id',
         'payment_id',
+        'size_orders',
         'jml_order',
         'jml_dp',
         'jml_lunas',
@@ -25,10 +24,10 @@ class Pesanan extends Model
         'b_dp',
         'b_lunas',
         't_pesan',
-        'pay_status',
         'tgl_order',
+        'pay_status',
         'stts_produksi',
-        'status_pesanan'
+        'status_pesanan',
     ];
     public $timestamps = false;
 
