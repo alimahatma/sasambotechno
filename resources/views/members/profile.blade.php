@@ -4,7 +4,7 @@
     <div class="card mt-5 col-lg-5 col-md-12 mx-auto shadow-lg">
         <div class="card-body">
             <div class="card-header">
-                <h4 class="card-title text-center">Profile</h4>
+                <h4 class="card-title text-center">Profile {{Auth::user()->name}}</h4>
             </div>
             <div class="row">
                 <div class="col-md-12 mx-auto">
@@ -24,7 +24,7 @@
                             @if(Auth::user()->user_id == $val->user_id)
                             <div class="row">
                                 <div class="col-md-4 mb-3">
-                                    <h6>Nama akun</h6>
+                                    <h6>Nama lengkap</h6>
                                 </div>
                                 <div class="col-md-8 mb-3">
                                     <h6>: {{$val->name}}</h6>
@@ -32,18 +32,14 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-4 mb-3">
-                                    <h6>Nama lengkap</h6>
-                                </div>
-                                <div class="col-md-8 mb-3">
-                                    <h6>: {{$val->nama_lengkap}}</h6>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4 mb-3">
                                     <h6>Gender</h6>
                                 </div>
                                 <div class="col-md-8 mb-3">
-                                    <h6>: {{$val->gender}}</h6>
+                                    @if($val->gender == 'P')
+                                    <h6>: {{"Perempuan"}}</h6>
+                                    @elseif($val->gender == 'L')
+                                    <h6>: {{"Laki-laki"}}</h6>
+                                    @endif
                                 </div>
                             </div>
                             <div class="row">
@@ -79,8 +75,8 @@
                                 </div>
                             </div>
                             <!-- Button update modal -->
-                            <div class="mb-2 col-4 mx-auto">
-                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalUpdate{{$val->user_id}}">
+                            <div class="d-grid gap-1 col-6 mx-auto">
+                                <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modalUpdate{{$val->user_id}}">
                                     Update Profile
                                 </button>
                             </div>
@@ -100,7 +96,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">{{$us->nama_lengkap}}</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">{{$us->name}}</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="updtakun" method="post" enctype="multipart/form-data">
@@ -109,15 +105,9 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <input type="hidden" name="user_id" value="{{$us->user_id}}" class="form-control">
-                            <h6>Nama lengkap</h6>
-                            <input class="form-control" type="text" name="nama_lengkap" value="{{$us->nama_lengkap}}" aria-label="default input example">
-                        </div>
-                        <div class="col-md-6 mb-3">
                             <h6>Telepon</h6>
                             <input class="form-control" type="text" name="telepon" value="{{$us->telepon}}" aria-label="default input example" id="Success">
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-md-6 mb-3">
                             <h6>Jenis kelamin</h6>
                             <div class="d-flex justify-content-around mt-3">
@@ -135,23 +125,23 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-6 mb-3">
                             <h6>Desa</h6>
                             <input class="form-control" type="text" name="desa" value="{{$us->desa}}" aria-label="default input example">
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-md-6 mb-3">
                             <h6>Kecamatan</h6>
                             <input class="form-control" type="text" name="kecamatan" value="{{$us->kecamatan}}" aria-label="default input example">
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-6 mb-3">
                             <h6>Kabupaten</h6>
                             <input class="form-control" type="text" name="kabupaten" value="{{$us->kabupaten}}" aria-label="default input example">
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12 mb-3">
+                        <div class="col-md-6 mb-3">
                             <h6>Provinsi</h6>
                             <input class="form-control" type="text" name="provinsi" value="{{$us->provinsi}}" aria-label="default input example">
                         </div>

@@ -23,11 +23,9 @@ return new class extends Migration
             $table->string('foto_bel', 30);
             $table->string('satuan', 10);
             $table->string('jenis_kain', 25);
-            $table->string('size', 10);
-            $table->double('harga_beli');
-            $table->double('harga_jual');
+            $table->string('size', 30);
+            $table->double('harga_satuan');
             $table->date('tgl_masuk');
-            $table->longText('deskripsi');
             $table->timestamps();
             $table->foreign('supplier_id')->references('supplier_id')->on('supplier')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreign('ktgr_procus_id')->references('ktgr_procus_id')->on('ktgr_prdk_custom')->cascadeOnUpdate()->cascadeOnDelete();

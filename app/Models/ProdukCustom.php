@@ -10,13 +10,13 @@ class ProdukCustom extends Model
     use HasFactory;
     protected $primaryKey = 'procus_id';
     protected $table = 'produk_custom';
-    protected $fillable = ['supplier_id',    'ktgr_procus_id',    'warna_id',    'nama_produk',    'foto_dep',    'foto_bel',    'satuan',    'jenis_kain',    'size',    'harga_beli',    'harga_jual',    'tgl_masuk',    'deskripsi'];
+    protected $fillable = ['supplier_id',    'ktgr_procus_id',    'warna_id',    'nama_produk',    'foto_dep',    'foto_bel',    'satuan',    'jenis_kain',    'size',    'harga_satuan', 'tgl_masuk'];
     public $timestamps = false;
 
     // implementasi variable scope eloquent for join
     public function scopeJoinKategoriProdukCostum($query)
     {
-        return $query->join('ktgr_prdk_custom', 'ktgr_prdk_custom.ktgr_procus_id', '=', 'produk_custom.ktgr_procus_id');
+        return $query->leftJoin('ktgr_prdk_custom', 'ktgr_prdk_custom.ktgr_procus_id', '=', 'produk_custom.ktgr_procus_id');
     }
     public function scopeJoinWarna($query)
     {

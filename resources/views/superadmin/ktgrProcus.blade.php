@@ -110,7 +110,7 @@
                             <div class="card-header">Deskripsi kategori</div>
                             <div class="card-body">
                                 <div class="form-group with-title mb-3">
-                                    <textarea class="form-control" name="des_ktgrprocus" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                    <textarea class="form-control" name="deskripsi_kategori_produk_custom" id="exampleFormControlTextarea1" rows="3"></textarea>
                                     <label>Deskripsi kategori</label>
                                 </div>
                             </div>
@@ -141,7 +141,7 @@
                         <img src="/foto_ktgr/{{$row->foto_procus}}" alt="404" width="100%">
                     </div>
                     <div class="col-12 mt-1">
-                        <p class="style__font">{{$row->des_ktgrprocus}}</p>
+                        <p class="style__font">{{$row->deskripsi_kategori_produk_custom}}</p>
                     </div>
                 </div>
             </div>
@@ -190,7 +190,7 @@
                             <div class="card-header">Deskripsi kategori</div>
                             <div class="card-body">
                                 <div class="form-group with-title mb-3">
-                                    <textarea class="form-control" name="des_ktgrprocus" id="exampleFormControlTextarea1" rows="3">{{$row->des_ktgrprocus}}</textarea>
+                                    <textarea class="form-control" name="deskripsi_kategori_produk_custom" id="exampleFormControlTextarea1" rows="3">{{$row->deskripsi_kategori_produk_custom}}</textarea>
                                     <label>Deskripsi kategori</label>
                                 </div>
                             </div>

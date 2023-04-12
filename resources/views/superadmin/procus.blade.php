@@ -40,8 +40,7 @@
                                 <th class="text-center">Satuan</th>
                                 <th class="text-center">Jenis kain</th>
                                 <th class="text-center">Size</th>
-                                <th class="text-center">Harga beli</th>
-                                <th class="text-center">Harga jual</th>
+                                <th class="text-center">Harga satuan</th>
                                 <th class="text-center">Tanggal masuk</th>
                                 <th class="text-center">Aksi</th>
                             </tr>
@@ -57,8 +56,7 @@
                                 <td>{{$val->satuan}}</td>
                                 <td>{{$val->jenis_kain}}</td>
                                 <td>{{$val->size}}</td>
-                                <td>{{$val->harga_beli}}</td>
-                                <td>{{$val->harga_jual}}</td>
+                                <td>{{$val->harga_satuan}}</td>
                                 <td>{{$val->tgl_masuk}}</td>
                                 <td>
                                     <div class="d-flex justify-content-center">
@@ -167,34 +165,26 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6 mt-3">
+                        <div class="col-12 mt-3">
                             <h6>Size</h6>
-                            <input class="form-control" type="text" name="size" placeholder="masukkan ukuran produk" aria-label="default input example">
-                        </div>
-                        <div class="col-6 mt-3">
-                            <h6>Harga beli</h6>
-                            <input class="form-control" type="number" name="harga_beli" placeholder="masukkan harga beli" aria-label="default input example">
+                            <div class="d-flex justify-content-between">
+                                @foreach($size as $ukuran)
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="size[]" value="{{$ukuran}}" id="flexCheckDefault">
+                                    <label class="form-check-label" for="flexCheckDefault">{{$ukuran}}</label>
+                                </div>
+                                @endforeach
+                            </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-6 mt-3">
-                            <h6>Harga jual</h6>
-                            <input class="form-control" type="number" name="harga_jual" placeholder="masukkan harga jual" aria-label="default input example">
+                            <h6>Harga satuan</h6>
+                            <input class="form-control" type="number" name="harga_satuan" placeholder="masukkan harga satuan" aria-label="default input example">
                         </div>
                         <div class="col-6 mt-3">
                             <h6>Tanggal masuk</h6>
                             <input class="form-control" type="text" name="tgl_masuk" value="{{date('Y/m/d')}}" aria-label="default input example" readonly>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 mt-2">
-                            <h6>Deskripsi produk</h6>
-                            <div class="card-body">
-                                <div class="form-group with-title mb-3">
-                                    <textarea class="form-control" name="deskripsi" id="exampleFormControlTextarea1" rows="3"></textarea>
-                                    <label>masukkan deskripsi produk</label>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -226,7 +216,7 @@
                         <img src="/foto_produk/belakang/{{$prcs->foto_bel}}" class="img-fluid rounded-start" alt="404">
                     </div>
                 </div>
-                <p class="mt-3 style__font">{{$prcs->deskripsi}}</p>
+                <p class="mt-3 style__font">{{$prcs->deskripsi_kategori_produk_custom}}</p>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
                 </div>
@@ -314,34 +304,26 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6 mt-3">
+                        <div class="col-12 mt-3">
                             <h6>Size</h6>
-                            <input class="form-control" type="text" name="size" value="{{$row->size}}" aria-label="default input example">
-                        </div>
-                        <div class="col-6 mt-3">
-                            <h6>Harga beli</h6>
-                            <input class="form-control" type="number" name="harga_beli" value="{{$row->harga_beli}}" aria-label="default input example">
+                            <div class="d-flex justify-content-between">
+                                @foreach($size as $ukuran)
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="size[]" value="{{$ukuran}}" id="flexCheckDefault">
+                                    <label class="form-check-label" for="flexCheckDefault">{{$ukuran}}</label>
+                                </div>
+                                @endforeach
+                            </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-6 mt-3">
                             <h6>Harga jual</h6>
-                            <input class="form-control" type="number" name="harga_jual" value="{{$row->harga_jual}}" aria-label="default input example">
+                            <input class="form-control" type="number" name="harga_satuan" value="{{$row->harga_satuan}}" aria-label="default input example">
                         </div>
                         <div class="col-6 mt-3">
                             <h6>Tanggal masuk</h6>
                             <input class="form-control" type="date" name="tgl_masuk" value="{{$row->tgl_masuk}}" aria-label="default input example">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 mt-2">
-                            <h6>Deskripsi produk</h6>
-                            <div class="card-body">
-                                <div class="form-group with-title mb-3">
-                                    <textarea class="form-control" name="deskripsi" id="exampleFormControlTextarea1" rows="3">{{$row->deskripsi}}</textarea>
-                                    <label>masukkan deskripsi produk</label>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>

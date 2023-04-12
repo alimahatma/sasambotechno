@@ -21,7 +21,7 @@
                                 <div class="row">
                                     <div class="form-group mt-2">
                                         <div class="col">
-                                            <label>Username <span class="text text-danger">*</span></label>
+                                            <label>Nama lengkap <span class="text text-danger">*</span></label>
                                             <input class="form-control form-control-sm @error('name') is-invalid @enderror" type="text" name="name" placeholder="your username" aria-label="default input example" value="{{ old('name') }}" required autofocus>
                                             @error('name')
                                             <span class="invalid-feedback" role="alert">

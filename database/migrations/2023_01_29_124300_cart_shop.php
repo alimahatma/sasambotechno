@@ -19,10 +19,11 @@ return new class extends Migration
             $table->foreignId('procus_id')->nullable();
             $table->foreignId('warna_id')->nullable();
             $table->foreignId('sablon_id')->nullable();
+            $table->char('size_order', 10)->nullable();
             $table->integer('jumlah_order')->length(10)->unsigned();
             $table->double('harga_satuan');
-            $table->double('harga_totals');
-            $table->longText('tinggalkanpesan');
+            $table->double('harga_totals')->nullable();
+            // $table->longText('tinggalkanpesan');
             $table->timestamps();
 
             $table->foreign('user_id')->references('user_id')->on('users')->cascadeOnUpdate()->cascadeOnDelete();

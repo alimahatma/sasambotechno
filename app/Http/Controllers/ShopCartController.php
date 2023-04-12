@@ -39,16 +39,17 @@ class ShopCartController extends Controller
         $request->validate([
             'user_id' => 'required',
             'procus_id' => 'required',
+            'size_order' => 'required',
             'jumlah_order' => 'required',
             'harga_satuan' => 'required',
             'harga_totals' => 'required',
         ]);
+        // dd($request);
         try {
             $tombolcart = new Shop_cart([
                 'user_id' => $request->user_id,
                 'procus_id' => $request->procus_id,
-                // 'ktgr_procus_id' => $request->ktgr_procus_id,
-                'warna_id' => $request->warna_id,
+                'size_order' => $request->size_order,
                 'jumlah_order' => $request->jumlah_order,
                 'harga_satuan' => $request->harga_satuan,
                 'harga_totals' => $request->harga_totals,
@@ -110,6 +111,7 @@ class ShopCartController extends Controller
                 'user_id' => 'required',
                 'kurir_id' => 'required',
                 'payment_id' => 'required',
+                'size_orders' => 'required',
                 'jml_order' => 'required',
                 't_pesan' => 'required',
             ]);
@@ -117,15 +119,15 @@ class ShopCartController extends Controller
                 DB::beginTransaction();
                 $data = new Pesanan([
                     'procus_id' => $request->procus_id,
-                    'color' => $request->color,
                     'user_id' => $request->user_id,
-                    'size_order' => $request->size_order,
                     'kurir_id' => $request->kurir_id,
                     'payment_id' => $request->payment_id,
+                    'size_orders' => $request->size_orders,
                     'jml_order' => $request->jml_order,
                     't_pesan' => $request->t_pesan,
                     'tgl_order' => $request->tgl_order,
                 ]);
+                // dd($data);
                 $data->save();
                 Shop_cart::where('cart_id', '=', $request->cart_id)->delete();
                 DB::commit();

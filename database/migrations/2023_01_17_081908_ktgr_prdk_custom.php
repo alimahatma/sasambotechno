@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('ktgr_id');
             $table->string('jenis_procus', 50);
             $table->string('foto_procus', 30);
-            $table->longText('des_ktgrprocus');
+            $table->longText('deskripsi_kategori_produk_custom');
             $table->timestamps();
             $table->foreign('ktgr_id')->references('ktgr_id')->on('ktgr_produk')->cascadeOnUpdate()->cascadeOnDelete();
         });

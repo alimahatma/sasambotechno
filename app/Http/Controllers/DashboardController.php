@@ -19,7 +19,6 @@ class DashboardController extends Controller
             $pesananDibayar = Pesanan::where('pay_status', '=', 'bayar')->count();
             $pesananDiProduksi = Pesanan::where('stts_produksi', '=', ['produksi', 'packing', 'kasir'])->count();
             $pesananSelesai = Pesanan::where('status_pesanan', '=', 'selesai')->count();
-
             $sumbuYVertikal = Pesanan::selectRaw('count(*) data')
                 ->groupBy(DB::raw("monthname(tgl_order)"))
                 ->pluck('data'); //megelompokkan jumlah barang terjual perbulan

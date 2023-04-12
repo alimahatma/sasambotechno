@@ -160,7 +160,7 @@ class UserController extends Controller
         $req->validate([
             'role' => 'required'
         ]);
-        dd($req);
+        // dd($req);
         try {
             $data = array(
                 'role' => $req->post('role')
@@ -173,12 +173,10 @@ class UserController extends Controller
         }
     }
 
-
     // update data user oleh pelanggan
     public function UpdtUser(Request $req)
     {
         $req->validate([
-            'nama_lengkap' => 'required',
             'telepon' => 'required',
             'gender' => 'required',
             'desa' => 'required',
@@ -188,7 +186,6 @@ class UserController extends Controller
         ]);
         try {
             $data = array(
-                'nama_lengkap' => $req->post('nama_lengkap'),
                 'telepon' => $req->post('telepon'),
                 'gender' => $req->post('gender'),
                 'desa' => $req->post('desa'),
@@ -197,7 +194,7 @@ class UserController extends Controller
                 'provinsi' => $req->post('provinsi'),
             );
             User::where('user_id', '=', $req->post('user_id'))->update($data);
-            return redirect('profile')->with('success', 'data berhasil di edit');
+            return redirect('profile')->with('success', 'data berhasil di simpan');
         } catch (\Exception $e) {
             Log::error($e->getMessage());
             return redirect('profile')->with('message', 'gagal');

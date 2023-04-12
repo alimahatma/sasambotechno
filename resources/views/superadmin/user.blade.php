@@ -133,7 +133,7 @@
                                     <option value="superadmin">Super Admin</option>
                                     <option value="kasir">Kasir</option>
                                     <option value="produksi">Production</option>
-                                    <option value="pengguna">Pelanggan</option>
+                                    <option value="pelanggan">Pelanggan</option>
                                 </select>
                             </fieldset>
                         </div>
@@ -172,7 +172,7 @@
                                     <option value="superadmin">Super Admin</option>
                                     <option value="kasir">Kasir</option>
                                     <option value="produksi">Production</option>
-                                    <option value="pengguna">Pelanggan</option>
+                                    <option value="pelanggan">Pelanggan</option>
                                 </select>
                             </fieldset>
                         </div>
