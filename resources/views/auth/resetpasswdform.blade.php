@@ -13,7 +13,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="text text-center mb-3">
-                            <h4 class="color__green">Form reset password</h4>
+                            <h4 class="color__green">Reset Password</h4>
                         </div>
                         <div class="container">
                             <form action="/resetpasswdform" method="post">
@@ -56,7 +56,7 @@
                                 </div>
                                 <div class="d-grid gap-2 mt-4 mb-4">
                                     <a href="/login" class="btn btn-danger me-1 mb-1">Cancel</a>
-                                    <button class="btn color-teks" type="submit" style="background-color: #0FAA5D;">Send reset password</button>
+                                    <button class="btn color-teks" type="submit" style="background-color: #0FAA5D;">Reset password</button>
                                 </div>
                             </form>
                         </div>

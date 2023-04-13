@@ -26,6 +26,10 @@
     <!-- end-load grafiq -->
 
     <style>
+        /* body {
+            color: #0FAA5D;
+        } */
+
         #hidden_div {
             display: none;
         }
@@ -48,8 +52,16 @@
             background-color: #0FAA5D;
         }
 
+        .color-teks {
+            color: #FFFFFF;
+        }
+
         .style__font {
             text-align: justify;
+        }
+
+        .latar__belakang {
+            background-color: #0FAA5D;
         }
     </style>
 </head>
@@ -176,19 +188,13 @@
                         <li class="sidebar-item">
                             <a href="pesanan" class='sidebar-link'>
                                 <i class="fas fa-shopping-cart"></i>
-                                <span>Pesanan custom</span>
+                                <span>Pesanan</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
                             <a href="sablon" class='sidebar-link'>
                                 <i class="fas fa-pen-fancy"></i>
                                 <span>Sablon</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="pesanansablon" class='sidebar-link'>
-                                <i class="fas fa-pencil-ruler"></i>
-                                <span>Pesanan sablon</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
@@ -206,7 +212,7 @@
                         <li class="sidebar-item">
                             <a href="contactus" class='sidebar-link'>
                                 <i class="fas fa-comment"></i>
-                                <span>Contact us</span>
+                                <span>Testimoni</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
@@ -225,33 +231,9 @@
                         <li class="sidebar-item">
                             <a href="pesanan" class='sidebar-link'>
                                 <i class="fas fa-shopping-bag"></i>
-                                <span>Pesanan custom</span>
+                                <span>Pesanan</span>
                             </a>
                         </li>
-                        <li class="sidebar-item">
-                            <a href="pesanansablon" class='sidebar-link'>
-                                <i class="fas fa-pencil-ruler"></i>
-                                <span>Pesanan sablon</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="#" class='sidebar-link'>
-                                <i class="fas fa-receipt"></i>
-                                <span>Cetak invoice</span>
-                            </a>
-                        </li>
-                        <!-- <li class="sidebar-item">
-                            <a href="#" class='sidebar-link'>
-                                <i class="fas fa-cube"></i>
-                                <span>Pesanan di proses</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="#" class='sidebar-link'>
-                                <i class="fas fa-cubes"></i>
-                                <span>Pesanan siap kirim</span>
-                            </a>
-                        </li> -->
                         <li class="sidebar-item">
                             <a href="logout" class='sidebar-link'>
                                 <i class="fas fa-sign-out-alt"></i>
@@ -262,13 +244,7 @@
                         <li class="sidebar-item">
                             <a href="pesanan" class='sidebar-link'>
                                 <i class="fas fa-shopping-bag"></i>
-                                <span>Pesanan custom</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="pesanansablon" class='sidebar-link'>
-                                <i class="fas fa-pencil-ruler"></i>
-                                <span>Pesanan sablon</span>
+                                <span>Pesanan</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
@@ -306,12 +282,6 @@
                             <a href="/pesanananda" class='sidebar-link'>
                                 <i class="fas fa-box"></i>
                                 <span>Pesanan saya</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="/invoice" class='sidebar-link'>
-                                <i class="fas fa-receipt"></i>
-                                <span>Lihat invoice</span>
                             </a>
                         </li>
                         <li class="sidebar-item">

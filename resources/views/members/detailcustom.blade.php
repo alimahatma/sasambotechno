@@ -47,6 +47,8 @@
 
                                             <!-- menampilkan jenis kain produk -->
                                             <div class="input-group mt-2">
+                                            </div>
+                                            <div class="row mt-3">
                                                 <div class="col-lg-2 col-sm-5 col-md-4">
                                                     <h6>Jenis kain</h6>
                                                 </div>
@@ -61,7 +63,7 @@
                                             </div>
 
                                             <!-- menampilkan warna pakaian custom-->
-                                            <div class="input-group mt-2">
+                                            <div class="row mt-3">
                                                 <div class="col-lg-2 col-sm-5 col-md-4">
                                                     <h6>Warna</h6>
                                                 </div>
@@ -70,7 +72,7 @@
                                                 </div>
                                             </div>
                                             <!-- menampilkan warna pakaian custom-->
-                                            <div class="input-group mt-2">
+                                            <div class="row mt-3">
                                                 <div class="col-lg-2 col-sm-5 col-md-4">
                                                     <h6>Jumlah stok</h6>
                                                 </div>
@@ -80,11 +82,11 @@
                                             </div>
 
                                             <!-- input size -->
-                                            <div class="input-group mt-2">
-                                                <div class="col-lg-2 col-sm-5 col-md-4">
+                                            <div class="row mt-3">
+                                                <div class="col-lg-2 col-sm-5 col-md-5">
                                                     <h6>Size</h6>
                                                 </div>
-                                                <div class="col-lg-4 col-sm-7 col-md-8 d-flex justify-content-between">
+                                                <div class="col-lg-4 col-sm-5 col-md-5 justify-content-between">
                                                     <?php $pecahkan = explode(',', $val->size); ?>
                                                     <?php foreach ($pecahkan as $key) : ?>
                                                         <div class="form-check form-check-inline">
@@ -96,51 +98,45 @@
                                             </div>
 
                                             <!-- input jumlah order -->
-                                            <div class="input-group mt-2">
+                                            <div class="row mt-3">
                                                 <div class="col-lg-2 col-sm-5 col-md-4">
                                                     <h6>Jumlah order</h6>
                                                 </div>
                                                 <div class="col-lg-4 col-sm-7 col-md-8">
-                                                    <input type="number" id="jml" name="jumlah_order" class="form-control">
+                                                    <input type="number" id="jml" name="jumlah_order" class="form-control form-control-sm">
+                                                    <input type="hidden" name="harga_satuan" value="{{$val->harga_satuan}}" id="harga_satuan">
                                                 </div>
-                                            </div>
-                                            <div>
-                                                <input type="hidden" name="harga_satuan" value="{{$val->harga_satuan}}" id="harga_satuan">
                                             </div>
 
                                             <!-- total produk -->
-                                            <div class="input-group mt-2">
+                                            <div class="row mt-3">
                                                 <div class="col-lg-2 col-sm-5 col-md-4">
                                                     <h6>Total produk</h6>
                                                 </div>
                                                 <div class="col-lg-4 col-sm-7 col-md-8">
                                                     <div class="form-group mb-0">
-                                                        <input type="text" name="harga_totals" id="total" class="form-control" placeholder="Total" readonly />
+                                                        <input type="text" name="harga_totals" id="total" class="form-control form-control-sm" placeholder="Total" readonly />
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12">
+                            </div>
+                            <div class="row">
+                                <div class="col">
                                     <div class="mt-3">
                                         <h6>Deskripsi : </h6>
-                                        <p class="card-text style__font">{{$val->deskripsi}}</p>
+                                        <p class="card-text style__font">{{$val->deskripsi_kategori_produk_custom}}</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                         <!-- tombol beli dan tambahkan ke keranjang -->
-                        <div class="mb-2 mt-4 col-3 mx-auto d-flex justify-content-between">
-                            <button id="BeliProduk" type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modalBLangsung{{$val->procus_id}}">
-                                <span><i class="fas fa-dollar-sign"></i></span>
-                                Beli
-                            </button>
-                            <button id="AddToCart" type="submit" class="btn btn-outline-warning" data-bs-dismiss="modal">
-                                <span><i class="fas fa-shopping-cart"></i></span>
-                                Keranjang
-                            </button>
+                        <div class="d-grid gap-2 col-6 mx-auto mt-1">
+                            <button class="btn btn-outline-success" type="button">
+                                <span><i class="fas fa-dollar-sign"></i></span>Beli</button>
+                            <button class="btn btn-outline-warning" type="submit"><span><i class="fas fa-shopping-cart"></i></span>Add cart</button>
                         </div>
                     </form>
                 </div>

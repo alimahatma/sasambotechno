@@ -6,7 +6,7 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Pesanan pakaian custom</h3>
+                <h3>Pesanan</h3>
                 <p class="text-subtitle text-muted">Selamat datang kembali {{Auth::user()->name}}</p>
             </div>
         </div>
@@ -47,12 +47,12 @@
                             <tr class="text-center">
                                 <td><?= $i++ ?></td>
                                 <td>{{$val->name}}</td>
-                                <td>{{$val->nama_produk}}</td>
-                                <td>{{$val->size_orders}}</td>
+                                <td>@if($val->nama_produk != NULL){{$val->nama_produk}}@elseif($val->nama_produk == NULL){{"Sablon"}}@endif</td>
+                                <td>@if($val->size_orders != NULL){{$val->size_orders}}@elseif($val->size_orders == NULL){{$val->ukuran_sablon}}@endif</td>
                                 <td>{{$val->jml_order}}</td>
-                                <td>{{$val->pay_status}}</td>
-                                <td>{{$val->stts_produksi}}</td>
-                                <td>{{$val->status_pesanan}}</td>
+                                <td class="text text-danger">{{$val->pay_status}}</td>
+                                <td class="text text-success">{{$val->stts_produksi}}</td>
+                                <td class="text text-primary">{{$val->status_pesanan}}</td>
                                 <td>{{$val->tgl_order}}</td>
                                 <td>
                                     <div class="d-flex justify-content-center">
@@ -73,11 +73,11 @@
                             <tr class="text-center">
                                 <td><?= $i++ ?></td>
                                 <td>{{$val->name}}</td>
-                                <td>{{$val->nama_produk}}</td>
-                                <td>{{$val->size_orders}}</td>
+                                <td>@if($val->nama_produk != NULL){{$val->nama_produk}}@elseif($val->nama_produk == NULL){{"Sablon"}}@endif</td>
+                                <td>@if($val->size_orders != NULL){{$val->size_orders}}@elseif($val->size_orders == NULL){{$val->ukuran_sablon}}@endif</td>
                                 <td>{{$val->jml_order}}</td>
                                 <td class="text text-danger">{{$val->pay_status}}</td>
-                                <td class="text text-primary">{{$val->stts_produksi}}</td>
+                                <td class="text text-success">{{$val->stts_produksi}}</td>
                                 <td class="text text-primary">{{$val->status_pesanan}}</td>
                                 <td>{{$val->tgl_order}}</td>
                                 <td>
@@ -100,16 +100,18 @@
                                     </div>
                                 </td>
                             </tr>
-                            @elseif(Auth::user()->role == 'produksi' && $val->status_pesanan == 'diterima')
+                            <!--  kondisi ini akan terpakai jika ingin menampilkan histori pesanan pada role produksi -->
+                            <!-- logical status tampilkan data pesanan pada produksi jika status pesanan di terima oleh kasir-->
+                            @elseif(Auth::user()->role == 'produksi' && ($val->status_pesanan == 'diterima'|| $val->status_pesanan == 'kirim' || $val->status_pesanan == 'selesai'))
                             <tr class="text-center">
                                 <td><?= $i++ ?></td>
                                 <td>{{$val->name}}</td>
-                                <td>{{$val->nama_produk}}</td>
-                                <td>{{$val->size_orders}}</td>
+                                <td>@if($val->nama_produk != NULL){{$val->nama_produk}}@elseif($val->nama_produk == NULL){{"Sablon"}}@endif</td>
+                                <td>@if($val->size_orders != NULL){{$val->size_orders}}@elseif($val->size_orders == NULL){{$val->ukuran_sablon}}@endif</td>
                                 <td>{{$val->jml_order}}</td>
-                                <td>{{$val->ukuran_sablon}}</td>
-                                <td class="text text-danger">{{$val->stts_produksi}}</td>
-                                <td></td>
+                                <td class="text text-danger">{{"Hak kasir"}}</td>
+                                <td class="text text-success">{{$val->stts_produksi}}</td>
+                                <td class="text text-danger">{{"Hak kasir"}}</td>
                                 <td>{{$val->tgl_order}}</td>
                                 <td>
                                     <div class="d-flex justify-content-center">
@@ -157,7 +159,7 @@
                                 <select name="pay_status" class="form-select" aria-label="Default select example">
                                     <option value="{{$row->pay_status}}" selected>{{$row->pay_status}}</option>
                                     <option value="pending">Pending</option>
-                                    <option value="bayar">Bayar</option>
+                                    <option value="verifikasi">Verifikasi</option>
                                     <option value="belum lunas">Belum lunas</option>
                                     <option value="lunas">Lunas</option>
                                 </select>
@@ -169,7 +171,7 @@
                                 <select name="status_pesanan" class="form-select" aria-label="Default select example">
                                     <option value="{{$row->status_pesanan}}" selected>{{$row->status_pesanan}}</option>
                                     <option value="pending">Pending</option>
-                                    <option value="diterima">Diterima dan produksi</option>
+                                    <option value="diterima">Terima dan produksi</option>
                                     <option value="kirim">Kirim</option>
                                     <option value="selesai">Selesai</option>
                                 </select>
@@ -179,7 +181,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                    @if(($row->status_pesanan == 'pending'||$row->status_pesanan == 'diterima') && ($row->pay_status == 'bayar'||$row->pay_status == 'belum lunas'||$row->pay_status == 'lunas'))
+                    @if(($row->status_pesanan == 'pending'||$row->status_pesanan == 'diterima') && ($row->pay_status == 'bayar'||$row->pay_status == 'verifikasi'||$row->pay_status == 'lunas'))
                     <button type="submit" class="btn btn-success">
                         <i class="fas fa-paper-plane"></i>
                         Ke produksi
@@ -214,7 +216,7 @@
                                     <option value="pending">Pending</option>
                                     <option value="produksi">Produksi</option>
                                     <option value="packing">Packing</option>
-                                    <option value="kasir">Ke kasir</option>
+                                    <option value="selesai">Ke kasir</option>
                                 </select>
                             </div>
                         </div>
@@ -289,72 +291,78 @@
                 </div>
                 @endif
                 <div class="row">
-                    <div class="col-md-4 col-lg-4 col-sm-6 mb-1">
+                    <div class="col-md-4 col-lg-4 col-sm-6">
                         <h6>Nama pembeli</h6>
                     </div>
-                    <div class="col-md-3 col-lg-8 col-sm-6 mb-1">
+                    <div class="col-md-3 col-lg-8 col-sm-6">
                         <p>: {{$row->name}}</p>
                     </div>
-                    <div class="col-md-4 col-lg-4 col-sm-6 mb-1">
+                    <div class="col-md-4 col-lg-4 col-sm-6">
                         <h6>Jasa kirim</h6>
                     </div>
-                    <div class="col-md-3 col-lg-8 col-sm-6 mb-1">
+                    <div class="col-md-3 col-lg-8 col-sm-6">
                         <p>: {{$row->nama_jakir}}</p>
                     </div>
-                    <div class="col-md-4 col-lg-4 col-sm-6 mb-1">
+                    <div class="col-md-4 col-lg-4 col-sm-6">
                         <h6>Metode pembayaran</h6>
                     </div>
-                    <div class="col-md-3 col-lg-8 col-sm-6 mb-1">
+                    <div class="col-md-3 col-lg-8 col-sm-6">
                         <p>: {{$row->pay_method}}</p>
                     </div>
-                    <div class="col-md-4 col-lg-4 col-sm-6 mb-1">
+                    <div class="col-md-4 col-lg-4 col-sm-6">
                         <h6>Harga satuan</h6>
                     </div>
-                    <div class="col-md-3 col-lg-8 col-sm-6 mb-1">
+                    <div class="col-md-3 col-lg-8 col-sm-6">
                         @if($row->sablon_id == true)
                         <p>: Rp. {{$row->harga}}</p>
                         @elseif($row->sablon_id == NULL)
                         <p>: Rp. {{$row->harga_satuan}}</p>
                         @endif
                     </div>
-                    <div class="col-md-4 col-lg-4 col-sm-6 mb-1">
+                    <div class="col-md-4 col-lg-4 col-sm-6">
                         <h6>Jumlah order</h6>
                     </div>
-                    <div class="col-md-3 col-lg-8 col-sm-6 mb-1">
+                    <div class="col-md-3 col-lg-8 col-sm-6">
                         @if($row->satuan == true)
                         <p>: {{$row->jml_order}}, {{$row->satuan}}</p>
                         @elseif($row->satuan == NULL)
                         <p>: {{$row->jml_order}}, {{"titik"}}</p>
                         @endif
                     </div>
-                    <div class="col-md-4 col-lg-4 col-sm-6 mb-1">
+                    <div class="col-md-4 col-lg-4 col-sm-6">
                         <h6>Tanggal order</h6>
                     </div>
-                    <div class="col-md-3 col-lg-8 col-sm-6 mb-1">
+                    <div class="col-md-3 col-lg-8 col-sm-6">
                         <p>: {{$row->tgl_order}}</p>
                     </div>
-                    <div class="col-md-4 col-lg-4 col-sm-6 mb-1">
+                    <div class="col-md-4 col-lg-4 col-sm-6">
                         <h6>Harga total</h6>
                     </div>
-                    <div class="col-md-3 col-lg-8 col-sm-6 mb-1">
+                    @if($row->procus_id == NULL)
+                    <div class="col-md-3 col-lg-8 col-sm-6">
+                        <p>: Rp. <?= $total_harga = ($row->jml_order * $row->harga) ?></p>
+                    </div>
+                    @elseif($row->procus_id != NULL)
+                    <div class="col-md-3 col-lg-8 col-sm-6">
                         <p>: Rp. <?= $total_harga = ($row->jml_order * $row->harga_satuan) ?></p>
                     </div>
-                    @if($row->b_dp != NULL && $row->b_dp == NULL)
-                    <div class="col-md-4 col-lg-4 col-sm-6 mb-1">
+                    @endif
+                    @if($row->b_dp != NULL && $row->b_lunas == NULL)
+                    <div class="col-md-4 col-lg-4 col-sm-6">
                         <h6>Jumlah DP</h6>
                     </div>
-                    <div class="col-md-3 col-lg-8 col-sm-6 mb-1">
+                    <div class="col-md-3 col-lg-8 col-sm-6">
                         <p class="text text-success">: Rp. <?= $row->jml_dp ?></p>
                     </div>
-                    <div class="col-md-4 col-lg-4 col-sm-6 mb-1">
-                        <h6 class="text text-warning">Sisa bayar</h6>
+                    <div class="col-md-4 col-lg-4 col-sm-6">
+                        <h6 class="text text-danger">Sisa bayar</h6>
                     </div>
-                    <div class="col-md-3 col-lg-8 col-sm-6 mb-1">
-                        <p class="text text-warning">: Rp. <?= $sisa = ($row->jml_order * $row->harga_satuan) - $row->jml_dp ?></p>
+                    <div class="col-md-3 col-lg-8 col-sm-6">
+                        <p class="text text-danger">: Rp. <?= $sisa = ($row->jml_order * $row->harga_satuan) - $row->jml_dp ?></p>
                     </div>
-                    @elseif($row->b_dp != NULL && $row->b_dp != NULL)
+                    @elseif(($row->b_dp != NULL && $row->b_lunas != NULL)||$row->b_lunas != NULL)
                     <h6 class="text text-success text-center">Lunas : Rp. <?= $lunas = ($row->jml_dp + $row->jml_lunas) ?></h6>
-                    @elseif($row->b_dp == NULL && $row->b_dp == NULL)
+                    @elseif($row->b_dp == NULL && $row->b_lunas == NULL)
                     <h6 class="text text-danger text-center">Belum Membayar</h6>
                     @endif
                 </div>

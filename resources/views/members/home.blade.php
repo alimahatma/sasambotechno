@@ -5,7 +5,7 @@
     <!-- view data kategori produk custom -->
     <div class="col-6">
         <div class="card-header">
-            <h5 class="text-center mt-1 mb-5">
+            <h5 class="text-center mt-1 mb-3">
                 Kategori produk custom
             </h5>
         </div>
@@ -13,12 +13,14 @@
             @foreach($kategoricustom as $ktgr)
             <div class="col">
                 <div class="card h-100 shadow-sm">
-                    <a href="#{{$ktgr->ktgr_procus_id}}">
-                        <img src="/foto_ktgr/{{$ktgr->foto_procus}}" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h6>{{$ktgr->produk_custom}}</h6>
-                        </div>
-                    </a>
+                    <div class="card-body p-1">
+                        <a href="#{{$ktgr->ktgr_procus_id}}">
+                            <img src="/foto_ktgr/{{$ktgr->foto_procus}}" class="card-img-top" alt="...">
+                        </a>
+                    </div>
+                    <div class="card-footer latar__belakang">
+                        <h6 class="color-teks text text-center">{{$ktgr->jenis_procus}}</h6>
+                    </div>
                 </div>
             </div>
             @endforeach
@@ -28,7 +30,7 @@
     <!-- view data sablon -->
     <div class="col-6">
         <div class="card-header">
-            <h5 class="text-center mt-1 mb-5">
+            <h5 class="text-center mt-1 mb-3">
                 Jasa sablon
             </h5>
         </div>
@@ -155,17 +157,17 @@
 <!-- produk custom -->
 <div class="col-12 mt-5">
     <div class="card-header">
-        <h5 class="text-center">
+        <h5 class="text-center mt-1">
             Produk custom
         </h5>
     </div>
-    <div class="row row-cols-1 row-cols-md-6 g-4 mt-1">
+    <div class="row row-cols-1 row-cols-md-6 g-4">
         @foreach($produk_custom as $pro)
         <div class="col">
             <div class="card h-100 shadow-sm">
                 <a id="{{$pro->procus_id}}" href="/details/{{$pro->procus_id}}">
-                    <img src="/foto_produk/depan/{{$pro->foto_dep}}" class="card-img-top mt-3" alt="404">
-                    <div class="card-body">
+                    <div class="card-body p-1">
+                        <img src="/foto_produk/depan/{{$pro->foto_dep}}" class="card-img-top" alt="404">
                         <a href="/details/{{$pro->procus_id}}" class="text__nodecoration" style="color: #0FAA5D;">{{$pro->nama_produk}}</a>
                         <br>
                         <del style="font-size: 12px;" class="text text-danger">Rp. {{$pro->harga_satuan + 5000}}</del>
