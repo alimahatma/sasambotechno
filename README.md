@@ -15,9 +15,9 @@
 
 Responden dipilih secara acak dengan jumlah responden 12 (dua belas) orang sesuai
 dengan rekomendasi yang menyatakan bahwa “jumlah partisipan sebanyak 12 orang seperti yang
-direkomendasikan ahli usability” [7]. Skenario pengujian dengan mengujicobakan sistem ke 12
+direkomendasikan ahli usability”. Skenario pengujian dengan mengujicobakan sistem ke 12
 orang mahasiswa untuk menyelesaikan task pembelajaran. Kemudian, responden diminta untuk
-mengisi kuesioner SUS yang diadaptasi dari [14] yang terdiri atas sepuluh pertanyaan sebagai
+mengisi kuesioner SUS yang diadaptasi dari yang terdiri atas sepuluh pertanyaan sebagai
 berikut:
 1. Saya rasa, saya akan lebih sering menggunakan sistem ini.
 2. Saya rasa sistem ini harusnya dapat dibuat dengan lebih sederhana.
