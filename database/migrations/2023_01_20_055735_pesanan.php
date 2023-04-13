@@ -29,7 +29,7 @@ return new class extends Migration
             $table->string('b_lunas', 30)->nullable();
             $table->string('t_pesan', 150);
             $table->date('tgl_order');
-            $table->enum('pay_status', ['pending', 'bayar', 'belum lunas', 'lunas'])->default('pending');
+            $table->enum('pay_status', ['pending', 'verifikasi', 'belum lunas', 'lunas'])->default('pending');
             $table->enum('stts_produksi', ['pending', 'produksi', 'packing', 'selesai'])->default('pending');
             $table->enum('status_pesanan', ['pending', 'diterima', 'kirim', 'selesai'])->default('pending');
             $table->timestamps();

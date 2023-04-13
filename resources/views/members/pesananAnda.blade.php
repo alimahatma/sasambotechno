@@ -41,13 +41,13 @@
                     </div>
                     @if($pes->pay_status == "pending")
                     <div class="col">
-                        <p class="text text-warning">lakukan pembayaran terlebih dahulu</p>
+                        <p class="text text-danger">lakukan pembayaran terlebih dahulu</p>
                     </div>
-                    @elseif($pes->pay_status == "bayar")
+                    @elseif($pes->pay_status == "verifikasi")
                     <div class="col">
-                        <p class="text text-success">pembayaran menunggu persetujuan</p>
+                        <p class="text text-success">proses verifikasi</p>
                     </div>
-                    @elseif($pes->pay_status != "pending" && $pes->pay_status != "bayar")
+                    @elseif($pes->pay_status != "pending" && $pes->pay_status != "verifikasi")
                     <div class="col">
                         <p class="text text-success">pesanan {{$pes->status_pesanan}}</p>
                     </div>
@@ -57,10 +57,10 @@
                     </div>
                     @if($pes->b_dp != NULL && $pes->b_lunas == NULL)
                     <div class="col">
-                        <h6 class="text text-warning">Sisa bayar</h6>
+                        <h6 class="text text-danger">Sisa bayar</h6>
                     </div>
                     <div class="col">
-                        <p class="text text-warning">: <?= $sisa = ($pes->jml_order * $pes->harga_satuan) - $pes->jml_dp ?></p>
+                        <p class="text text-danger">: <?= $sisa = ($pes->jml_order * $pes->harga_satuan) - $pes->jml_dp ?></p>
                     </div>
                     @elseif($pes->b_dp == TRUE && $pes->b_lunas == TRUE)
                     <div class="col">
@@ -72,7 +72,7 @@
                     @endif
                 </div>
 
-                <!-- button modals -->
+                <!-- tombol bayar dan detail -->
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                     <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalInfoSablon{{$pes->pesanan_id}}">
                         <i class="fas fa-info"></i>
@@ -169,13 +169,13 @@
                             </div>
                             @if($pes->pay_status == "pending")
                             <div class="col">
-                                <p class="text text-warning">: lakukan pembayaran terlebih dahulu</p>
+                                <p class="text text-danger">: lakukan pembayaran terlebih dahulu</p>
                             </div>
-                            @elseif($pes->pay_status == "bayar")
+                            @elseif($pes->pay_status == "verifikasi")
                             <div class="col">
                                 <p class="text text-success">: pembayaran menunggu persetujuan</p>
                             </div>
-                            @elseif($pes->pay_status != "pending" && $pes->pay_status != "bayar")
+                            @elseif($pes->pay_status != "pending" && $pes->pay_status != "verifikasi")
                             <div class="col">
                                 <p class="text text-success">: pesanan {{$pes->status_pesanan}}</p>
                             </div>
@@ -184,10 +184,10 @@
                         <div class="row">
                             @if($pes->b_dp != NULL && $pes->b_lunas == NULL)
                             <div class="col">
-                                <h6 class="text text-warning">Sisa bayar</h6>
+                                <h6 class="text text-danger">Sisa bayar</h6>
                             </div>
                             <div class="col">
-                                <p class="text text-warning">: <?= $sisa = ($pes->jml_order * $pes->harga_satuan) - $pes->jml_dp ?></p>
+                                <p class="text text-danger">: <?= $sisa = ($pes->jml_order * $pes->harga_satuan) - $pes->jml_dp ?></p>
                             </div>
                             @elseif($pes->b_dp == TRUE && $pes->b_lunas == TRUE)
                             <div class="col">
@@ -211,7 +211,7 @@
         @foreach($data_pesanan as $vals)
         @if(Auth::user()->user_id == $vals->user_id && $vals->procus_id == TRUE)
 
-        <!-- view read transaction pesanan pakaian custom -->
+        <!-- view read transaction pakaian custom dan sablon -->
         <div class="card">
             <div class="card-body shadow-sm">
                 <div class="row align-items-center">
@@ -235,13 +235,13 @@
                     </div>
                     @if($vals->pay_status == "pending")
                     <div class="col">
-                        <p class="text text-warning">lakukan pembayaran terlebih dahulu</p>
+                        <p class="text text-danger">lakukan pembayaran terlebih dahulu</p>
                     </div>
-                    @elseif($vals->pay_status == "bayar")
+                    @elseif($vals->pay_status == "verifikasi")
                     <div class="col">
-                        <p class="text text-success">pembayaran menunggu persetujuan</p>
+                        <p class="text text-success">proses verifikasi</p>
                     </div>
-                    @elseif($vals->pay_status != "pending" && $vals->pay_status != "bayar")
+                    @elseif($vals->pay_status != "pending" && $vals->pay_status != "verifikasi")
                     <div class="col">
                         <p class="text text-success">pesanan {{$vals->status_pesanan}}</p>
                     </div>
@@ -251,10 +251,10 @@
                     </div>
                     @if($vals->b_dp != NULL && $vals->b_lunas == NULL)
                     <div class="col">
-                        <h6 class="text text-warning">Sisa bayar</h6>
+                        <h6 class="text text-danger">Sisa bayar</h6>
                     </div>
                     <div class="col">
-                        <p class="text text-warning">: <?= $sisa = ($vals->jml_order * $vals->harga_satuan) - $vals->jml_dp ?></p>
+                        <p class="text text-danger">: <?= $sisa = ($vals->jml_order * $vals->harga_satuan) - $vals->jml_dp ?></p>
                     </div>
                     @elseif($vals->b_dp == TRUE && $vals->b_lunas == TRUE)
                     <div class="col">
@@ -265,7 +265,7 @@
                     </div>
                     @endif
 
-                    <!-- button modals -->
+                    <!-- tombol pembayaran dan info -->
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalInfoProduks{{$vals->pesanan_id}}">
                             <i class="fas fa-info"></i>
@@ -290,7 +290,7 @@
                 </div>
             </div>
         </div>
-        <!-- end view read transaction pesanan pakaian custom -->
+        <!-- end view read transaction pakaian custom dan sablon -->
 
         <!-- modal info transaction pesanan pakaian custom -->
         <div class="modal fade" id="modalInfoProduks{{$vals->pesanan_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -357,6 +357,22 @@
                                 <p>: Rp. <?= $total_harga = ($vals->jml_order * $vals->harga_satuan) ?></p>
                             </div>
                         </div>
+                        <!-- kondisi untuk mengecek apakah sudah ada pembayaran atau tidak -->
+                        @if($vals->pay_status == "pending")
+                        <div class="col mt-1 text text-center">
+                            <p class="text text-danger">lakukan pembayaran terlebih dahulu</p>
+                        </div>
+                        @elseif($vals->pay_status == "verifikasi")
+                        <div class="col mt-1 text text-center">
+                            <p class="text text-success">proses verifikasi</p>
+                        </div>
+                        @elseif($vals->pay_status != "pending" && $vals->pay_status != "verifikasi")
+                        <div class="col mt-1 text text-center">
+                            <p class="text text-success">pesanan {{$vals->status_pesanan}}</p>
+                        </div>
+                        @endif
+
+                        <!-- kondisi untuk cek jumlah dp dan lunas -->
                         @if($vals->b_dp != NULL && $vals->b_lunas == NULL)
                         <div class="row">
                             <div class="col-md-4 col-lg-6 col-sm-6 mb-3">
@@ -368,10 +384,10 @@
                         </div>
                         <div class="row">
                             <div class="col-md-4 col-lg-6 col-sm-6 mb-3">
-                                <h6 class="text text-warning">Sisa bayar</h6>
+                                <h6 class="text text-danger">Sisa bayar</h6>
                             </div>
                             <div class="col-md-3 col-lg-5 col-sm-6 mb-3">
-                                <p class="text text-warning">: Rp. <?= $sisa = ($vals->jml_order * $vals->harga_satuan) - $vals->jml_dp ?></p>
+                                <p class="text text-danger">: Rp. <?= $sisa = ($vals->jml_order * $vals->harga_satuan) - $vals->jml_dp ?></p>
                             </div>
                         </div>
                         <div class="d-grid gap-1 col-6 mx-auto">
@@ -416,7 +432,7 @@
                                     <p>Jumlah DP</p>
                                     <div class="col">
                                         <input type="number" class="form-control" name="jml_dp" placeholder="masukkan jumlah DP">
-                                        <input type="hidden" class="form-control" name="pay_status" value="bayar">
+                                        <input type="hidden" class="form-control" name="pay_status" value="verifikasi">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -460,8 +476,7 @@
                                     <p>Upload bukti lunas</p>
                                     <div class="col">
                                         <input type="file" class="form-control" name="b_lunas">
-                                        <!-- <input type="hidden" name="pay_status" value="bayar" class="form control"> -->
-                                        <input type="hidden" class="form-control" name="pay_status" value="bayar">
+                                        <input type="hidden" class="form-control" name="pay_status" value="verifikasi">
                                     </div>
                                 </div>
                             </div>

@@ -145,7 +145,7 @@ class RoleMemberController extends Controller
     {
         $instansi = Instansi::select('logo')->get();
         $isiKeranjang = Shop_cart::where('user_id', '=', Auth::user()->user_id)->get()->count(); //hitung isi keranjang berdasarkan user yang login 'isiKeranjang' => $isiKeranjang,
-        $data_produk_custom = ProdukCustom::joinWarna()->get();
+        $data_produk_custom = ProdukCustom::joinWarna()->joinKategoriProdukCostum()->get();
         $get_size_with_nama_warna = ProdukCustom::joinWarna()->select('size', 'nama_warna')->get();
         $data_id_produk = $produk_custom_id;
         // dd($dataSizeProduk);

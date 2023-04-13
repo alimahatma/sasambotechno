@@ -42,11 +42,11 @@
             <div class="col">
                 <p>{{$row->size_order}}</p>
             </div>
-            <div class="col-1 d-flex justify-content-between">
-                <div class="col-2">
+            <div class="col d-flex justify-content-between">
+                <div class="col">
                     <p class="mt-1">X</p>
                 </div>
-                <div class="col-8">
+                <div class="col">
                     <input type="number" id="jumlah_order_pakaian" name="jumlah_order" value="{{$row->jumlah_order}}" onchange="jmlOrderPakaian()" class="form-control form-control-sm">
                 </div>
             </div>
@@ -80,11 +80,11 @@
             <div class="col">
                 <p>Size : {{$row->ukuran_sablon}}</p>
             </div>
-            <div class="col-1 d-flex justify-content-between">
-                <div class="col-2">
+            <div class="col d-flex justify-content-between">
+                <div class="col">
                     <p class="mt-1">X</p>
                 </div>
-                <div class="col-8">
+                <div class="col">
                     <!-- get_id untuk di hitung -->
                     <input type="number" id="jumlah_order_sablon" name="jumlah_order" value="{{$row->jumlah_order}}" onchange="jmlOrder()" class="form-control form-control-sm">
                 </div>
