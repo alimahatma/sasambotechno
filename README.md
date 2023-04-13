@@ -29,6 +29,8 @@ berikut:
 8. Saya menemukan sistem ini sangat sulit untuk digunakan.
 9. Saya percaya untuk menggunakan sistem ini.
 10. Saya harus belajar lebih dulu sebelum saya dapat menggunakan sistem ini.
+
+
 Adapun respon dari pertanyaan di atas dengan skala satu sampai 5 (lima) yaitu Sangat
 Tidak Setuju (STS), Tidak Setuju (TS), Netral (N), Setuju (S), dan Sangat Setuju (SS). Selain itu
 diberikan juga satu pertanyaan terbuka mengenai pendapat responden untuk mengetahui sistem ecommerce berfungsi sesuai harapan
