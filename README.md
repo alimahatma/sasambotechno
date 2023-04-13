@@ -14,7 +14,7 @@
 ![image](https://user-images.githubusercontent.com/52597151/230014275-33c77f49-c921-46b2-90f2-738684de58d0.png)
 
 Responden dipilih secara acak dengan jumlah responden 12 (dua belas) orang sesuai
-dengan rekomendasi yang menyatakan bahwa “jumlah partisipan berkisar 6-12 seperti yang
+dengan rekomendasi yang menyatakan bahwa “jumlah partisipan sebanyak 12 orang seperti yang
 direkomendasikan ahli usability” [7]. Skenario pengujian dengan mengujicobakan sistem ke 12
 orang mahasiswa untuk menyelesaikan task pembelajaran. Kemudian, responden diminta untuk
 mengisi kuesioner SUS yang diadaptasi dari [14] yang terdiri atas sepuluh pertanyaan sebagai
