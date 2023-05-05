@@ -1,6 +1,6 @@
  ![ecommerce](https://user-images.githubusercontent.com/52597151/230013634-2d3c029e-ec96-4c13-befb-fc1637eaf314.png)
  
-                                                      LAPORAN PENGUMPULAN DATA
+                                                 LAPORAN PENGUMPULAN DATA
 
 ![image](https://user-images.githubusercontent.com/52597151/230014179-8fb48d8d-7f18-4b4d-9160-98dde5d00a7c.png)
 
@@ -13,9 +13,9 @@
 
 ![image](https://user-images.githubusercontent.com/52597151/230014275-33c77f49-c921-46b2-90f2-738684de58d0.png)
 
-Responden dipilih secara acak dengan jumlah responden 12 (dua belas) orang sesuai
-dengan rekomendasi yang menyatakan bahwa “jumlah partisipan sebanyak 12 orang seperti yang
-direkomendasikan ahli usability”. Skenario pengujian dengan mengujicobakan sistem ke 12
+Responden dipilih secara acak dengan jumlah responden 20 (dua belas) orang sesuai
+dengan rekomendasi yang menyatakan bahwa “jumlah partisipan sebanyak 20 orang seperti yang
+direkomendasikan ahli usability”. Skenario pengujian dengan mengujicobakan sistem ke 20
 orang mahasiswa untuk menyelesaikan task pembelajaran. Kemudian, responden diminta untuk
 mengisi kuesioner SUS yang diadaptasi dari yang terdiri atas sepuluh pertanyaan sebagai
 berikut:
